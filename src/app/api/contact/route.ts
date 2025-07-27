@@ -191,7 +191,7 @@ Submitted at: ${new Date().toLocaleString()}
       subject: emailSubject,
       html: emailHtml,
       text: emailText,
-      replyTo: contactData.email
+      reply_to: contactData.email
     })
 
     if (emailResult && emailResult.error) {
