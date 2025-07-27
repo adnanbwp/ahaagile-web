@@ -1,10 +1,9 @@
 import CalendlyWidget from '@/components/ui/CalendlyWidget'
-import ContactForm from '@/components/ui/ContactForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Book a Consultation | Aha Agile',
-  description: 'Schedule a consultation with our agile transformation experts. Book directly through our calendar or send us a message.',
+  description: 'Schedule a consultation with our agile transformation experts. Book directly through our calendar.',
 }
 
 export default function BookConsultationPage() {
@@ -40,28 +39,20 @@ export default function BookConsultationPage() {
           </div>
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Calendly Widget */}
-          <div>
-            <CalendlyWidget className="h-fit" />
-          </div>
-
-          {/* Contact Form */}
-          <div>
-            <ContactForm />
-          </div>
+        {/* Calendly Widget */}
+        <div className="max-w-4xl mx-auto">
+          <CalendlyWidget className="h-fit" />
         </div>
 
         {/* Additional Information */}
         <div className="mt-12 text-center">
           <div className="bg-secondary-50 border border-secondary-200 rounded-lg p-6">
             <h3 className="text-lg font-semibold text-secondary-800 mb-2">
-              Have Questions Before Booking?
+              Ready to Get Started?
             </h3>
             <p className="text-secondary-600">
-              Feel free to reach out using the contact form above. We&apos;re here to help you understand 
-              how intelligent workflow automation can benefit your organization.
+              Use the calendar above to book your free consultation. We&apos;re here to help you understand 
+              how intelligent workflow automation can transform your organization.
             </p>
           </div>
         </div>
