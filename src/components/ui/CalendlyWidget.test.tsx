@@ -24,12 +24,6 @@ describe('CalendlyWidget', () => {
     expect(container.firstChild).toHaveClass('custom-class')
   })
 
-  it('renders loading state initially', () => {
-    render(<CalendlyWidget />)
-    
-    expect(screen.getByText(/loading calendar\.\.\./i)).toBeInTheDocument()
-  })
-
   it('renders calendly inline widget container', () => {
     const { container } = render(<CalendlyWidget />)
     
@@ -37,32 +31,11 @@ describe('CalendlyWidget', () => {
     expect(calendlyDiv).toBeInTheDocument()
   })
 
-  it('uses default embed URL when none provided', () => {
+  it('uses hardcoded Calendly URL', () => {
     const { container } = render(<CalendlyWidget />)
     
     const calendlyDiv = container.querySelector('.calendly-inline-widget')
-    expect(calendlyDiv).toHaveAttribute('data-url')
-  })
-
-  it('uses custom embed URL when provided', () => {
-    const customUrl = 'https://calendly.com/custom-link'
-    const { container } = render(<CalendlyWidget embedUrl={customUrl} />)
-    
-    const calendlyDiv = container.querySelector('.calendly-inline-widget')
-    expect(calendlyDiv).toHaveAttribute('data-url', customUrl)
-  })
-
-  it('handles environment variable for embed URL', () => {
-    const originalEnv = process.env.NEXT_PUBLIC_CALENDLY_EMBED_URL
-    process.env.NEXT_PUBLIC_CALENDLY_EMBED_URL = 'https://calendly.com/env-link'
-    
-    render(<CalendlyWidget />)
-    
-    // Component should render without errors
-    expect(screen.getByText(/schedule your consultation/i)).toBeInTheDocument()
-    
-    // Restore environment
-    process.env.NEXT_PUBLIC_CALENDLY_EMBED_URL = originalEnv
+    expect(calendlyDiv).toHaveAttribute('data-url', 'https://calendly.com/aha-agile/adnan-s-meeting-link?hide_event_type_details=1&hide_gdpr_banner=1')
   })
 
   it('has proper widget styling attributes', () => {

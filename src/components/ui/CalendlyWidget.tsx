@@ -3,12 +3,10 @@
 import { useEffect, useState } from 'react'
 
 interface CalendlyWidgetProps {
-  embedUrl?: string
   className?: string
 }
 
 export default function CalendlyWidget({ 
-  embedUrl = process.env.NEXT_PUBLIC_CALENDLY_EMBED_URL || 'https://calendly.com/your-calendly-link',
   className = '' 
 }: CalendlyWidgetProps) {
   const [isLoading, setIsLoading] = useState(true)
@@ -46,16 +44,6 @@ export default function CalendlyWidget({
       // Clean up event listeners
       script.removeEventListener('load', handleLoad)
       script.removeEventListener('error', handleError)
-      
-      // Only remove script if it exists and we added it
-      const currentScript = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')
-      if (currentScript && currentScript === script) {
-        try {
-          document.head.removeChild(script)
-        } catch (e) {
-          // Script might have already been removed
-        }
-      }
     }
   }, [])
 
@@ -67,7 +55,7 @@ export default function CalendlyWidget({
         </h3>
         <p className="text-red-700">
           We&apos;re experiencing technical difficulties with our scheduling system. 
-          Please use the contact form below to get in touch, and we&apos;ll reach out to schedule your consultation.
+          Please try refreshing the page or contact us directly.
         </p>
       </div>
     )
@@ -93,7 +81,7 @@ export default function CalendlyWidget({
       
       <div 
         className="calendly-inline-widget" 
-        data-url={embedUrl}
+        data-url="https://calendly.com/aha-agile/adnan-s-meeting-link?hide_event_type_details=1&hide_gdpr_banner=1"
         style={{ 
           minWidth: '320px', 
           height: '700px',
