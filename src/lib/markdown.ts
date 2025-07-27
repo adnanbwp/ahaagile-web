@@ -25,9 +25,12 @@ export async function getMarkdownContent(filename: string): Promise<MarkdownCont
 }
 
 /**
- * Transform markdown content by mapping consultation anchor links to booking route
+ * Transform markdown content by mapping anchor links to internal routes
  */
 export function transformMarkdownLinks(content: string): string {
   // Map #consultation anchor links to /book-a-consultation route
-  return content.replace(/\]\(#consultation\)/g, '](/book-a-consultation)');
+  // Map #case-study anchor links to /case-study route
+  return content
+    .replace(/\]\(#consultation\)/g, '](/book-a-consultation)')
+    .replace(/\]\(#case-study\)/g, '](/case-study)');
 }
