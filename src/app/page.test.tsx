@@ -13,18 +13,10 @@ jest.mock('react-markdown', () => {
     // Simple mock that processes the markdown-like content
     const content = children || ''
     
-    // Mock processing of homepage content
-    if (content.includes('# Reclaim 150+ Hours Per Employee Annually')) {
+    // Mock processing of homepage content (updated for new structure without main headline)
+    if (content.includes('## The Hidden Cost of Manual Workflows')) {
       return (
         <div>
-          <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight text-center">Reclaim 150+ Hours Per Employee Annually</h1>
-          <p className="text-lg text-gray-700 mb-4 leading-relaxed">Stop losing valuable time to inefficient workflows. We help professional services firms eliminate operational bottlenecks through intelligent automation solutions that deliver measurable ROI within weeks.</p>
-          <a href="/case-study" className="inline-block bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 no-underline shadow-md hover:shadow-lg mr-4 mb-2">
-            See How We Saved $330K Annually
-          </a>
-          <a href="/book-a-consultation" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 no-underline shadow-md hover:shadow-lg mr-4 mb-2">
-            Book Your Free Process Audit
-          </a>
           <h2 className="text-3xl font-semibold text-gray-800 mb-4 mt-8">The Hidden Cost of Manual Workflows</h2>
           <p className="text-lg text-gray-700 mb-4 leading-relaxed">Your team is trapped in time-consuming, repetitive processes that drain productivity and profitability:</p>
           <ul className="list-disc list-inside mb-4 space-y-2">
@@ -57,13 +49,7 @@ jest.mock('next/link', () => {
 const { getMarkdownContent, transformMarkdownLinks } = require('@/lib/markdown')
 
 describe('Homepage', () => {
-  const mockMarkdownContent = `# Reclaim 150+ Hours Per Employee Annually
-
-**Stop losing valuable time to inefficient workflows. We help professional services firms eliminate operational bottlenecks through intelligent automation solutions that deliver measurable ROI within weeks.**
-
-[See How We Saved $330K Annually](#case-study) | [Book Your Free Process Audit](#consultation)
-
----
+  const mockMarkdownContent = `---
 
 ## The Hidden Cost of Manual Workflows
 
@@ -82,13 +68,7 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
 
 [Book Your Free Audit](#consultation)`
 
-  const mockTransformedContent = `# Reclaim 150+ Hours Per Employee Annually
-
-**Stop losing valuable time to inefficient workflows. We help professional services firms eliminate operational bottlenecks through intelligent automation solutions that deliver measurable ROI within weeks.**
-
-[See How We Saved $330K Annually](/case-study) | [Book Your Free Process Audit](/book-a-consultation)
-
----
+  const mockTransformedContent = `---
 
 ## The Hidden Cost of Manual Workflows
 
@@ -139,10 +119,10 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     const HomePageComponent = await Home()
     render(HomePageComponent)
     
-    // Check main heading
+    // Check main heading (now from HeroSection)
     const h1 = screen.getByRole('heading', { level: 1 })
     expect(h1).toHaveTextContent('Reclaim 150+ Hours Per Employee Annually')
-    expect(h1).toHaveClass('text-5xl', 'font-bold', 'text-gray-900', 'text-center')
+    expect(h1).toHaveClass('text-hero', 'mb-6', 'text-white')
     
     // Check section headings
     const h2 = screen.getByRole('heading', { level: 2 })
@@ -162,35 +142,17 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     const HomePageComponent = await Home()
     render(HomePageComponent)
     
-    // Check case study CTA
-    const caseStudyLink = screen.getByRole('link', { name: /see how we saved \$330k annually/i })
+    // Check case study CTA (now from HeroSection)
+    const caseStudyLink = screen.getByRole('link', { name: /watch demo/i })
     expect(caseStudyLink).toBeInTheDocument()
     expect(caseStudyLink).toHaveAttribute('href', '/case-study')
-    expect(caseStudyLink).toHaveClass(
-      'inline-block',
-      'bg-gray-600',
-      'hover:bg-gray-700',
-      'text-white',
-      'font-semibold',
-      'py-3',
-      'px-6',
-      'rounded-lg'
-    )
+    expect(caseStudyLink).toHaveClass('btn-secondary')
 
-    // Check consultation CTA
-    const consultationLink = screen.getByRole('link', { name: /book your free process audit/i })
+    // Check consultation CTA (now from HeroSection)
+    const consultationLink = screen.getByRole('link', { name: /start free analysis/i })
     expect(consultationLink).toBeInTheDocument()
     expect(consultationLink).toHaveAttribute('href', '/book-a-consultation')
-    expect(consultationLink).toHaveClass(
-      'inline-block',
-      'bg-blue-600',
-      'hover:bg-blue-700',
-      'text-white',
-      'font-semibold',
-      'py-3',
-      'px-6',
-      'rounded-lg'
-    )
+    expect(consultationLink).toHaveClass('btn-accent')
   })
 
   it('applies responsive design classes correctly', async () => {
@@ -200,14 +162,13 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     const main = container.firstChild
     expect(main).toHaveClass('min-h-screen')
     
-    const mainContainer = main?.firstChild
-    expect(mainContainer).toHaveClass('container', 'mx-auto', 'px-4', 'py-8')
+    // Hero section should be the first child
+    const heroSection = main?.firstChild
+    expect(heroSection).toHaveClass('relative', 'min-h-screen', 'py-20')
     
-    const content = mainContainer?.firstChild
-    expect(content).toHaveClass('max-w-4xl', 'mx-auto')
-    
-    const article = content?.firstChild
-    expect(article).toHaveClass('prose', 'prose-lg', 'prose-gray', 'max-w-none')
+    // Check that the markdown content container still exists with proper classes
+    const markdownContainer = main?.lastChild
+    expect(markdownContainer).toHaveClass('container', 'mx-auto', 'px-4', 'py-8')
   })
 
   it('handles strong and emphasis text correctly', async () => {
@@ -262,9 +223,9 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     const HomePageComponent = await Home()
     render(HomePageComponent)
     
-    // Verify both CTAs as specified in acceptance criteria
-    const caseStudyLink = screen.getByRole('link', { name: /see how we saved \$330k annually/i })
-    const consultationLink = screen.getByRole('link', { name: /book your free process audit/i })
+    // Verify both CTAs as specified in acceptance criteria (now from HeroSection)
+    const caseStudyLink = screen.getByRole('link', { name: /watch demo/i })
+    const consultationLink = screen.getByRole('link', { name: /start free analysis/i })
     
     expect(caseStudyLink).toBeInTheDocument()
     expect(consultationLink).toBeInTheDocument()
@@ -278,8 +239,8 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     const HomePageComponent = await Home()
     render(HomePageComponent)
     
-    // Check that key value proposition elements are present
-    expect(screen.getByText('Reclaim 150+ Hours Per Employee Annually')).toBeInTheDocument()
+    // Check that key value proposition elements are present (headline and subtitle now come from HeroSection)
+    expect(screen.getAllByText('Reclaim 150+ Hours Per Employee Annually')).toHaveLength(1)
     expect(screen.getByText(/intelligent automation solutions/i)).toBeInTheDocument()
     expect(screen.getByText(/measurable ROI within weeks/i)).toBeInTheDocument()
     expect(screen.getByText(/\$236,000 to \$330,000 annually/)).toBeInTheDocument()

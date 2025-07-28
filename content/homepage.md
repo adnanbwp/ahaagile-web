@@ -1,9 +1,3 @@
-# Reclaim 150+ Hours Per Employee Annually
-
-**Stop losing valuable time to inefficient workflows. We help professional services firms eliminate operational bottlenecks through intelligent automation solutions that deliver measurable ROI within weeks.**
-
-[See How We Saved $330K Annually](#case-study) | [Book Your Free Process Audit](#consultation)
-
 ---
 
 ## The Hidden Cost of Manual Workflows
