@@ -3,7 +3,19 @@ import RootLayout, { metadata } from './layout'
 
 // Mock next/font/google
 jest.mock('next/font/google', () => ({
-  Inter: () => ({ className: 'inter' }),
+  Inter: () => ({ 
+    className: 'mock-inter',
+    variable: '--font-inter'
+  }),
+  Source_Serif_4: () => ({ 
+    className: 'mock-source-serif-4',
+    variable: '--font-source-serif-4'
+  }),
+}))
+
+// Mock next/navigation
+jest.mock('next/navigation', () => ({
+  usePathname: jest.fn().mockReturnValue('/'),
 }))
 
 // Suppress DOM nesting warnings for layout tests (expected when testing full HTML structure)
@@ -33,7 +45,7 @@ describe('RootLayout', () => {
     expect(getByTestId('test-child')).toHaveTextContent('Test Content')
   })
 
-  it('applies Inter font class to body', () => {
+  it('applies font variable classes to body', () => {
     const { container } = render(
       <RootLayout>
         <div>Test</div>
@@ -41,7 +53,9 @@ describe('RootLayout', () => {
     )
     
     const body = container.querySelector('body')
-    expect(body).toHaveClass('inter')
+    expect(body).toHaveClass('--font-inter')
+    expect(body).toHaveClass('--font-source-serif-4')
+    expect(body).toHaveClass('font-sans')
   })
 
   it('sets correct html lang attribute', () => {
