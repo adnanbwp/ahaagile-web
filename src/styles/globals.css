@@ -3,25 +3,194 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Background and Foreground */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  
+  /* Brand Colors */
+  --brand-navy: #1e293b;
+  --brand-navy-light: #334155;
+  --brand-navy-dark: #0f172a;
+  --brand-yellow: #f59e0b;
+  --brand-yellow-light: #fbbf24;
+  --brand-yellow-dark: #d97706;
+  
+  /* Brand Gradients */
+  --gradient-navy: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  --gradient-navy-light: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  --gradient-yellow: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --gradient-hero: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+  
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Shadow Variables */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-brand: 0 8px 25px -8px rgb(30 41 59 / 0.25);
+  --shadow-accent: 0 8px 25px -8px rgb(245 158 11 / 0.25);
+  
+  /* shadcn/ui CSS Variables integrated with Loveable design tokens */
+  --border: 226 67% 85%; /* Using secondary-200 */
+  --input: 226 67% 85%; /* Using secondary-200 */
+  --ring: 213 27% 64%; /* Using secondary-400 */
+  --radius: 0.5rem;
+  
+  /* shadcn/ui colors mapped to Loveable design system */
+  --primary: 215 28% 17%; /* brand-navy #1e293b */
+  --primary-foreground: 210 40% 98%; /* white */
+  --secondary: 215 19% 35%; /* secondary-600 #475569 */
+  --secondary-foreground: 210 40% 98%; /* white */
+  --destructive: 0 84% 60%; /* standard red */
+  --destructive-foreground: 210 40% 98%; /* white */
+  --muted: 220 14% 96%; /* secondary-50 #f8fafc */
+  --muted-foreground: 215 16% 47%; /* secondary-500 #64748b */
+  --accent: 38 92% 50%; /* brand-yellow #f59e0b */
+  --accent-foreground: 215 28% 17%; /* brand-navy */
+  --popover: 0 0% 100%; /* white */
+  --popover-foreground: 222 84% 5%; /* primary-900 */
+  --card: 0 0% 100%; /* white */
+  --card-foreground: 222 84% 5%; /* primary-900 */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: #0f172a;
+    --foreground: #f1f5f9;
+    
+    /* shadcn/ui dark mode variables */
+    --border: 215 28% 17%; /* brand-navy */
+    --input: 215 28% 17%; /* brand-navy */
+    --ring: 215 19% 35%; /* secondary-600 */
+    
+    --primary: 210 40% 98%; /* white */
+    --primary-foreground: 215 28% 17%; /* brand-navy */
+    --secondary: 215 28% 17%; /* brand-navy */
+    --secondary-foreground: 210 40% 98%; /* white */
+    --muted: 215 28% 17%; /* brand-navy */
+    --muted-foreground: 215 20% 65%; /* secondary-400 */
+    --accent: 38 92% 50%; /* brand-yellow */
+    --accent-foreground: 215 28% 17%; /* brand-navy */
+    --popover: 215 28% 17%; /* brand-navy */
+    --popover-foreground: 210 40% 98%; /* white */
+    --card: 215 28% 17%; /* brand-navy */
+    --card-foreground: 210 40% 98%; /* white */
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-source-serif-4), ui-serif, Georgia, serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Base Styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--brand-navy);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+a {
+  color: var(--brand-yellow);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--brand-yellow-dark);
+}
+
+/* Custom Utility Classes for Brand Patterns */
+
+/* Button Utilities */
+.btn-primary {
+  @apply bg-gradient-navy text-white px-6 py-3 rounded-lg font-inter font-semibold;
+  @apply transition-all duration-200 hover:shadow-brand;
+  @apply border border-transparent hover:border-accent-400;
+}
+
+.btn-secondary {
+  @apply bg-transparent text-brand-navy border-2 border-brand-navy px-6 py-3 rounded-lg;
+  @apply font-inter font-semibold transition-all duration-200;
+  @apply hover:bg-brand-navy hover:text-white hover:shadow-brand;
+}
+
+.btn-accent {
+  @apply bg-gradient-accent text-brand-navy px-6 py-3 rounded-lg font-inter font-semibold;
+  @apply transition-all duration-200 hover:shadow-accent;
+  @apply border border-transparent hover:border-brand-navy;
+}
+
+/* Card Utilities */
+.card-elevated {
+  @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300;
+  @apply border border-secondary-200;
+}
+
+.card-brand {
+  @apply bg-gradient-navy-light rounded-xl shadow-brand text-white;
+}
+
+/* Layout Utilities */
+.container-brand {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section-spacing {
+  @apply py-16 lg:py-24;
+}
+
+.text-brand-gradient {
+  @apply bg-gradient-accent bg-clip-text text-transparent font-bold;
+}
+
+/* Focus and Accessibility Utilities */
+.focus-brand {
+  @apply focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2;
+}
+
+/* Responsive Text Utilities */
+.text-hero {
+  @apply text-4xl md:text-5xl lg:text-6xl font-heading font-bold;
+  @apply leading-tight tracking-tight text-brand-navy;
+}
+
+.text-subhero {
+  @apply text-xl md:text-2xl font-serif text-secondary-600;
+  @apply leading-relaxed;
 }
