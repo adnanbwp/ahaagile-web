@@ -124,10 +124,11 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     expect(h1).toHaveTextContent('Reclaim 150+ Hours Per Employee Annually')
     expect(h1).toHaveClass('text-hero', 'mb-6', 'text-white')
     
-    // Check section headings
-    const h2 = screen.getByRole('heading', { level: 2 })
-    expect(h2).toHaveTextContent('The Hidden Cost of Manual Workflows')
-    expect(h2).toHaveClass('text-3xl', 'font-semibold', 'text-gray-800')
+    // Check section headings - there should be multiple h2s now (ProblemSection + SolutionSection + Markdown)
+    const h2s = screen.getAllByRole('heading', { level: 2 })
+    expect(h2s).toHaveLength(5) // One from ProblemSection, three from SolutionSection, one from markdown
+    expect(h2s[0]).toHaveTextContent('The Hidden Cost of Manual Workflows')
+    expect(h2s[0]).toHaveClass('text-hero', 'text-brand-navy') // ProblemSection styling
     
     // Check paragraph content
     expect(screen.getByText(/stop losing valuable time to inefficient workflows/i)).toBeInTheDocument()
@@ -186,8 +187,13 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     const HomePageComponent = await Home()
     const { container } = render(HomePageComponent)
     
-    const blockquote = container.querySelector('blockquote')
-    expect(blockquote).toHaveClass(
+    // There are now two blockquotes - one from SolutionSection and one from markdown content
+    const blockquotes = container.querySelectorAll('blockquote')
+    expect(blockquotes.length).toBeGreaterThanOrEqual(1)
+    
+    // Test the markdown blockquote specifically (should be the last one)
+    const markdownBlockquote = blockquotes[blockquotes.length - 1]
+    expect(markdownBlockquote).toHaveClass(
       'border-l-4',
       'border-blue-500',
       'pl-4',
@@ -241,9 +247,9 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     
     // Check that key value proposition elements are present (headline and subtitle now come from HeroSection)
     expect(screen.getAllByText('Reclaim 150+ Hours Per Employee Annually')).toHaveLength(1)
-    expect(screen.getByText(/intelligent automation solutions/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/intelligent automation solutions/i)).toHaveLength(3) // HeroSection, SolutionSection, and markdown
     expect(screen.getByText(/measurable ROI within weeks/i)).toBeInTheDocument()
-    expect(screen.getByText(/\$236,000 to \$330,000 annually/)).toBeInTheDocument()
+    expect(screen.getByText(/Annual Cost of Inefficiency/i)).toBeInTheDocument()
   })
 
   it('handles markdown content rendering errors gracefully', async () => {

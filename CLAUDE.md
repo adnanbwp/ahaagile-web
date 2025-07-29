@@ -1,88 +1,57 @@
-# Aha Agile Website - Claude Code Project Documentation
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-This is the MVP website for Aha Agile, a professional services consultancy specializing in intelligent workflow automation. The website serves as a lead generation engine targeting medium-sized professional services firms.
-
-## Tech Stack
-- **Framework**: Next.js 14.2.3 with TypeScript
-- **Styling**: Tailwind CSS 3.4.3
-- **Content**: Markdown files in `/content/` directory
-- **Testing**: Jest 29.7.0 + React Testing Library
-- **Deployment**: Vercel (static export)
-- **Repository**: Git-based with feature branch workflow
-
-## Project Structure
-```
-ahaagile-website/
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── layout.tsx         # Root layout with Header/Footer
-│   │   ├── page.tsx           # Homepage
-│   │   ├── services/page.tsx  # Services page
-│   │   ├── case-study/page.tsx # Case study page
-│   │   └── book-a-consultation/page.tsx # Contact/booking page
-│   ├── components/
-│   │   ├── layout/            # Header, Footer components
-│   │   └── ui/                # Reusable UI components
-│   ├── lib/
-│   │   └── markdown.ts        # Markdown processing utilities
-│   └── styles/
-│       └── globals.css        # Global styles and Tailwind imports
-├── content/                   # Markdown content files
-│   └── services.md           # Services page content
-├── docs/                     # Project documentation
-│   ├── prd.md               # Product Requirements Document
-│   ├── architecture/        # Technical architecture docs
-│   └── stories/             # User stories and implementation details
-├── tests/
-│   └── e2e/                 # End-to-end tests
-└── public/                  # Static assets
-```
-
-## Key Configuration
-- **Next.js**: Configured for static export (`output: 'export'`) for Vercel deployment
-- **Tailwind**: Custom color scheme with primary (blue) and secondary (gray) palettes
-- **TypeScript**: Strict configuration enabled
-- **Testing**: Jest with jsdom environment for React component testing
+MVP website for Aha Agile, a professional services consultancy specializing in intelligent workflow automation. Lead generation engine targeting medium-sized professional services firms.
 
 ## Development Commands
 - `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
+- `npm run build` - Build for production (static export)
 - `npm run lint` - Run ESLint
 - `npm test` - Run Jest tests
 - `npm run test:watch` - Run tests in watch mode
 
-## Content Management
-All page content is sourced from Markdown files in the `/content/` directory. Pages use a markdown processing utility to render content dynamically.
+## Architecture & Key Patterns
 
-## Current Implementation Status
-Based on recent commits:
-- ✅ Project foundation with Next.js, TypeScript, Tailwind CSS
-- ✅ Core layout components (Header, Footer) with navigation
-- ✅ Services page implementation with QA fixes
-- 🚧 In progress: Case study page, consultation page, homepage content finalization
+### Tech Stack
+- **Next.js 14.2.3** with App Router and TypeScript
+- **Static Export**: Configured for Vercel deployment (`output: 'export'`)
+- **Tailwind CSS 3.4.3** with custom design system
+- **Content-driven**: Markdown files in `/content/` directory
+- **Testing**: Jest + React Testing Library
 
-## Testing Strategy
-- **Unit Tests**: All components have corresponding `.test.tsx` files
-- **Integration Tests**: For key user interactions and markdown rendering
-- **E2E Tests**: Planned for critical user funnel (view services → case study → book consultation)
+### Font Strategy
+Uses dual font system:
+- **Source Serif 4**: Primary font for body text and overall brand feel
+- **Inter**: Headings and UI elements for contrast and readability
+- Configured as CSS variables (`--font-source-serif-4`, `--font-inter`)
 
-## Deployment
-- **Platform**: Vercel
-- **Domain**: ahaagile.com.au (production)
-- **Build**: Static export for optimal performance and cost efficiency
-- **CI/CD**: Automated deployment from main branch via GitHub integration
+### Content Management System
+Content is stored in `/content/*.md` files and processed via `src/lib/markdown.ts`:
+- **Link transformation**: Automatically converts anchor links (`#consultation` → `/book-a-consultation`)
+- **Dynamic rendering**: Pages fetch and render markdown content at build time
+- **Type-safe**: Uses `MarkdownContent` interface for content structure
 
-## Lead Generation Funnel
-The website implements a guided user journey:
-1. **Homepage** → Clear value proposition with CTAs
-2. **Services** → Detailed service offerings 
-3. **Case Study** → Social proof and ROI demonstration
-4. **Book Consultation** → Calendly integration for direct booking
+### Design System
+Sophisticated color palette in `tailwind.config.ts`:
+- **Primary**: Navy blue scale (50-900) for professional feel
+- **Accent**: Yellow scale for CTAs and highlights
+- **Brand shortcuts**: `brand.navy`, `brand.yellow` for quick access
+- **shadcn/ui integration**: Separate color variables for component library compatibility
 
-## Goals & Success Metrics
-- Generate 5+ qualified leads per month within 6 months
-- Homepage bounce rate < 75%
-- Case Study average session > 90 seconds
-- Establish thought leadership in intelligent automation space
+### Layout Architecture
+- **Root Layout** (`src/app/layout.tsx`): Persistent Header/Footer with flex-grow main
+- **Page Structure**: App Router with co-located test files
+- **Component Organization**:
+  - `layout/`: Header, Footer
+  - `sections/`: Page-specific sections (HeroSection, etc.)
+  - `ui/`: Reusable components (shadcn/ui style)
+
+### Lead Generation Funnel
+Structured user journey: Homepage → Services → Case Study → Book Consultation
+
+### Testing Approach
+- **Unit tests**: Co-located `.test.tsx` files for all components
+- **Component testing**: React Testing Library with Jest
+- **Coverage**: Available via `coverage/` directory after test runs

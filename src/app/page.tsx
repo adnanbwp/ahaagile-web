@@ -3,6 +3,8 @@ import { getMarkdownContent, transformMarkdownLinks } from '@/lib/markdown';
 import Link from 'next/link';
 import type { Components } from 'react-markdown';
 import HeroSection from '@/components/sections/HeroSection';
+import ProblemSection from '@/components/sections/ProblemSection';
+import SolutionSection from '@/components/sections/SolutionSection';
 
 interface HomePageProps {}
 
@@ -83,6 +85,12 @@ export default async function Home(): Promise<JSX.Element> {
     <main className="min-h-screen">
       {/* Hero Section */}
       <HeroSection />
+      
+      {/* Problem Section */}
+      <ProblemSection />
+      
+      {/* Solution Section */}
+      <SolutionSection />
       
       {/* Original Markdown Content */}
       <div className="container mx-auto px-4 py-8">
