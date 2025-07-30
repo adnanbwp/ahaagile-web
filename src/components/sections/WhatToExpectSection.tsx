@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/card'
-import { Search, Target, ArrowRight } from 'lucide-react'
+import { Search, Target, ArrowRight } from '@/lib/icons'
 
 interface BenefitCardProps {
   icon: React.ComponentType<{ className?: string }>
