@@ -13,22 +13,22 @@ jest.mock('react-markdown', () => {
     // Simple mock that processes the markdown-like content
     const content = children || ''
     
-    // Mock processing of different markdown elements
+    // Mock processing of different markdown elements with enhanced design system colors
     if (content.includes('# Test Services')) {
       return (
         <div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">Test Services</h1>
-          <p className="text-lg text-gray-700 mb-4 leading-relaxed">This is test content for the services page.</p>
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4 mt-8">Service 1</h2>
-          <p className="text-lg text-gray-700 mb-4 leading-relaxed">Some service description.</p>
-          <a href="/book-a-consultation" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 no-underline shadow-md hover:shadow-lg">
+          <h1 className="text-4xl font-bold text-primary-900 mb-6 leading-tight font-heading">Test Services</h1>
+          <p className="text-lg text-primary-700 mb-4 leading-relaxed font-serif">This is test content for the services page.</p>
+          <h2 className="text-3xl font-semibold text-primary-800 mb-4 mt-8 font-heading">Service 1</h2>
+          <p className="text-lg text-primary-700 mb-4 leading-relaxed font-serif">Some service description.</p>
+          <a href="/book-a-consultation" className="inline-block bg-accent-400 hover:bg-accent-500 text-primary-900 font-semibold font-heading py-3 px-6 rounded-lg transition-all duration-300 no-underline shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
             Book Your Free Consultation
           </a>
-          <strong className="font-semibold text-gray-900">Important:</strong>
+          <strong className="font-semibold text-primary-900">Important:</strong>
           <span> This is bold text.</span>
           <ul className="list-disc list-inside mb-4 space-y-2">
-            <li className="text-lg text-gray-700">List item 1</li>
-            <li className="text-lg text-gray-700">List item 2</li>
+            <li className="text-lg text-primary-700 font-serif">List item 1</li>
+            <li className="text-lg text-primary-700 font-serif">List item 2</li>
           </ul>
         </div>
       )
@@ -66,6 +66,20 @@ jest.mock('@/components/sections/ServicesGridSection', () => {
         <div>Custom Design</div>
         <div>Phased Implementation</div>
         <div>Optimization</div>
+      </div>
+    )
+  }
+})
+
+// Mock ServicesCTASection component
+jest.mock('@/components/sections/ServicesCTASection', () => {
+  return function MockedServicesCTASection() {
+    return (
+      <div data-testid="services-cta-section">
+        <h2>Ready to Transform Your Workflows?</h2>
+        <p>Stop losing revenue to inefficient processes</p>
+        <a href="/book-a-consultation">Book Your Free Process Audit</a>
+        <a href="/case-study">Download Case Study</a>
       </div>
     )
   }
@@ -140,10 +154,10 @@ Some service description.
     const allHeadings = screen.getAllByRole('heading')
     expect(allHeadings.length).toBeGreaterThan(2) // Hero section adds more headings
     
-    // Check the markdown content h1 (should be present)
+    // Check the markdown content h1 (should be present) with enhanced styling
     const markdownH1 = screen.getByRole('heading', { name: 'Test Services' })
     expect(markdownH1).toHaveTextContent('Test Services')
-    expect(markdownH1).toHaveClass('text-4xl', 'font-bold', 'text-gray-900')
+    expect(markdownH1).toHaveClass('text-4xl', 'font-bold', 'text-primary-900', 'font-heading')
     
     // Check the hero section h1
     const heroH1 = screen.getByRole('heading', { name: 'Intelligent Workflow Automation for Professional Services' })
@@ -151,7 +165,7 @@ Some service description.
     
     const h2 = screen.getByRole('heading', { name: 'Service 1' })
     expect(h2).toHaveTextContent('Service 1')
-    expect(h2).toHaveClass('text-3xl', 'font-semibold', 'text-gray-800')
+    expect(h2).toHaveClass('text-3xl', 'font-semibold', 'text-primary-800', 'font-heading')
     
     // Check paragraph content
     expect(screen.getByText('This is test content for the services page.')).toBeInTheDocument()
@@ -162,7 +176,7 @@ Some service description.
     expect(screen.getByText('List item 2')).toBeInTheDocument()
   })
 
-  it('renders call-to-action links with correct styling and routing', async () => {
+  it('renders call-to-action links with enhanced design system styling', async () => {
     const ServicesPageComponent = await ServicesPage()
     render(ServicesPageComponent)
     
@@ -171,13 +185,20 @@ Some service description.
     expect(ctaLink).toHaveAttribute('href', '/book-a-consultation')
     expect(ctaLink).toHaveClass(
       'inline-block',
-      'bg-blue-600',
-      'hover:bg-blue-700',
-      'text-white',
+      'bg-accent-400',
+      'hover:bg-accent-500',
+      'text-primary-900',
       'font-semibold',
+      'font-heading',
       'py-3',
       'px-6',
-      'rounded-lg'
+      'rounded-lg',
+      'transition-all',
+      'duration-300',
+      'shadow-lg',
+      'hover:shadow-xl',
+      'transform',
+      'hover:-translate-y-0.5'
     )
   })
 
@@ -198,12 +219,12 @@ Some service description.
     expect(article).toHaveClass('prose', 'prose-lg', 'prose-gray', 'max-w-none')
   })
 
-  it('handles strong and emphasis text correctly', async () => {
+  it('handles strong and emphasis text with enhanced styling', async () => {
     const ServicesPageComponent = await ServicesPage()
     render(ServicesPageComponent)
     
     const strongText = screen.getByText('Important:')
-    expect(strongText).toHaveClass('font-semibold', 'text-gray-900')
+    expect(strongText).toHaveClass('font-semibold', 'text-primary-900')
   })
 
   it('maintains accessibility with proper semantic structure', async () => {
@@ -288,5 +309,55 @@ Some service description.
     expect(screen.getByText('Intelligent Workflow Automation for Professional Services')).toBeInTheDocument() // Hero
     expect(screen.getByText('Comprehensive Workflow Automation Solutions')).toBeInTheDocument() // Grid section
     expect(screen.getByText('Test Services')).toBeInTheDocument() // Markdown content
+  })
+
+  it('renders ServicesCTASection component', async () => {
+    const ServicesPageComponent = await ServicesPage()
+    render(ServicesPageComponent)
+    
+    expect(screen.getByTestId('services-cta-section')).toBeInTheDocument()
+  })
+
+  it('includes ServicesCTASection content with correct CTA buttons', async () => {
+    const ServicesPageComponent = await ServicesPage()
+    render(ServicesPageComponent)
+    
+    // Check for CTA section content
+    expect(screen.getByText('Ready to Transform Your Workflows?')).toBeInTheDocument()
+    expect(screen.getByText('Stop losing revenue to inefficient processes')).toBeInTheDocument()
+    
+    // Check for dual CTA buttons
+    const primaryCTA = screen.getByRole('link', { name: /book your free process audit/i })
+    const secondaryCTA = screen.getByRole('link', { name: /download case study/i })
+    
+    expect(primaryCTA).toBeInTheDocument()
+    expect(primaryCTA).toHaveAttribute('href', '/book-a-consultation')
+    
+    expect(secondaryCTA).toBeInTheDocument()
+    expect(secondaryCTA).toHaveAttribute('href', '/case-study')
+  })
+
+  it('maintains correct page structure with hero, grid, markdown, and CTA sections', async () => {
+    const ServicesPageComponent = await ServicesPage()
+    render(ServicesPageComponent)
+    
+    // Check that all major sections are present in the correct order
+    expect(screen.getByText('Intelligent Workflow Automation for Professional Services')).toBeInTheDocument() // Hero
+    expect(screen.getByTestId('services-grid-section')).toBeInTheDocument() // Grid section
+    expect(screen.getByText('Test Services')).toBeInTheDocument() // Markdown content
+    expect(screen.getByTestId('services-cta-section')).toBeInTheDocument() // CTA section
+  })
+
+  it('tests enhanced markdown styling with design system integration', async () => {
+    const ServicesPageComponent = await ServicesPage()
+    render(ServicesPageComponent)
+    
+    // Check that paragraphs use design system colors and fonts
+    const paragraphs = screen.getAllByText(/this is test content for the services page/i)
+    expect(paragraphs[0]).toHaveClass('text-primary-700', 'font-serif')
+    
+    // Check that list items use design system colors
+    const listItem = screen.getByText('List item 1')
+    expect(listItem).toHaveClass('text-primary-700', 'font-serif')
   })
 })

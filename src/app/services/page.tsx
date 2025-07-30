@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Components } from 'react-markdown';
 import ServicesHeroSection from '@/components/sections/ServicesHeroSection';
 import ServicesGridSection from '@/components/sections/ServicesGridSection';
+import ServicesCTASection from '@/components/sections/ServicesCTASection';
 
 interface ServicesPageProps {}
 
@@ -17,7 +18,7 @@ export default async function ServicesPage(): Promise<JSX.Element> {
         return (
           <Link 
             href={href} 
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 no-underline shadow-md hover:shadow-lg"
+            className="inline-block bg-accent-400 hover:bg-accent-500 text-primary-900 font-semibold font-heading py-3 px-6 rounded-lg transition-all duration-300 no-underline shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             {children}
           </Link>
@@ -25,46 +26,46 @@ export default async function ServicesPage(): Promise<JSX.Element> {
       }
       if (href?.startsWith('/')) {
         return (
-          <Link href={href} className="text-blue-600 hover:text-blue-800 underline">
+          <Link href={href} className="text-brand-navy hover:text-accent-400 underline transition-colors duration-200 font-medium">
             {children}
           </Link>
         );
       }
       return (
-        <a href={href} className="text-blue-600 hover:text-blue-800 underline" {...props}>
+        <a href={href} className="text-brand-navy hover:text-accent-400 underline transition-colors duration-200 font-medium" {...props}>
           {children}
         </a>
       );
     },
     h1: ({ children }) => (
-      <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">{children}</h1>
+      <h1 className="text-4xl font-bold text-primary-900 mb-6 leading-tight font-heading">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-3xl font-semibold text-gray-800 mb-4 mt-8">{children}</h2>
+      <h2 className="text-3xl font-semibold text-primary-800 mb-4 mt-8 font-heading">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-2xl font-semibold text-gray-800 mb-3 mt-6">{children}</h3>
+      <h3 className="text-2xl font-semibold text-primary-800 mb-3 mt-6 font-heading">{children}</h3>
     ),
     p: ({ children }) => (
-      <p className="text-lg text-gray-700 mb-4 leading-relaxed">{children}</p>
+      <p className="text-lg text-primary-700 mb-4 leading-relaxed font-serif">{children}</p>
     ),
     ul: ({ children }) => (
       <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>
     ),
     li: ({ children }) => (
-      <li className="text-lg text-gray-700">{children}</li>
+      <li className="text-lg text-primary-700 font-serif">{children}</li>
     ),
     strong: ({ children }) => (
-      <strong className="font-semibold text-gray-900">{children}</strong>
+      <strong className="font-semibold text-primary-900">{children}</strong>
     ),
     em: ({ children }) => (
-      <em className="italic text-gray-800">{children}</em>
+      <em className="italic text-primary-800">{children}</em>
     ),
     hr: () => (
-      <hr className="border-gray-300 my-8" />
+      <hr className="border-primary-300 my-8" />
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-6">
+      <blockquote className="border-l-4 border-accent-400 pl-4 italic text-primary-700 my-6 bg-primary-50 py-4 rounded-r-lg">
         {children}
       </blockquote>
     ),
@@ -88,6 +89,9 @@ export default async function ServicesPage(): Promise<JSX.Element> {
           </article>
         </div>
       </div>
+      
+      {/* Enhanced CTA Section */}
+      <ServicesCTASection />
     </div>
   );
 }
