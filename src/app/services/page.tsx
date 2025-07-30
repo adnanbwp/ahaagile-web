@@ -2,6 +2,8 @@ import ReactMarkdown from 'react-markdown';
 import { getMarkdownContent, transformMarkdownLinks } from '@/lib/markdown';
 import Link from 'next/link';
 import type { Components } from 'react-markdown';
+import ServicesHeroSection from '@/components/sections/ServicesHeroSection';
+import ServicesGridSection from '@/components/sections/ServicesGridSection';
 
 interface ServicesPageProps {}
 
@@ -69,13 +71,22 @@ export default async function ServicesPage(): Promise<JSX.Element> {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
-        <article className="prose prose-lg prose-gray max-w-none">
-          <ReactMarkdown components={components}>
-            {transformedContent}
-          </ReactMarkdown>
-        </article>
+    <div>
+      {/* Services Hero Section */}
+      <ServicesHeroSection />
+      
+      {/* Services Grid & Implementation Process Section */}
+      <ServicesGridSection />
+      
+      {/* Existing Services Content */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <article className="prose prose-lg prose-gray max-w-none">
+            <ReactMarkdown components={components}>
+              {transformedContent}
+            </ReactMarkdown>
+          </article>
+        </div>
       </div>
     </div>
   );
