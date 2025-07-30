@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServicesHeroSection Snapshot matches snapshot for visual regression testing 1`] = `
+<div
+  class=""
+>
+  <section
+    class="relative py-20 lg:py-24"
+    style="background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-navy-light) 100%);"
+  >
+    <div
+      class="absolute inset-0 opacity-10"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent transform -skew-y-1"
+      />
+    </div>
+    <div
+      class="container-brand relative z-10"
+    >
+      <div
+        class="text-center max-w-4xl mx-auto"
+      >
+        <div
+          class="mb-6"
+        >
+          <div
+            class="inline-flex items-center rounded-full border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-shadcn-secondary/80 bg-white/10 text-white border-white/20 text-sm font-medium px-4 py-2"
+          >
+            Professional Services Focus
+          </div>
+        </div>
+        <h1
+          class="text-hero mb-6 text-white"
+        >
+          Intelligent Workflow Automation for Professional Services
+        </h1>
+        <p
+          class="text-subhero mb-8 text-gray-200 max-w-3xl mx-auto"
+        >
+          Reclaim 150+ Hours Per Employee Annually Through Intelligent Email Automation
+        </p>
+      </div>
+    </div>
+  </section>
+  <section
+    class="section-spacing bg-gradient-to-br from-secondary-50 to-white"
+  >
+    <div
+      class="container-brand"
+    >
+      <div
+        class="text-center max-w-4xl mx-auto mb-16"
+      >
+        <h2
+          class="text-3xl lg:text-4xl font-heading font-bold text-brand-navy mb-6"
+        >
+          The Hidden Cost of Email-Driven Workflows
+        </h2>
+        <div
+          class="bg-gradient-accent rounded-xl p-8 mb-8 text-center"
+        >
+          <div
+            class="text-4xl lg:text-5xl font-bold text-brand-navy mb-2"
+          >
+            $236,000 to $330,000
+          </div>
+          <p
+            class="text-lg font-medium text-brand-navy-dark"
+          >
+            Annual productivity loss for a typical 3-accountant professional services firm
+          </p>
+        </div>
+        <p
+          class="text-lg text-secondary-600 leading-relaxed"
+        >
+          Email-driven workflows are silently draining your firm's profitability. While your team juggles client communications, document management, and administrative tasks through scattered email threads, valuable billable hours disappear into operational inefficiency.
+        </p>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6"
+      >
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm card-elevated hover:card-brand group transition-all duration-300"
+        >
+          <div
+            class="p-6 text-center"
+          >
+            <div
+              class="w-12 h-12 mx-auto mb-4 bg-gradient-accent rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-clock w-6 h-6 text-brand-navy group-hover:text-white"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 6v6l4 2"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                />
+              </svg>
+            </div>
+            <h3
+              class="text-lg font-heading font-semibold text-brand-navy group-hover:text-white mb-2 transition-colors duration-300"
+            >
+              Time Drain
+            </h3>
+            <p
+              class="text-sm text-secondary-600 group-hover:text-gray-200 transition-colors duration-300"
+            >
+              Partners and senior staff spending 25+ hours weekly on email management and administrative tasks instead of billable client work.
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm card-elevated hover:card-brand group transition-all duration-300"
+        >
+          <div
+            class="p-6 text-center"
+          >
+            <div
+              class="w-12 h-12 mx-auto mb-4 bg-gradient-accent rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-dollar-sign w-6 h-6 text-brand-navy group-hover:text-white"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="12"
+                  x2="12"
+                  y1="2"
+                  y2="22"
+                />
+                <path
+                  d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                />
+              </svg>
+            </div>
+            <h3
+              class="text-lg font-heading font-semibold text-brand-navy group-hover:text-white mb-2 transition-colors duration-300"
+            >
+              Billing Inefficiency
+            </h3>
+            <p
+              class="text-sm text-secondary-600 group-hover:text-gray-200 transition-colors duration-300"
+            >
+              High-value professionals doing low-value work, reducing billable hour capacity and directly impacting revenue potential.
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm card-elevated hover:card-brand group transition-all duration-300"
+        >
+          <div
+            class="p-6 text-center"
+          >
+            <div
+              class="w-12 h-12 mx-auto mb-4 bg-gradient-accent rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-users w-6 h-6 text-brand-navy group-hover:text-white"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                />
+                <path
+                  d="M16 3.128a4 4 0 0 1 0 7.744"
+                />
+                <path
+                  d="M22 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </div>
+            <h3
+              class="text-lg font-heading font-semibold text-brand-navy group-hover:text-white mb-2 transition-colors duration-300"
+            >
+              Client Frustration
+            </h3>
+            <p
+              class="text-sm text-secondary-600 group-hover:text-gray-200 transition-colors duration-300"
+            >
+              Delayed responses and communication gaps leading to client dissatisfaction and potential account losses.
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm card-elevated hover:card-brand group transition-all duration-300"
+        >
+          <div
+            class="p-6 text-center"
+          >
+            <div
+              class="w-12 h-12 mx-auto mb-4 bg-gradient-accent rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-zap w-6 h-6 text-brand-navy group-hover:text-white"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+                />
+              </svg>
+            </div>
+            <h3
+              class="text-lg font-heading font-semibold text-brand-navy group-hover:text-white mb-2 transition-colors duration-300"
+            >
+              Work Interruption
+            </h3>
+            <p
+              class="text-sm text-secondary-600 group-hover:text-gray-200 transition-colors duration-300"
+            >
+              Constant context switching disrupting deep work and reducing overall productivity and quality of deliverables.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+`;
