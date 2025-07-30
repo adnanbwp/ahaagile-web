@@ -29,10 +29,34 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="color-scheme" content="light dark" />
+      </head>
       <body className={`${inter.variable} ${sourceSerif4.variable} font-sans`}>
+        {/* Skip Links for Accessibility */}
+        <a 
+          href="#main-content" 
+          className="skip-link focus-visible-only"
+          tabIndex={1}
+        >
+          Skip to main content
+        </a>
+        <a 
+          href="#main-navigation" 
+          className="skip-link focus-visible-only"
+          tabIndex={2}
+        >
+          Skip to navigation
+        </a>
+        
         <div className="min-h-screen flex flex-col">
           <Header />
-          <main className="flex-grow">{children}</main>
+          <main id="main-content" className="flex-grow" tabIndex={-1}>
+            {children}
+          </main>
           <Footer />
         </div>
       </body>

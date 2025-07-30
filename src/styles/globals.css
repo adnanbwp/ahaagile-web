@@ -140,30 +140,56 @@ a:hover {
 /* Button Utilities */
 .btn-primary {
   @apply bg-gradient-navy text-white px-6 py-3 rounded-lg font-inter font-semibold;
-  @apply transition-all duration-200 hover:shadow-brand;
+  @apply transition-all duration-200 ease-out hover:shadow-brand;
   @apply border border-transparent hover:border-accent-400;
+  @apply transform hover:scale-105 active:scale-95;
+  @apply focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2;
 }
 
 .btn-secondary {
   @apply bg-transparent text-brand-navy border-2 border-brand-navy px-6 py-3 rounded-lg;
-  @apply font-inter font-semibold transition-all duration-200;
+  @apply font-inter font-semibold transition-all duration-200 ease-out;
   @apply hover:bg-brand-navy hover:text-white hover:shadow-brand;
+  @apply transform hover:scale-105 active:scale-95;
+  @apply focus:outline-none focus:ring-2 focus:ring-brand-navy focus:ring-offset-2;
 }
 
 .btn-accent {
   @apply bg-gradient-accent text-brand-navy px-6 py-3 rounded-lg font-inter font-semibold;
-  @apply transition-all duration-200 hover:shadow-accent;
+  @apply transition-all duration-200 ease-out hover:shadow-accent;
   @apply border border-transparent hover:border-brand-navy;
+  @apply transform hover:scale-105 active:scale-95;
+  @apply focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-accent {
+    @apply hover:scale-100 active:scale-100;
+    @apply transition-colors duration-150;
+  }
 }
 
 /* Card Utilities */
 .card-elevated {
-  @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300;
+  @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-out;
   @apply border border-secondary-200;
+  @apply transform hover:-translate-y-1 hover:scale-105;
 }
 
 .card-brand {
   @apply bg-gradient-navy-light rounded-xl shadow-brand text-white;
+  @apply transition-all duration-300 ease-out;
+  @apply transform hover:-translate-y-1 hover:shadow-xl;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-elevated,
+  .card-brand {
+    @apply hover:scale-100 hover:translate-y-0;
+    @apply transition-shadow duration-200;
+  }
 }
 
 /* Layout Utilities */
@@ -193,4 +219,219 @@ a:hover {
 .text-subhero {
   @apply text-xl md:text-2xl font-serif text-secondary-600;
   @apply leading-relaxed;
+}
+
+/* Performance and Animation Utilities */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.hardware-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Touch Target Optimization */
+.touch-target {
+  @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+}
+
+/* Enhanced Focus Utilities */
+.focus-brand-enhanced {
+  @apply focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2;
+  @apply focus:ring-offset-white focus:border-accent-500;
+}
+
+/* Skip Links */
+.skip-link {
+  @apply absolute -top-10 left-0 bg-brand-navy text-white px-4 py-2 z-50;
+  @apply transition-all duration-200 focus:top-0;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Interactive Element Enhancements */
+.btn-enhanced {
+  @apply transform transition-all duration-200 ease-out;
+  @apply hover:scale-105 active:scale-95;
+  @apply focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-enhanced {
+    @apply hover:scale-100 active:scale-100;
+  }
+}
+
+/* Loading States */
+.pulse-loading {
+  @apply animate-pulse bg-secondary-200 rounded;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-loading {
+    @apply animate-none bg-secondary-300;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    @apply border-2 border-white;
+  }
+  
+  .btn-secondary {
+    @apply border-2;
+  }
+}
+
+/* Mobile-First Responsive Utilities */
+.container-responsive {
+  @apply px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto;
+}
+
+.text-responsive {
+  @apply text-sm sm:text-base lg:text-lg;
+}
+
+.spacing-responsive {
+  @apply py-8 sm:py-12 lg:py-16 xl:py-20;
+}
+
+/* Grid Enhancements */
+.grid-responsive {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  @apply gap-4 sm:gap-6 lg:gap-8;
+}
+
+/* Form Enhancements */
+.form-input-enhanced {
+  @apply w-full px-3 py-2 border border-secondary-300 rounded-md;
+  @apply focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500;
+  @apply transition-colors duration-200;
+}
+
+.form-error {
+  @apply text-red-600 text-sm mt-1;
+}
+
+/* Page Transition Animations */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+.stagger-animation > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-animation > *:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .page-enter-active,
+  .fade-in,
+  .slide-up,
+  .stagger-animation > * {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Link Animations */
+.link-animated {
+  @apply relative overflow-hidden;
+}
+
+.link-animated::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent-500;
+  @apply transition-all duration-300 ease-out;
+}
+
+.link-animated:hover::after {
+  @apply w-full;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-animated::after {
+    @apply transition-none;
+  }
+}
+
+/* Accessibility Enhancements */
+.visually-hidden {
+  @apply sr-only;
+}
+
+.focus-visible-only {
+  @apply focus:not-sr-only focus:absolute focus:top-0 focus:left-0;
+  @apply bg-brand-navy text-white p-2 z-50;
 }

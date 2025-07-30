@@ -1,6 +1,21 @@
 import { render, screen } from '@testing-library/react'
 import CalendlyWidget from './CalendlyWidget'
 
+// Mock window.matchMedia for accessibility tests
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+})
+
 // Mock console.error to avoid script loading errors in tests
 const originalConsoleError = console.error
 beforeAll(() => {

@@ -21,7 +21,7 @@ export default function HeroSection({ className = '' }: HeroSectionProps): JSX.E
       </div>
       
       <div className="container-brand relative z-10">
-        <div className="text-center max-w-5xl mx-auto mb-16">
+        <div className="text-center max-w-5xl mx-auto mb-16 stagger-animation">
           {/* Main Headline */}
           <h1 className="text-hero mb-6 text-white">
             Reclaim 150+ Hours Per Employee Annually

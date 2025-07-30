@@ -76,7 +76,7 @@ export default function Header() {
           </div>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1" role="navigation" aria-label="Main navigation">
+          <nav id="main-navigation" className="hidden md:flex items-center space-x-1" role="navigation" aria-label="Main navigation">
             {navigationItems.map((item) => (
               item.primary ? (
                 <Link 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { LoadingSpinner } from './LoadingStates'
 
 interface CalendlyWidgetProps {
   className?: string
@@ -80,7 +81,7 @@ export default function CalendlyWidget({
         
         {isLoading && (
           <div className="p-8 text-center">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+            <LoadingSpinner size="lg" className="mx-auto" />
             <p className="mt-4 text-secondary-600 font-source-serif-4">Loading calendar...</p>
           </div>
         )}
