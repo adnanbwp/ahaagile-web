@@ -44,4 +44,40 @@ describe('CalendlyWidget', () => {
     const calendlyDiv = container.querySelector('.calendly-inline-widget')
     expect(calendlyDiv).toHaveStyle({ minWidth: '320px', height: '700px' })
   })
+
+  it('renders with professional styling classes', () => {
+    const { container } = render(<CalendlyWidget />)
+    
+    const mainContainer = container.firstChild
+    expect(mainContainer).toHaveClass('bg-white/90', 'backdrop-blur-sm', 'rounded-2xl', 'shadow-brand')
+  })
+
+  it('renders gradient background overlay', () => {
+    const { container } = render(<CalendlyWidget />)
+    
+    const gradientOverlay = container.querySelector('.absolute.inset-0.bg-gradient-to-br')
+    expect(gradientOverlay).toBeInTheDocument()
+    expect(gradientOverlay).toHaveClass('pointer-events-none')
+  })
+
+  it('applies Inter font to headings', () => {
+    render(<CalendlyWidget />)
+    
+    const heading = screen.getByText(/schedule your consultation/i)
+    expect(heading).toHaveClass('font-inter')
+  })
+
+  it('applies Source Serif 4 font to description', () => {
+    render(<CalendlyWidget />)
+    
+    const description = screen.getByText(/choose a time that works best for you/i)
+    expect(description).toHaveClass('font-source-serif-4')
+  })
+
+  it('has proper semantic structure for accessibility', () => {
+    render(<CalendlyWidget />)
+    
+    const heading = screen.getByRole('heading', { level: 2 })
+    expect(heading).toHaveTextContent(/schedule your consultation/i)
+  })
 })

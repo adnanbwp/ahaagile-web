@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CTASection matches snapshot for visual regression testing 1`] = `
+<section
+  aria-labelledby="cta-heading"
+  class="relative py-20 px-4 bg-gradient-to-br from-primary-800 via-primary-700 to-primary-900 overflow-hidden"
+  role="region"
+>
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-primary-800/95 via-primary-700/95 to-primary-900/95"
+  />
+  <div
+    class="container mx-auto max-w-6xl relative z-10"
+  >
+    <div
+      class="text-center max-w-4xl mx-auto"
+    >
+      <h2
+        class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 font-heading leading-tight"
+        id="cta-heading"
+      >
+        Ready to Get Started?
+      </h2>
+      <div
+        class="text-xl md:text-2xl text-primary-100 mb-12 font-serif leading-relaxed space-y-6"
+      >
+        <p>
+          Book your free consultation today and discover how intelligent workflow automation can transform your business operations.
+        </p>
+        <p
+          class="text-lg md:text-xl text-primary-200"
+        >
+          Our expert team will analyze your current processes and provide actionable recommendations tailored to your specific needs.
+        </p>
+        <p
+          class="text-base md:text-lg text-primary-300"
+        >
+          No commitment required - just valuable insights to help you make informed decisions about your workflow optimization journey.
+        </p>
+      </div>
+      <div
+        class="flex flex-col sm:flex-row gap-6 justify-center items-center"
+      >
+        <button
+          aria-label="Book your free consultation - scroll to scheduling widget"
+          class="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 rounded-md bg-accent-400 hover:bg-accent-500 text-primary-900 font-semibold px-8 py-4 h-auto text-lg font-heading shadow-xl hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 group focus:ring-2 focus:ring-accent-300 focus:outline-none"
+        >
+          Book Consultation Now
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-arrow-right ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5 12h14"
+            />
+            <path
+              d="m12 5 7 7-7 7"
+            />
+          </svg>
+        </button>
+        <a
+          aria-label="Send email to info@ahaagile.com for questions about our services"
+          class="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 rounded-md border-2 border-primary-100 text-primary-100 hover:bg-primary-100 hover:text-primary-900 font-semibold px-8 py-4 h-auto text-lg font-heading shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 bg-transparent focus:ring-2 focus:ring-primary-200 focus:outline-none"
+          href="mailto:info@ahaagile.com"
+        >
+          Have Questions? Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute top-0 right-0 w-64 h-64 bg-accent-400 opacity-10 rounded-full blur-3xl transform translate-x-32 -translate-y-32"
+  />
+  <div
+    class="absolute bottom-0 left-0 w-48 h-48 bg-accent-400 opacity-10 rounded-full blur-3xl transform -translate-x-24 translate-y-24"
+  />
+</section>
+`;

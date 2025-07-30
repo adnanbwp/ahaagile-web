@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react'
 
 interface CalendlyWidgetProps {
   className?: string
+  id?: string
 }
 
 export default function CalendlyWidget({ 
-  className = '' 
+  className = '',
+  id
 }: CalendlyWidgetProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
@@ -62,32 +64,37 @@ export default function CalendlyWidget({
   }
 
   return (
-    <div className={`bg-white rounded-lg shadow-lg overflow-hidden ${className}`}>
-      <div className="p-6 bg-primary-50 border-b">
-        <h2 className="text-2xl font-bold text-primary-900 mb-2">
-          Schedule Your Consultation
-        </h2>
-        <p className="text-primary-700">
-          Choose a time that works best for you. Our consultation calls typically last 30-45 minutes.
-        </p>
-      </div>
+    <div className={`relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-brand overflow-hidden border border-white/20 ${className}`} id={id}>
+      {/* Gradient background overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-50/50 via-white/30 to-accent-50/30 pointer-events-none" />
       
-      {isLoading && (
-        <div className="p-8 text-center">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-          <p className="mt-4 text-secondary-600">Loading calendar...</p>
+      <div className="relative">
+        <div className="p-6 bg-gradient-to-r from-primary-50 to-primary-100/80 border-b border-primary-200/50">
+          <h2 className="text-2xl font-bold text-primary-900 mb-2 font-inter">
+            Schedule Your Consultation
+          </h2>
+          <p className="text-primary-700 font-source-serif-4">
+            Choose a time that works best for you. Our consultation calls typically last 30-45 minutes.
+          </p>
         </div>
-      )}
-      
-      <div 
-        className="calendly-inline-widget" 
-        data-url="https://calendly.com/aha-agile/adnan-s-meeting-link?hide_event_type_details=1&hide_gdpr_banner=1"
-        style={{ 
-          minWidth: '320px', 
-          height: '700px',
-          display: isLoading ? 'none' : 'block'
-        }}
-      />
+        
+        {isLoading && (
+          <div className="p-8 text-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+            <p className="mt-4 text-secondary-600 font-source-serif-4">Loading calendar...</p>
+          </div>
+        )}
+        
+        <div 
+          className="calendly-inline-widget" 
+          data-url="https://calendly.com/aha-agile/adnan-s-meeting-link?hide_event_type_details=1&hide_gdpr_banner=1"
+          style={{ 
+            minWidth: '320px', 
+            height: '700px',
+            display: isLoading ? 'none' : 'block'
+          }}
+        />
+      </div>
     </div>
   )
 }

@@ -1,5 +1,8 @@
 import CalendlyWidget from '@/components/ui/CalendlyWidget'
 import BookConsultationHeroSection from '@/components/sections/BookConsultationHeroSection'
+import WhatToExpectSection from '@/components/sections/WhatToExpectSection'
+import BenefitsSidebar from '@/components/sections/BenefitsSidebar'
+import CTASection from '@/components/sections/CTASection'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -13,46 +16,49 @@ export default function BookConsultationPage() {
       {/* Enhanced Hero Section */}
       <BookConsultationHeroSection />
       
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
-
-        {/* Benefits Section */}
-        <div className="bg-primary-50 border border-primary-200 rounded-lg p-6 mb-12">
-          <h2 className="text-xl font-semibold text-primary-800 mb-4">
-            What to Expect in Your Consultation
-          </h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="text-primary-700">
-              <strong>• Assessment:</strong> We&apos;ll review your current workflows and identify automation opportunities
+      {/* What to Expect Section */}
+      <WhatToExpectSection />
+      
+      {/* Enhanced Calendly Integration with Benefits Sidebar */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-7xl mx-auto">
+          {/* Two-column layout: Calendly (left) + Benefits (right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* Calendly Widget Column - Takes 2/3 width on desktop */}
+            <div className="lg:col-span-2">
+              <CalendlyWidget className="h-fit" id="calendly-widget" />
             </div>
-            <div className="text-primary-700">
-              <strong>• Strategy:</strong> Get a custom roadmap for your agile transformation journey
-            </div>
-            <div className="text-primary-700">
-              <strong>• Next Steps:</strong> Clear recommendations and implementation timeline
+            
+            {/* Benefits Sidebar Column - Takes 1/3 width on desktop */}
+            <div className="lg:col-span-1">
+              <BenefitsSidebar />
             </div>
           </div>
-        </div>
-
-        {/* Calendly Widget */}
-        <div className="max-w-4xl mx-auto">
-          <CalendlyWidget className="h-fit" />
-        </div>
-
-        {/* Additional Information */}
-        <div className="mt-12 text-center">
-          <div className="bg-secondary-50 border border-secondary-200 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-secondary-800 mb-2">
-              Ready to Get Started?
-            </h3>
-            <p className="text-secondary-600">
-              Use the calendar above to book your free consultation. We&apos;re here to help you understand 
-              how intelligent workflow automation can transform your organization.
-            </p>
-          </div>
-        </div>
         </div>
       </div>
+
+      {/* Additional Information */}
+      <div className="container mx-auto px-4 pb-16">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-brand p-8 border border-white/20">
+            {/* Gradient background overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-50/50 via-white/30 to-accent-50/30 rounded-2xl pointer-events-none" />
+            
+            <div className="relative">
+              <h3 className="text-2xl font-bold text-primary-900 mb-4 font-inter">
+                Ready to Get Started?
+              </h3>
+              <p className="text-primary-700 font-source-serif-4 leading-relaxed">
+                Use the calendar above to book your free consultation. We&apos;re here to help you understand 
+                how intelligent workflow automation can transform your organization.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Professional CTA Section - Final call-to-action */}
+      <CTASection />
     </div>
   )
 }
