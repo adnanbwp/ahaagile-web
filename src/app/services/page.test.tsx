@@ -216,7 +216,7 @@ Some service description.
     
     // Check that prose classes are applied to article
     const article = container.querySelector('article')
-    expect(article).toHaveClass('prose', 'prose-lg', 'prose-gray', 'max-w-none')
+    expect(article).toHaveClass('prose', 'prose-lg', 'max-w-none')
   })
 
   it('handles strong and emphasis text with enhanced styling', async () => {

@@ -93,9 +93,9 @@ export default async function Home(): Promise<JSX.Element> {
       <SolutionSection />
       
       {/* Original Markdown Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-lg">
         <div className="max-w-4xl mx-auto">
-          <article className="prose prose-lg prose-gray max-w-none">
+          <article className="prose prose-lg max-w-none">
             <ReactMarkdown components={components}>
               {transformedContent}
             </ReactMarkdown>

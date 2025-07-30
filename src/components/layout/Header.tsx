@@ -108,7 +108,7 @@ export default function Header() {
           <div className="md:hidden">
             <button 
               type="button" 
-              className="relative p-2 text-secondary-600 hover:text-brand-navy hover:bg-secondary-50 rounded-lg transition-colors duration-200 focus-brand"
+              className="relative p-3 text-secondary-600 hover:text-brand-navy hover:bg-secondary-50 rounded-lg transition-colors duration-200 focus-brand min-h-[44px] min-w-[44px] flex items-center justify-center"
               onClick={toggleMobileMenu}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"

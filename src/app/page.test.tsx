@@ -169,7 +169,7 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     
     // Check that the markdown content container still exists with proper classes
     const markdownContainer = main?.lastChild
-    expect(markdownContainer).toHaveClass('container', 'mx-auto', 'px-4', 'py-8')
+    expect(markdownContainer).toHaveClass('container', 'mx-auto', 'px-4', 'py-lg')
   })
 
   it('handles strong and emphasis text correctly', async () => {

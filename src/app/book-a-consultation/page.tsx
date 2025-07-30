@@ -20,10 +20,10 @@ export default function BookConsultationPage() {
       <WhatToExpectSection />
       
       {/* Enhanced Calendly Integration with Benefits Sidebar */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-xl">
         <div className="max-w-7xl mx-auto">
           {/* Two-column layout: Calendly (left) + Benefits (right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg lg:gap-xl">
             {/* Calendly Widget Column - Takes 2/3 width on desktop */}
             <div className="lg:col-span-2">
               <CalendlyWidget className="h-fit" id="calendly-widget" />
@@ -38,17 +38,17 @@ export default function BookConsultationPage() {
       </div>
 
       {/* Additional Information */}
-      <div className="container mx-auto px-4 pb-16">
+      <div className="container mx-auto px-4 pb-xl">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-brand p-8 border border-white/20">
+          <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-brand p-lg border border-white/20">
             {/* Gradient background overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary-50/50 via-white/30 to-accent-50/30 rounded-2xl pointer-events-none" />
             
             <div className="relative">
-              <h3 className="text-2xl font-bold text-primary-900 mb-4 font-inter">
+              <h3 className="text-2xl font-bold text-brand-navy mb-4 font-heading">
                 Ready to Get Started?
               </h3>
-              <p className="text-primary-700 font-source-serif-4 leading-relaxed">
+              <p className="text-secondary-700 font-serif leading-relaxed">
                 Use the calendar above to book your free consultation. We&apos;re here to help you understand 
                 how intelligent workflow automation can transform your organization.
               </p>

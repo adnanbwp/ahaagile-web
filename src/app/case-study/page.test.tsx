@@ -17,23 +17,23 @@ jest.mock('react-markdown', () => {
     if (content.includes('# How We Saved Henderson & Associates')) {
       return (
         <div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">How We Saved Henderson & Associates 320 Hours Annually</h1>
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">$184,000 in Recovered Capacity | 68% Reduction in Email Processing Time | 4-Month ROI Payback</p>
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">When Henderson & Associates had built a strong reputation but was losing capacity to email chaos, we transformed their workflows.</p>
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-6 mt-12 leading-tight">The Challenge: Email Workflows Consuming Billable Hours</h2>
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">Henderson & Associates had built a strong reputation serving mid-market manufacturing clients over 15 years.</p>
-          <h3 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4 mt-8">The Daily Reality:</h3>
+          <h1 className="text-4xl md:text-5xl font-bold font-heading text-brand-navy mb-8 leading-tight">How We Saved Henderson & Associates 320 Hours Annually</h1>
+          <p className="text-lg text-secondary-700 mb-6 leading-relaxed font-serif">$184,000 in Recovered Capacity | 68% Reduction in Email Processing Time | 4-Month ROI Payback</p>
+          <p className="text-lg text-secondary-700 mb-6 leading-relaxed font-serif">When Henderson & Associates had built a strong reputation but was losing capacity to email chaos, we transformed their workflows.</p>
+          <h2 className="text-3xl md:text-4xl font-semibold font-heading text-brand-navy mb-6 mt-12 leading-tight">The Challenge: Email Workflows Consuming Billable Hours</h2>
+          <p className="text-lg text-secondary-700 mb-6 leading-relaxed font-serif">Henderson & Associates had built a strong reputation serving mid-market manufacturing clients over 15 years.</p>
+          <h3 className="text-2xl md:text-3xl font-semibold font-heading text-brand-navy mb-4 mt-8">The Daily Reality:</h3>
           <ul className="list-disc list-inside mb-6 space-y-3 ml-4">
-            <li className="text-lg text-gray-700 leading-relaxed">Partners spending 3.5 hours daily on email triage</li>
-            <li className="text-lg text-gray-700 leading-relaxed">47 hours weekly lost across the team</li>
+            <li className="text-lg text-secondary-700 leading-relaxed font-serif">Partners spending 3.5 hours daily on email triage</li>
+            <li className="text-lg text-secondary-700 leading-relaxed font-serif">47 hours weekly lost across the team</li>
           </ul>
-          <a href="/book-a-consultation" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 no-underline shadow-md hover:shadow-lg mx-1 my-2">
+          <a href="/book-a-consultation" className="inline-block bg-accent-500 hover:bg-accent-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 no-underline shadow-brand hover:shadow-accent mx-1 my-2">
             Book Your Free 15-Minute Process Audit
           </a>
-          <strong className="font-bold text-gray-900">$184,000 in Recovered Capacity</strong>
-          <hr className="border-gray-300 my-12" />
-          <blockquote className="border-l-4 border-blue-500 pl-6 py-2 italic text-gray-700 my-8 bg-blue-50 rounded-r-lg">
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">We were drowning in our own success</p>
+          <strong className="font-bold text-brand-navy">$184,000 in Recovered Capacity</strong>
+          <hr className="border-secondary-300 my-12" />
+          <blockquote className="border-l-4 border-accent-500 pl-6 py-2 italic text-secondary-700 my-8 bg-accent-50 rounded-r-lg font-serif">
+            <p className="text-lg text-secondary-700 mb-6 leading-relaxed font-serif">We were drowning in our own success</p>
           </blockquote>
         </div>
       )
@@ -127,18 +127,18 @@ Henderson & Associates had built a strong reputation serving mid-market manufact
     const CaseStudyPageComponent = await CaseStudyPage()
     render(CaseStudyPageComponent)
     
-    // Check headings with responsive classes
+    // Check headings with responsive classes and design system typography
     const h1 = screen.getByRole('heading', { level: 1 })
     expect(h1).toHaveTextContent('How We Saved Henderson & Associates 320 Hours Annually')
-    expect(h1).toHaveClass('text-4xl', 'md:text-5xl', 'font-bold', 'text-gray-900', 'mb-8', 'leading-tight')
+    expect(h1).toHaveClass('text-4xl', 'md:text-5xl', 'font-bold', 'font-heading', 'text-brand-navy', 'mb-8', 'leading-tight')
     
     const h2 = screen.getByRole('heading', { level: 2 })
     expect(h2).toHaveTextContent('The Challenge: Email Workflows Consuming Billable Hours')
-    expect(h2).toHaveClass('text-3xl', 'md:text-4xl', 'font-semibold', 'text-gray-800', 'mb-6', 'mt-12', 'leading-tight')
+    expect(h2).toHaveClass('text-3xl', 'md:text-4xl', 'font-semibold', 'font-heading', 'text-brand-navy', 'mb-6', 'mt-12', 'leading-tight')
     
     const h3 = screen.getByRole('heading', { level: 3 })
     expect(h3).toHaveTextContent('The Daily Reality:')
-    expect(h3).toHaveClass('text-2xl', 'md:text-3xl', 'font-semibold', 'text-gray-800', 'mb-4', 'mt-8')
+    expect(h3).toHaveClass('text-2xl', 'md:text-3xl', 'font-semibold', 'font-heading', 'text-brand-navy', 'mb-4', 'mt-8')
     
     // Check paragraph content with proper spacing
     expect(screen.getByText(/When Henderson & Associates had built a strong reputation/)).toBeInTheDocument()
@@ -157,13 +157,15 @@ Henderson & Associates had built a strong reputation serving mid-market manufact
     expect(ctaLink).toHaveAttribute('href', '/book-a-consultation')
     expect(ctaLink).toHaveClass(
       'inline-block',
-      'bg-blue-600',
-      'hover:bg-blue-700',
+      'bg-accent-500',
+      'hover:bg-accent-600',
       'text-white',
       'font-semibold',
       'py-3',
       'px-6',
       'rounded-lg',
+      'shadow-brand',
+      'hover:shadow-accent',
       'mx-1',
       'my-2'
     )
@@ -174,13 +176,13 @@ Henderson & Associates had built a strong reputation serving mid-market manufact
     const { container } = render(CaseStudyPageComponent)
     
     const mainContainer = container.firstChild
-    expect(mainContainer).toHaveClass('container', 'mx-auto', 'px-4', 'py-8')
+    expect(mainContainer).toHaveClass('container', 'mx-auto', 'px-4', 'py-lg')
     
     const content = mainContainer?.firstChild
     expect(content).toHaveClass('max-w-4xl', 'mx-auto')
     
     const article = content?.firstChild
-    expect(article).toHaveClass('prose', 'prose-lg', 'prose-gray', 'max-w-none')
+    expect(article).toHaveClass('prose', 'prose-lg', 'max-w-none')
   })
 
   it('handles strong text and emphasis correctly for metrics', async () => {
@@ -188,7 +190,7 @@ Henderson & Associates had built a strong reputation serving mid-market manufact
     render(CaseStudyPageComponent)
     
     const strongText = screen.getByText('$184,000 in Recovered Capacity')
-    expect(strongText).toHaveClass('font-bold', 'text-gray-900')
+    expect(strongText).toHaveClass('font-bold', 'text-brand-navy')
   })
 
   it('renders blockquotes with proper styling for testimonials', async () => {
@@ -199,14 +201,15 @@ Henderson & Associates had built a strong reputation serving mid-market manufact
     const blockquote = quote.closest('blockquote')
     expect(blockquote).toHaveClass(
       'border-l-4',
-      'border-blue-500',
+      'border-accent-500',
       'pl-6',
       'py-2',
       'italic',
-      'text-gray-700',
+      'text-secondary-700',
       'my-8',
-      'bg-blue-50',
-      'rounded-r-lg'
+      'bg-accent-50',
+      'rounded-r-lg',
+      'font-serif'
     )
   })
 
@@ -215,7 +218,7 @@ Henderson & Associates had built a strong reputation serving mid-market manufact
     render(CaseStudyPageComponent)
     
     const hr = document.querySelector('hr')
-    expect(hr).toHaveClass('border-gray-300', 'my-12')
+    expect(hr).toHaveClass('border-secondary-300', 'my-12')
   })
 
   it('maintains accessibility with proper semantic structure', async () => {
