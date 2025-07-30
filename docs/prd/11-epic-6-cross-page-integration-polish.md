@@ -1,6 +1,6 @@
-# 10. Epic 5: Cross-Page Integration & Polish
+# 11. Epic 6: Cross-Page Integration & Polish
 
-### Story 5.1: Update Remaining Pages with New Design System
+### Story 6.1: Update Remaining Pages with New Design System
 **As a** Visitor, **I want** all website pages to have consistent design system implementation, **so that** I experience a cohesive, professional brand presentation throughout my entire journey on the site.
 **Acceptance Criteria**:
 1. Case study page is updated to use the new design system components and styling.
@@ -10,8 +10,9 @@
 5. All existing functionality (Calendly integration, contact forms, navigation) continues to work correctly.
 6. Pages maintain their content while gaining professional visual presentation.
 7. Cross-page navigation and user flow work seamlessly with consistent visual language.
+8. Pages display correctly in light, dark and auto mode.
 
-### Story 5.2: Final Polish & Performance Optimization
+### Story 6.2: Final Polish & Performance Optimization
 **As a** User, **I want** the website to load quickly, work smoothly across all devices, and provide an excellent user experience, **so that** I can easily access information and take action without technical barriers.
 **Acceptance Criteria**:
 1. All pages are fully responsive and provide optimal experience across desktop, tablet, and mobile devices.

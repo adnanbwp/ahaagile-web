@@ -1,4 +1,5 @@
 import CalendlyWidget from '@/components/ui/CalendlyWidget'
+import BookConsultationHeroSection from '@/components/sections/BookConsultationHeroSection'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,18 +9,12 @@ export const metadata: Metadata = {
 
 export default function BookConsultationPage() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-secondary-900 mb-6">
-            Book Your Consultation
-          </h1>
-          <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
-            Ready to transform your workflows with intelligent automation? 
-            Schedule a free consultation with our experts to discuss your specific needs and goals.
-          </p>
-        </div>
+    <div>
+      {/* Enhanced Hero Section */}
+      <BookConsultationHeroSection />
+      
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto">
 
         {/* Benefits Section */}
         <div className="bg-primary-50 border border-primary-200 rounded-lg p-6 mb-12">
@@ -55,6 +50,7 @@ export default function BookConsultationPage() {
               how intelligent workflow automation can transform your organization.
             </p>
           </div>
+        </div>
         </div>
       </div>
     </div>

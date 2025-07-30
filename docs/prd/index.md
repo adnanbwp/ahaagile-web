@@ -12,4 +12,6 @@
   - [7. Epic 2: Design System Foundation](#7-epic-2-design-system-foundation)
   - [8. Epic 3: Homepage Visual Transformation](#8-epic-3-homepage-visual-transformation)
   - [9. Epic 4: Services Page Enhancement](#9-epic-4-services-page-enhancement)
-  - [10. Epic 5: Cross-Page Integration & Polish](#10-epic-5-cross-page-integration-polish)
+  - [10. Epic 5: Book Consultation Page Redesign](#10-epic-5-book-consultation-page-redesign.md)
+  - [11. Epic 6: Cross-Page Integration & Polish](#11-epic-6-cross-page-integration-polish) 
+
