@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { applyThemeWithTransition, initializeThemeLoader } from './theme-loader';
 
 // Theme types
 export type ThemeId = 'ocean' | 'sunset' | 'forest';
@@ -84,19 +85,9 @@ const loadFromStorage = (): { theme: ThemeId; mode: Mode } => {
   return { theme: DEFAULT_THEME, mode: DEFAULT_MODE };
 };
 
-// CSS class management
+// CSS class management with smooth transitions
 const applyThemeClasses = (theme: ThemeId, mode: Mode): void => {
-  const root = document.documentElement;
-  
-  // Remove existing theme classes
-  root.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest');
-  
-  // Remove existing mode classes
-  root.classList.remove('light', 'dark');
-  
-  // Apply new theme and mode classes
-  root.classList.add(`theme-${theme}`);
-  root.classList.add(mode);
+  applyThemeWithTransition(theme, mode);
 };
 
 interface ThemeProviderProps {
@@ -108,8 +99,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [currentMode, setCurrentMode] = useState<Mode>(DEFAULT_MODE);
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Hydrate from localStorage on mount
+  // Initialize theme loader and hydrate from localStorage on mount
   useEffect(() => {
+    // Initialize the theme loading system
+    initializeThemeLoader();
+    
     const { theme, mode } = loadFromStorage();
     setCurrentTheme(theme);
     setCurrentMode(mode);

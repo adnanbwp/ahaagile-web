@@ -3,6 +3,7 @@ import { Inter, Source_Serif_4 } from 'next/font/google'
 import '@/styles/globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { ThemeProvider } from '@/lib/theme-context'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -36,29 +37,31 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
       </head>
       <body className={`${inter.variable} ${sourceSerif4.variable} font-sans`}>
-        {/* Skip Links for Accessibility */}
-        <a 
-          href="#main-content" 
-          className="skip-link focus-visible-only"
-          tabIndex={1}
-        >
-          Skip to main content
-        </a>
-        <a 
-          href="#main-navigation" 
-          className="skip-link focus-visible-only"
-          tabIndex={2}
-        >
-          Skip to navigation
-        </a>
-        
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main id="main-content" className="flex-grow" tabIndex={-1}>
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <ThemeProvider>
+          {/* Skip Links for Accessibility */}
+          <a 
+            href="#main-content" 
+            className="skip-link focus-visible-only"
+            tabIndex={1}
+          >
+            Skip to main content
+          </a>
+          <a 
+            href="#main-navigation" 
+            className="skip-link focus-visible-only"
+            tabIndex={2}
+          >
+            Skip to navigation
+          </a>
+          
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main id="main-content" className="flex-grow" tabIndex={-1}>
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )

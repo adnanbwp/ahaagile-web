@@ -1,0 +1,45 @@
+/* Theme Transition Styles for Smooth Theme Switching */
+
+/* Apply transition class during theme changes */
+.theme-transitioning {
+  --transition-duration: 150ms;
+  --transition-easing: ease-in-out;
+}
+
+/* Smooth transitions for all color properties */
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition: 
+    background-color var(--transition-duration) var(--transition-easing),
+    border-color var(--transition-duration) var(--transition-easing),
+    color var(--transition-duration) var(--transition-easing),
+    fill var(--transition-duration) var(--transition-easing),
+    stroke var(--transition-duration) var(--transition-easing),
+    box-shadow var(--transition-duration) var(--transition-easing),
+    outline-color var(--transition-duration) var(--transition-easing);
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .theme-transitioning *,
+  .theme-transitioning *::before,
+  .theme-transitioning *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Ensure smooth gradient transitions */
+.theme-transitioning [class*="gradient"],
+.theme-transitioning [style*="gradient"] {
+  transition: 
+    background var(--transition-duration) var(--transition-easing),
+    background-image var(--transition-duration) var(--transition-easing);
+}
+
+/* GPU acceleration for better performance */
+.theme-transitioning {
+  transform: translateZ(0);
+  will-change: auto;
+}

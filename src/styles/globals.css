@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import theme transition styles */
+@import './theme-transitions.css';
+
 :root {
   /* Background and Foreground */
   --background: #ffffff;
