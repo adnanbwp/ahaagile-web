@@ -17,5 +17,8 @@
 
 *   **Epic 6: Cross-Page Integration & Polish**
     *   **Goal**: To ensure consistent design system implementation across all remaining pages, optimize performance and responsiveness, and deliver a cohesive, professional website experience that maintains the quality established by the Loveable design specifications.
+
+*   **Epic 7: Theme Preview System Implementation**
+    *   **Goal**: To create a development-only theme comparison system that allows real-time switching between Ocean, Sunset, and Forest themes on localhost to facilitate theme selection and finalization, providing an interactive way to test and compare all theme options with existing content.
 ---
 

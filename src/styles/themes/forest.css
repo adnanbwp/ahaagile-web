@@ -1,0 +1,101 @@
+/* Forest Green Theme - Complete Light & Dark Mode */
+
+:root {
+  --background: 120 20% 98%;
+  --foreground: 140 30% 15%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 140 30% 15%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 140 30% 15%;
+
+  --primary: 150 80% 25%;
+  --primary-foreground: 120 40% 98%;
+
+  --secondary: 145 25% 40%;
+  --secondary-foreground: 120 40% 98%;
+
+  --muted: 120 15% 92%;
+  --muted-foreground: 145 25% 40%;
+
+  --accent: 65 85% 45%;
+  --accent-foreground: 140 30% 15%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 120 40% 98%;
+
+  --border: 120 15% 88%;
+  --input: 120 15% 88%;
+  --ring: 150 80% 25%;
+
+  /* Custom brand tokens */
+  --brand-primary: 150 80% 25%;
+  --brand-secondary: 145 25% 40%;
+  --brand-accent: 65 85% 45%;
+  --brand-dark: 140 40% 8%;
+  --brand-light: 120 20% 98%;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(150 80% 25%), hsl(155 80% 30%));
+  --gradient-accent: linear-gradient(135deg, hsl(65 85% 45%), hsl(70 85% 50%));
+
+  --sidebar-background: 120 20% 98%;
+  --sidebar-foreground: 140 30% 15%;
+  --sidebar-primary: 150 80% 25%;
+  --sidebar-primary-foreground: 120 40% 98%;
+  --sidebar-accent: 120 15% 92%;
+  --sidebar-accent-foreground: 140 30% 15%;
+  --sidebar-border: 120 15% 88%;
+  --sidebar-ring: 150 80% 25%;
+}
+
+.dark {
+  --background: 140 40% 8%;
+  --foreground: 120 20% 95%;
+
+  --card: 145 35% 10%;
+  --card-foreground: 120 20% 95%;
+
+  --popover: 145 35% 10%;
+  --popover-foreground: 120 20% 95%;
+
+  --primary: 150 80% 65%;
+  --primary-foreground: 140 40% 8%;
+
+  --secondary: 145 25% 25%;
+  --secondary-foreground: 120 20% 95%;
+
+  --muted: 140 20% 18%;
+  --muted-foreground: 145 20% 65%;
+
+  --accent: 65 85% 55%;
+  --accent-foreground: 140 40% 8%;
+
+  --destructive: 0 75% 55%;
+  --destructive-foreground: 120 20% 95%;
+
+  --border: 140 20% 18%;
+  --input: 140 20% 18%;
+  --ring: 150 80% 65%;
+
+  /* Custom brand tokens */
+  --brand-primary: 150 80% 65%;
+  --brand-secondary: 145 25% 25%;
+  --brand-accent: 65 85% 55%;
+  --brand-dark: 140 40% 8%;
+  --brand-light: 120 20% 95%;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(150 80% 65%), hsl(155 80% 70%));
+  --gradient-accent: linear-gradient(135deg, hsl(65 85% 55%), hsl(70 85% 60%));
+
+  --sidebar-background: 145 35% 10%;
+  --sidebar-foreground: 120 20% 95%;
+  --sidebar-primary: 150 80% 65%;
+  --sidebar-primary-foreground: 140 40% 8%;
+  --sidebar-accent: 140 20% 18%;
+  --sidebar-accent-foreground: 120 20% 95%;
+  --sidebar-border: 140 20% 18%;
+  --sidebar-ring: 150 80% 65%;
+}
