@@ -85,9 +85,9 @@ export const validateColorContrast = (foreground: string, background: string): b
   const getLuminance = (color: string): number => {
     // Convert hex to RGB and calculate relative luminance
     const hex = color.replace('#', '')
-    const r = parseInt(hex.substr(0, 2), 16) / 255
-    const g = parseInt(hex.substr(2, 2), 16) / 255
-    const b = parseInt(hex.substr(4, 2), 16) / 255
+    const r = parseInt(hex.substring(0, 2), 16) / 255
+    const g = parseInt(hex.substring(2, 4), 16) / 255
+    const b = parseInt(hex.substring(4, 6), 16) / 255
     
     const sRGB = [r, g, b].map(c => {
       return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)

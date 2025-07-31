@@ -54,14 +54,19 @@ export const respectsReducedMotion = () => {
 }
 
 // Performance monitoring utilities
-export const measureWebVitals = () => {
+export const measureWebVitals = (callback?: (name: string, value: number) => void) => {
   if (typeof window === 'undefined') return
 
   // Measure Largest Contentful Paint (LCP)
   const observer = new PerformanceObserver((list) => {
     for (const entry of list.getEntries()) {
       if (entry.entryType === 'largest-contentful-paint') {
-        console.log('LCP:', entry.startTime)
+        const value = entry.startTime
+        if (callback) {
+          callback('LCP', value)
+        } else {
+          console.log('LCP:', value)
+        }
       }
     }
   })
