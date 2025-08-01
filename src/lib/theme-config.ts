@@ -206,10 +206,11 @@ export const THEME_PRESETS = {
  */
 export function getEnvironmentPreset() {
   const env = process.env.NODE_ENV || 'development';
+  const vercelEnv = process.env.NEXT_PUBLIC_VERCEL_ENV;
   
   if (env === 'production') {
     return THEME_PRESETS.production;
-  } else if (env === 'staging' || process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
+  } else if (vercelEnv === 'preview') {
     return THEME_PRESETS.staging;
   } else {
     return THEME_PRESETS.development;
