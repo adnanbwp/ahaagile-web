@@ -4,6 +4,8 @@ import '@/styles/globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { ThemeProvider } from '@/lib/theme-context'
+import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher'
+import { shouldRenderThemeSwitcher } from '@/lib/theme-config'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -60,6 +62,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            {shouldRenderThemeSwitcher() && <ThemeSwitcher />}
           </div>
         </ThemeProvider>
       </body>

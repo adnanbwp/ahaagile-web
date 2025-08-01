@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { applyThemeWithTransition, initializeThemeLoader } from './theme-loader';
+import { saveThemePreferences, initializeThemePreferences } from './theme-utils';
 
 // Theme types
 export type ThemeId = 'ocean' | 'sunset' | 'forest';
@@ -43,47 +44,10 @@ export const AVAILABLE_THEMES: ThemeConfig[] = [
 // Default values
 const DEFAULT_THEME: ThemeId = 'ocean';
 const DEFAULT_MODE: Mode = 'light';
-const STORAGE_KEY = 'aha-agile-theme-preferences';
 
 // Create context
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-// Utility functions for localStorage
-const saveToStorage = (theme: ThemeId, mode: Mode): void => {
-  try {
-    const preferences = { theme, mode };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
-  } catch (error) {
-    console.warn('Failed to save theme preferences to localStorage:', error);
-  }
-};
-
-const loadFromStorage = (): { theme: ThemeId; mode: Mode } => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const preferences = JSON.parse(stored);
-      // Validate the stored values
-      if (
-        preferences &&
-        typeof preferences.theme === 'string' &&
-        ['ocean', 'sunset', 'forest'].includes(preferences.theme) &&
-        typeof preferences.mode === 'string' &&
-        ['light', 'dark'].includes(preferences.mode)
-      ) {
-        return {
-          theme: preferences.theme as ThemeId,
-          mode: preferences.mode as Mode
-        };
-      }
-    }
-  } catch (error) {
-    console.warn('Failed to load theme preferences from localStorage:', error);
-  }
-  
-  // Return defaults if storage fails or invalid data
-  return { theme: DEFAULT_THEME, mode: DEFAULT_MODE };
-};
 
 // CSS class management with smooth transitions
 const applyThemeClasses = (theme: ThemeId, mode: Mode): void => {
@@ -104,7 +68,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Initialize the theme loading system
     initializeThemeLoader();
     
-    const { theme, mode } = loadFromStorage();
+    const { theme, mode } = initializeThemePreferences();
     setCurrentTheme(theme);
     setCurrentMode(mode);
     setIsHydrated(true);
@@ -117,7 +81,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     if (isHydrated) {
       applyThemeClasses(currentTheme, currentMode);
-      saveToStorage(currentTheme, currentMode);
+      saveThemePreferences(currentTheme, currentMode);
     }
   }, [currentTheme, currentMode, isHydrated]);
 
