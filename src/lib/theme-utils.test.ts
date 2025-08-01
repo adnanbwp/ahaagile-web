@@ -259,10 +259,10 @@ describe('Theme Utilities', () => {
     it('returns true when localStorage is available', () => {
       // Reset mocks to allow successful storage operations
       (localStorageMock.setItem as jest.Mock).mockImplementation((key: string, value: string) => {
-        localStorageMock[key] = value;
+        (localStorageMock as any)[key] = value;
       });
       (localStorageMock.removeItem as jest.Mock).mockImplementation((key: string) => {
-        delete localStorageMock[key];
+        delete (localStorageMock as any)[key];
       });
       
       expect(isStorageAvailable()).toBe(true);
@@ -341,7 +341,7 @@ describe('Theme Utilities', () => {
       
       // Reset mocks to allow successful storage operations
       (localStorageMock.setItem as jest.Mock).mockImplementation((key: string, value: string) => {
-        localStorageMock[key] = value;
+        (localStorageMock as any)[key] = value;
       });
 
       const result = initializeThemePreferences();
@@ -356,7 +356,7 @@ describe('Theme Utilities', () => {
       // Reset mocks to allow successful storage operations and clear previous calls
       (localStorageMock.setItem as jest.Mock).mockClear();
       (localStorageMock.setItem as jest.Mock).mockImplementation((key: string, value: string) => {
-        localStorageMock[key] = value;
+        (localStorageMock as any)[key] = value;
       });
 
       const result = initializeThemePreferences();
