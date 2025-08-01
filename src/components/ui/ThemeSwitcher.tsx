@@ -1,62 +1,108 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
-import { useTheme } from '@/lib/theme-context';
-import { AVAILABLE_THEMES } from '@/styles/themes/index';
-import { ThemePreview } from './ThemePreview';
-import { ModeToggle } from './ModeToggle';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useTheme, AVAILABLE_THEMES, type ThemeId } from '@/lib/theme-context';
+import { AVAILABLE_THEMES as THEME_CONFIG } from '@/styles/themes/index';
+import { shouldShowThemeSwitcher } from '@/lib/theme-config';
 
-interface ThemeSwitcherProps {
-  className?: string;
+interface ThemePreviewProps {
+  theme: typeof AVAILABLE_THEMES[number];
+  isActive: boolean;
+  onClick: () => void;
 }
 
-export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className = '' }) => {
-  const { currentTheme, currentMode } = useTheme();
+const ThemePreview: React.FC<ThemePreviewProps> = React.memo(({ theme, isActive, onClick }) => {
+  const themeConfig = THEME_CONFIG.find(config => config.id === theme.id);
+  
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        relative flex flex-col items-center p-3 rounded-lg border-2 transition-all duration-200
+        hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+        ${isActive 
+          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' 
+          : 'border-gray-200 hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600'
+        }
+      `}
+      aria-pressed={isActive}
+      aria-label={`Select ${theme.name} theme: ${theme.description}`}
+    >
+      {/* Color Preview Swatches */}
+      <div className="flex space-x-1 mb-2">
+        <div 
+          className="w-4 h-4 rounded-full border border-gray-300"
+          style={{ backgroundColor: themeConfig?.colors.primary }}
+          aria-hidden="true"
+        />
+        <div 
+          className="w-4 h-4 rounded-full border border-gray-300"
+          style={{ backgroundColor: themeConfig?.colors.accent }}
+          aria-hidden="true"
+        />
+        <div 
+          className="w-4 h-4 rounded-full border border-gray-300"
+          style={{ backgroundColor: themeConfig?.colors.background }}
+          aria-hidden="true"
+        />
+      </div>
+      
+      {/* Theme Name */}
+      <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+        {theme.name}
+      </span>
+      
+      {/* Active Indicator */}
+      {isActive && (
+        <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full border-2 border-white" />
+      )}
+    </button>
+  );
+});
+
+ThemePreview.displayName = 'ThemePreview';
+
+interface ModeToggleProps {
+  currentMode: 'light' | 'dark';
+  onToggle: () => void;
+}
+
+const ModeToggle: React.FC<ModeToggleProps> = React.memo(({ currentMode, onToggle }) => {
+  return (
+    <button
+      onClick={onToggle}
+      className="
+        flex items-center justify-center p-2 rounded-lg border-2 border-gray-200 
+        hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600
+        transition-all duration-200 hover:scale-105 focus:outline-none 
+        focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+      "
+      aria-label={`Switch to ${currentMode === 'light' ? 'dark' : 'light'} mode`}
+    >
+      {currentMode === 'light' ? (
+        <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+        </svg>
+      ) : (
+        <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+      )}
+    </button>
+  );
+});
+
+ModeToggle.displayName = 'ModeToggle';
+
+export const ThemeSwitcher: React.FC = () => {
+  const { currentTheme, currentMode, setTheme, toggleMode } = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const toggleButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Handle keyboard navigation and escape key
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!isExpanded) return;
+  // Check visibility based on current environment and configuration
+  const isVisible = shouldShowThemeSwitcher();
 
-      switch (event.key) {
-        case 'Escape':
-          setIsExpanded(false);
-          toggleButtonRef.current?.focus();
-          break;
-        case 'Tab':
-          // Let browser handle tab navigation naturally within the panel
-          break;
-        case 'ArrowDown':
-        case 'ArrowUp':
-          // Navigate between theme options
-          event.preventDefault();
-          const radioElements = containerRef.current?.querySelectorAll('[role="radio"]') as NodeListOf<HTMLElement>;
-          if (radioElements && radioElements.length > 0) {
-            const currentIndex = Array.from(radioElements).findIndex(el => el === document.activeElement);
-            let nextIndex;
-            
-            if (event.key === 'ArrowDown') {
-              nextIndex = currentIndex < radioElements.length - 1 ? currentIndex + 1 : 0;
-            } else {
-              nextIndex = currentIndex > 0 ? currentIndex - 1 : radioElements.length - 1;
-            }
-            
-            radioElements[nextIndex]?.focus();
-          }
-          break;
-      }
-    };
-
-    if (isExpanded) {
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [isExpanded]);
-
-  // Handle click outside to close
+  // Handle click outside to close expanded view
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -64,137 +110,135 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className = '' }) 
       }
     };
 
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsExpanded(false);
+      }
+    };
+
     if (isExpanded) {
       document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
     }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
   }, [isExpanded]);
 
-  const handleToggleExpanded = () => {
-    const newExpanded = !isExpanded;
-    setIsExpanded(newExpanded);
-    
-    // Focus management - move focus to first theme option when opening
-    if (newExpanded) {
-      setTimeout(() => {
-        const firstRadio = containerRef.current?.querySelector('[role="radio"]') as HTMLElement;
-        firstRadio?.focus();
-      }, 100); // Small delay to ensure DOM is updated
+  const handleThemeSelect = useCallback((themeId: ThemeId) => {
+    setTheme(themeId);
+    // Keep expanded on desktop, collapse on mobile for better UX
+    if (window.innerWidth < 768) {
+      setIsExpanded(false);
     }
-  };
+  }, [setTheme]);
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      handleToggleExpanded();
-    }
-  };
-
-  // Get current theme info
-  const currentThemeInfo = AVAILABLE_THEMES.find(theme => theme.id === currentTheme);
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <div
       ref={containerRef}
-      className={`fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6 ${className}`}
+      className={`
+        fixed bottom-6 right-6 z-50 transition-all duration-300 ease-in-out
+        ${isExpanded ? 'transform-none' : 'transform hover:scale-105'}
+      `}
       role="region"
       aria-label="Theme switcher"
     >
-      {/* Collapsed state - floating button */}
-      <button
-        ref={toggleButtonRef}
-        onClick={handleToggleExpanded}
-        onKeyDown={handleKeyDown}
-        className={`
-          flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-lg 
-          bg-background border-2 border-border hover:border-primary/50
-          transition-all duration-200 hover:scale-105 hover:shadow-xl
-          focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-          touch-manipulation active:scale-95
-          ${isExpanded ? 'scale-105 shadow-xl border-primary/50' : ''}
-        `}
-        aria-expanded={isExpanded}
-        aria-label={`Theme switcher. Current theme: ${currentThemeInfo?.name}, ${currentMode} mode. Click to ${isExpanded ? 'collapse' : 'expand'} options.`}
-        title={`Current: ${currentThemeInfo?.name} (${currentMode})`}
-      >
-        <div className="flex items-center justify-center">
-          {/* Theme color indicator */}
-          <div
-            className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-white shadow-sm"
-            style={{ backgroundColor: currentThemeInfo?.colors.primary }}
-            aria-hidden="true"
-          />
-        </div>
-      </button>
-
-      {/* Expanded state - theme selection panel */}
-      {isExpanded && (
-        <div
-          className={`
-            absolute bottom-14 right-0 w-80 max-w-[calc(100vw-2rem)]
-            sm:bottom-16 sm:w-96 sm:max-w-sm
-            bg-background/95 backdrop-blur-sm border border-border rounded-lg shadow-2xl
-            p-3 sm:p-4 transition-all duration-200 animate-in slide-in-from-bottom-2
-          `}
-          role="dialog"
-          aria-label="Theme selection panel"
+      {/* Collapsed State - Floating Button */}
+      {!isExpanded && (
+        <button
+          onClick={() => setIsExpanded(true)}
+          className="
+            w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg border
+            border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-200
+            flex items-center justify-center group focus:outline-none focus:ring-2 
+            focus:ring-blue-500 focus:ring-offset-2
+          "
+          aria-label="Open theme switcher"
+          aria-expanded="false"
         >
+          <svg 
+            className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+          </svg>
+        </button>
+      )}
+
+      {/* Expanded State - Theme Selection Panel */}
+      {isExpanded && (
+        <div className="
+          bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 
+          dark:border-gray-700 p-4 min-w-[280px] md:min-w-[320px]
+        ">
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-foreground">
-              Theme Options
+            <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+              Theme Settings
             </h3>
             <button
               onClick={() => setIsExpanded(false)}
-              className="text-muted-foreground hover:text-foreground p-1 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="
+                p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 
+                transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500
+              "
               aria-label="Close theme switcher"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 6L6 18M6 6l12 12" />
+              <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
-          {/* Theme previews */}
-          <div className="space-y-3 mb-4">
-            <h4 className="text-sm font-medium text-muted-foreground mb-2">
-              Choose Theme
-            </h4>
+          {/* Theme Selection */}
+          <div className="mb-4">
+            <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Color Theme
+            </label>
             <div 
-              className="space-y-2"
+              className="grid grid-cols-3 gap-2"
               role="radiogroup"
               aria-label="Theme selection"
             >
               {AVAILABLE_THEMES.map((theme) => (
-                <ThemePreview 
+                <ThemePreview
                   key={theme.id}
                   theme={theme}
-                  isSelected={theme.id === currentTheme}
+                  isActive={currentTheme === theme.id}
+                  onClick={() => handleThemeSelect(theme.id)}
                 />
               ))}
             </div>
           </div>
 
-          {/* Mode toggle */}
-          <div className="border-t border-border pt-4">
-            <h4 className="text-sm font-medium text-muted-foreground mb-2">
-              Appearance
-            </h4>
-            <ModeToggle />
+          {/* Mode Toggle */}
+          <div className="flex items-center justify-between">
+            <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
+              Dark Mode
+            </label>
+            <ModeToggle currentMode={currentMode} onToggle={toggleMode} />
           </div>
 
-          {/* Live region for announcements */}
-          <div
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-            className="sr-only"
-            id="theme-switcher-status"
-          >
-            Current theme: {currentThemeInfo?.name} {currentMode} mode
+          {/* Current Theme Info */}
+          <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              Active: <span className="font-medium">{AVAILABLE_THEMES.find(t => t.id === currentTheme)?.name}</span>
+              {' • '}
+              <span className="capitalize">{currentMode}</span>
+            </div>
           </div>
         </div>
       )}
     </div>
   );
 };
+
+export default ThemeSwitcher;

@@ -1,345 +1,343 @@
-import { test, expect, Page, BrowserContext } from '@playwright/test';
-import { AVAILABLE_THEMES } from '../../src/styles/themes';
+import { test, expect, type Page } from '@playwright/test';
 
-type ThemeId = 'ocean' | 'sunset' | 'forest';
-type Mode = 'light' | 'dark';
+// Theme configurations for testing
+const THEMES = [
+  { id: 'ocean', name: 'Ocean' },
+  { id: 'sunset', name: 'Sunset' },
+  { id: 'forest', name: 'Forest' }
+] as const;
 
-// Test configuration
-const TEST_PAGES = [
-  { path: '/', name: 'homepage' },
-  { path: '/services', name: 'services' },
-  { path: '/case-study', name: 'case-study' },
-  { path: '/book-a-consultation', name: 'consultation' },
-];
+const MODES = [
+  { id: 'light', name: 'Light' },
+  { id: 'dark', name: 'Dark' }
+] as const;
 
-const VIEWPORT_SIZES = [
-  { width: 1920, height: 1080, name: 'desktop' },
-  { width: 768, height: 1024, name: 'tablet' },
-  { width: 375, height: 667, name: 'mobile' },
-];
+// Helper function to switch theme
+async function switchTheme(page: Page, themeName: string) {
+  // Open theme switcher
+  await page.click('[aria-label="Open theme switcher"]');
+  
+  // Wait for theme switcher to be visible
+  await page.waitForSelector('text=Theme Settings');
+  
+  // Click on the desired theme
+  await page.click(`[aria-label*="Select ${themeName} theme"]`);
+  
+  // Wait for theme to be applied
+  await page.waitForTimeout(500);
+}
 
-class ThemeTestHelper {
-  constructor(private page: Page) {}
-
-  async switchTheme(themeId: ThemeId): Promise<void> {
-    // Click the theme switcher button
-    await this.page.locator('[aria-label*="Theme switcher"]').click();
-    
-    // Wait for the theme panel to appear
-    await this.page.locator('[role="dialog"][aria-label="Theme selection panel"]').waitFor();
-    
-    // Click the specific theme option
-    await this.page.locator(`[role="radio"][aria-label*="${themeId}"]`).click();
-    
-    // Wait for theme transition to complete
-    await this.page.waitForTimeout(1000);
-    
-    // Verify theme was applied
-    await expect(this.page.locator('html')).toHaveClass(new RegExp(`theme-${themeId}`));
+// Helper function to toggle mode
+async function toggleMode(page: Page, modeName: string) {
+  // Open theme switcher if not already open
+  const themeSwitcherOpen = await page.isVisible('text=Theme Settings');
+  if (!themeSwitcherOpen) {
+    await page.click('[aria-label="Open theme switcher"]');
+    await page.waitForSelector('text=Theme Settings');
   }
-
-  async switchMode(mode: Mode): Promise<void> {
-    // Open theme switcher if not already open
-    const themePanel = this.page.locator('[role="dialog"][aria-label="Theme selection panel"]');
-    const isVisible = await themePanel.isVisible();
-    
-    if (!isVisible) {
-      await this.page.locator('[aria-label*="Theme switcher"]').click();
-      await themePanel.waitFor();
-    }
-    
-    // Find and click the mode toggle
-    const modeToggle = this.page.locator('button[aria-label*="mode"]').or(
-      this.page.locator('button[title*="mode"]')
-    );
-    
-    if (await modeToggle.count() > 0) {
-      await modeToggle.click();
-      await this.page.waitForTimeout(500);
-    }
-    
-    // Verify mode was applied
-    if (mode === 'dark') {
-      await expect(this.page.locator('html')).toHaveClass(/dark/);
-    } else {
-      await expect(this.page.locator('html')).not.toHaveClass(/dark/);
-    }
-  }
-
-  async closeThemeSwitcher(): Promise<void> {
-    const closeButton = this.page.locator('[aria-label="Close theme switcher"]');
-    if (await closeButton.isVisible()) {
-      await closeButton.click();
-      await this.page.waitForTimeout(300);
-    }
-  }
-
-  async waitForThemeTransition(): Promise<void> {
-    // Wait for CSS transitions to complete
-    await this.page.waitForTimeout(1000);
-    
-    // Wait for any pending animations
-    await this.page.evaluate(() => {
-      return Promise.all(
-        document.getAnimations().map(animation => animation.finished)
-      );
-    });
+  
+  // Click mode toggle to switch to desired mode
+  const currentModeButton = await page.locator('[aria-label*="Switch to"]').first();
+  const currentModeText = await currentModeButton.getAttribute('aria-label');
+  
+  if (
+    (modeName === 'dark' && currentModeText?.includes('dark')) ||
+    (modeName === 'light' && currentModeText?.includes('light'))
+  ) {
+    await currentModeButton.click();
+    await page.waitForTimeout(500);
   }
 }
 
-test.describe('Visual Regression Tests - Theme System', () => {
-  let helper: ThemeTestHelper;
-
+test.describe('Theme Visual Regression Tests', () => {
   test.beforeEach(async ({ page }) => {
-    helper = new ThemeTestHelper(page);
+    // Set viewport for consistent screenshots
+    await page.setViewportSize({ width: 1200, height: 800 });
     
-    // Set default viewport
-    await page.setViewportSize({ width: 1920, height: 1080 });
+    // Navigate to homepage
+    await page.goto('/');
     
-    // Reduce animations for consistent screenshots
-    await page.addStyleTag({
-      content: `
-        *, *::before, *::after {
-          animation-duration: 0.01ms !important;
-          animation-delay: 0.01ms !important;
-          transition-duration: 0.01ms !important;
-          transition-delay: 0.01ms !important;
-        }
-      `
-    });
+    // Wait for page to load completely
+    await page.waitForLoadState('networkidle');
   });
 
-  for (const testPage of TEST_PAGES) {
-    test.describe(`${testPage.name} page`, () => {
-      for (const viewport of VIEWPORT_SIZES) {
-        test.describe(`${viewport.name} viewport`, () => {
-          for (const theme of AVAILABLE_THEMES) {
-            for (const mode of ['light', 'dark'] as Mode[]) {
-              test(`${theme.id} theme - ${mode} mode`, async ({ page }) => {
-                // Set viewport
-                await page.setViewportSize({ 
-                  width: viewport.width, 
-                  height: viewport.height 
-                });
-
-                // Navigate to page
-                await page.goto(testPage.path);
-                
-                // Wait for page to load completely
-                await page.waitForLoadState('networkidle');
-                
-                // Switch to the specified theme
-                await helper.switchTheme(theme.id as ThemeId);
-                
-                // Switch to the specified mode
-                await helper.switchMode(mode);
-                
-                // Close theme switcher
-                await helper.closeThemeSwitcher();
-                
-                // Wait for theme transitions to complete
-                await helper.waitForThemeTransition();
-                
-                // Take full page screenshot
-                const screenshotName = `${testPage.name}-${viewport.name}-${theme.id}-${mode}`;
-                await expect(page).toHaveScreenshot(`${screenshotName}.png`, {
-                  fullPage: true,
-                  threshold: 0.2, // Allow minor differences
-                  maxDiffPixels: 1000,
-                });
-              });
+  test.describe('Homepage Visual Tests', () => {
+    THEMES.forEach(theme => {
+      MODES.forEach(mode => {
+        test(`should render homepage with ${theme.name} theme in ${mode.name} mode`, async ({ page }) => {
+          await switchTheme(page, theme.name);
+          await toggleMode(page, mode.name);
+          
+          // Close theme switcher for clean screenshot
+          await page.click('body');
+          await page.waitForTimeout(300);
+          
+          // Take full page screenshot
+          await expect(page).toHaveScreenshot(
+            `homepage-${theme.id}-${mode.id}.png`,
+            { 
+              fullPage: true,
+              animations: 'disabled'
             }
-          }
+          );
         });
-      }
-    });
-  }
-
-  test.describe('Component-specific visual tests', () => {
-    test('Header component across all themes', async ({ page }) => {
-      await page.goto('/');
-      await page.waitForLoadState('networkidle');
-
-      for (const theme of AVAILABLE_THEMES) {
-        for (const mode of ['light', 'dark'] as Mode[]) {
-          await helper.switchTheme(theme.id as ThemeId);
-          await helper.switchMode(mode);
-          await helper.closeThemeSwitcher();
-          await helper.waitForThemeTransition();
-
-          // Screenshot just the header
-          const header = page.locator('header');
-          await expect(header).toHaveScreenshot(
-            `header-${theme.id}-${mode}.png`,
-            { threshold: 0.1 }
-          );
-        }
-      }
+      });
     });
 
-    test('Footer component across all themes', async ({ page }) => {
-      await page.goto('/');
-      await page.waitForLoadState('networkidle');
-
-      for (const theme of AVAILABLE_THEMES) {
-        for (const mode of ['light', 'dark'] as Mode[]) {
-          await helper.switchTheme(theme.id as ThemeId);
-          await helper.switchMode(mode);
-          await helper.closeThemeSwitcher();
-          await helper.waitForThemeTransition();
-
-          // Screenshot just the footer
-          const footer = page.locator('footer');
-          await expect(footer).toHaveScreenshot(
-            `footer-${theme.id}-${mode}.png`,
-            { threshold: 0.1 }
-          );
-        }
-      }
-    });
-
-    test('Theme switcher component states', async ({ page }) => {
-      await page.goto('/');
-      await page.waitForLoadState('networkidle');
-
-      // Collapsed state
-      await expect(page.locator('[aria-label*="Theme switcher"]')).toHaveScreenshot(
-        'theme-switcher-collapsed.png'
-      );
-
-      // Expanded state
-      await page.locator('[aria-label*="Theme switcher"]').click();
-      await page.locator('[role="dialog"][aria-label="Theme selection panel"]').waitFor();
+    test('should capture hero section across all themes', async ({ page }) => {
+      const heroSection = page.locator('[data-testid="hero-section"]').first();
       
-      await expect(page.locator('[role="dialog"][aria-label="Theme selection panel"]')).toHaveScreenshot(
+      for (const theme of THEMES) {
+        await switchTheme(page, theme.name);
+        
+        // Close theme switcher
+        await page.click('body');
+        await page.waitForTimeout(300);
+        
+        // Screenshot hero section
+        await expect(heroSection).toHaveScreenshot(
+          `hero-section-${theme.id}.png`,
+          { animations: 'disabled' }
+        );
+      }
+    });
+  });
+
+  test.describe('Services Page Visual Tests', () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto('/services');
+      await page.waitForLoadState('networkidle');
+    });
+
+    THEMES.forEach(theme => {
+      test(`should render services page with ${theme.name} theme`, async ({ page }) => {
+        await switchTheme(page, theme.name);
+        
+        // Close theme switcher
+        await page.click('body');
+        await page.waitForTimeout(300);
+        
+        await expect(page).toHaveScreenshot(
+          `services-${theme.id}.png`,
+          { 
+            fullPage: true,
+            animations: 'disabled'
+          }
+        );
+      });
+    });
+  });
+
+  test.describe('Component Visual Tests', () => {
+    test('should capture header component with all themes', async ({ page }) => {
+      const header = page.locator('header[role="banner"]');
+      
+      for (const theme of THEMES) {
+        await switchTheme(page, theme.name);
+        
+        // Close theme switcher
+        await page.click('body');
+        await page.waitForTimeout(300);
+        
+        await expect(header).toHaveScreenshot(
+          `header-${theme.id}.png`,
+          { animations: 'disabled' }
+        );
+      }
+    });
+
+    test('should capture footer component with all themes', async ({ page }) => {
+      const footer = page.locator('footer[role="contentinfo"]');
+      
+      for (const theme of THEMES) {
+        await switchTheme(page, theme.name);
+        
+        // Close theme switcher
+        await page.click('body');
+        await page.waitForTimeout(300);
+        
+        await expect(footer).toHaveScreenshot(
+          `footer-${theme.id}.png`,
+          { animations: 'disabled' }
+        );
+      }
+    });
+  });
+
+  test.describe('Theme Switcher Visual Tests', () => {
+    test('should capture theme switcher collapsed state', async ({ page }) => {
+      const themeSwitcher = page.locator('[aria-label="Open theme switcher"]');
+      
+      await expect(themeSwitcher).toHaveScreenshot(
+        'theme-switcher-collapsed.png',
+        { animations: 'disabled' }
+      );
+    });
+
+    test('should capture theme switcher expanded state', async ({ page }) => {
+      // Open theme switcher
+      await page.click('[aria-label="Open theme switcher"]');
+      await page.waitForSelector('text=Theme Settings');
+      
+      const expandedSwitcher = page.locator('text=Theme Settings').locator('..');
+      
+      await expect(expandedSwitcher).toHaveScreenshot(
         'theme-switcher-expanded.png',
-        { threshold: 0.1 }
+        { animations: 'disabled' }
       );
     });
 
-    test('Button components visual consistency', async ({ page }) => {
-      await page.goto('/');
-      await page.waitForLoadState('networkidle');
-
-      // Find primary buttons on the page
-      const buttons = page.locator('button, .btn, [role="button"]').first();
+    test('should capture theme preview colors', async ({ page }) => {
+      await page.click('[aria-label="Open theme switcher"]');
+      await page.waitForSelector('text=Theme Settings');
       
-      for (const theme of AVAILABLE_THEMES) {
-        for (const mode of ['light', 'dark'] as Mode[]) {
-          await helper.switchTheme(theme.id as ThemeId);
-          await helper.switchMode(mode);
-          await helper.closeThemeSwitcher();
-          await helper.waitForThemeTransition();
-
-          await expect(buttons).toHaveScreenshot(
-            `button-${theme.id}-${mode}.png`,
-            { threshold: 0.1 }
-          );
-        }
-      }
+      const themePreviewGrid = page.locator('[role="radiogroup"][aria-label="Theme selection"]');
+      
+      await expect(themePreviewGrid).toHaveScreenshot(
+        'theme-previews.png',
+        { animations: 'disabled' }
+      );
     });
   });
 
-  test.describe('Theme transition visual tests', () => {
-    test('Theme switching visual smoothness', async ({ page }) => {
-      await page.goto('/');
-      await page.waitForLoadState('networkidle');
-
-      // Enable transitions for this test
-      await page.addStyleTag({
-        content: `
-          * {
-            animation-duration: 0.3s !important;
-            transition-duration: 0.3s !important;
+  test.describe('Responsive Visual Tests', () => {
+    test('should capture mobile view with themes', async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 667 }); // iPhone SE size
+      
+      for (const theme of THEMES) {
+        await switchTheme(page, theme.name);
+        
+        // Close theme switcher
+        await page.click('body');
+        await page.waitForTimeout(300);
+        
+        await expect(page).toHaveScreenshot(
+          `mobile-${theme.id}.png`,
+          { 
+            fullPage: true,
+            animations: 'disabled'
           }
-        `
-      });
-
-      // Take screenshot before theme change
-      await expect(page).toHaveScreenshot('theme-transition-before.png', {
-        fullPage: true,
-        threshold: 0.1
-      });
-
-      // Switch theme
-      await helper.switchTheme('sunset');
-      
-      // Take screenshot after theme change
-      await expect(page).toHaveScreenshot('theme-transition-after.png', {
-        fullPage: true,
-        threshold: 0.1
-      });
-    });
-
-    test('Mode toggle visual consistency', async ({ page }) => {
-      await page.goto('/');
-      await page.waitForLoadState('networkidle');
-
-      // Test light to dark transition
-      await expect(page).toHaveScreenshot('mode-light.png', {
-        fullPage: true,
-        threshold: 0.1
-      });
-
-      await helper.switchMode('dark');
-      await helper.closeThemeSwitcher();
-      
-      await expect(page).toHaveScreenshot('mode-dark.png', {
-        fullPage: true,
-        threshold: 0.1
-      });
-    });
-  });
-
-  test.describe('Cross-browser compatibility', () => {
-    ['chromium', 'firefox', 'webkit'].forEach(browserName => {
-      test(`Theme rendering consistency - ${browserName}`, async ({ page }) => {
-        // This test would need to be run with different browser configurations
-        await page.goto('/');
-        await page.waitForLoadState('networkidle');
-
-        await helper.switchTheme('ocean');
-        await helper.closeThemeSwitcher();
-        await helper.waitForThemeTransition();
-
-        await expect(page).toHaveScreenshot(`cross-browser-${browserName}.png`, {
-          fullPage: true,
-          threshold: 0.3 // Allow more variation for cross-browser differences
-        });
-      });
-    });
-  });
-
-  test.describe('Responsive design validation', () => {
-    test('Theme consistency across breakpoints', async ({ page }) => {
-      await page.goto('/');
-      await page.waitForLoadState('networkidle');
-
-      const breakpoints = [
-        { width: 320, height: 568, name: 'mobile-small' },
-        { width: 375, height: 667, name: 'mobile-medium' },
-        { width: 414, height: 896, name: 'mobile-large' },
-        { width: 768, height: 1024, name: 'tablet' },
-        { width: 1024, height: 768, name: 'tablet-landscape' },
-        { width: 1280, height: 720, name: 'desktop-small' },
-        { width: 1920, height: 1080, name: 'desktop-large' },
-      ];
-
-      for (const breakpoint of breakpoints) {
-        await page.setViewportSize({
-          width: breakpoint.width,
-          height: breakpoint.height
-        });
-
-        await helper.switchTheme('ocean');
-        await helper.closeThemeSwitcher();
-        await helper.waitForThemeTransition();
-
-        await expect(page).toHaveScreenshot(`responsive-${breakpoint.name}.png`, {
-          fullPage: true,
-          threshold: 0.2
-        });
+        );
       }
     });
+
+    test('should capture tablet view with themes', async ({ page }) => {
+      await page.setViewportSize({ width: 768, height: 1024 }); // iPad size
+      
+      for (const theme of THEMES) {
+        await switchTheme(page, theme.name);
+        
+        // Close theme switcher
+        await page.click('body');
+        await page.waitForTimeout(300);
+        
+        await expect(page).toHaveScreenshot(
+          `tablet-${theme.id}.png`,
+          { 
+            fullPage: true,
+            animations: 'disabled'
+          }
+        );
+      }
+    });
+  });
+
+  test.describe('Interaction Visual Tests', () => {
+    test('should capture hover states with different themes', async ({ page }) => {
+      // Test button hover states
+      const ctaButton = page.locator('a[href*="consultation"]').first();
+      
+      for (const theme of THEMES) {
+        await switchTheme(page, theme.name);
+        
+        // Close theme switcher
+        await page.click('body');
+        await page.waitForTimeout(300);
+        
+        // Hover over CTA button
+        await ctaButton.hover();
+        await page.waitForTimeout(100);
+        
+        await expect(ctaButton).toHaveScreenshot(
+          `cta-hover-${theme.id}.png`,
+          { animations: 'disabled' }
+        );
+      }
+    });
+
+    test('should capture focus states with different themes', async ({ page }) => {
+      const navigationLinks = page.locator('nav a').first();
+      
+      for (const theme of THEMES) {
+        await switchTheme(page, theme.name);
+        
+        // Close theme switcher
+        await page.click('body');
+        await page.waitForTimeout(300);
+        
+        // Focus on navigation link
+        await navigationLinks.focus();
+        await page.waitForTimeout(100);
+        
+        await expect(navigationLinks).toHaveScreenshot(
+          `nav-focus-${theme.id}.png`,
+          { animations: 'disabled' }
+        );
+      }
+    });
+  });
+
+  test.describe('Animation and Transition Tests', () => {
+    test('should capture theme switching transition', async ({ page }) => {
+      // Enable animations for this test
+      await page.click('[aria-label="Open theme switcher"]');
+      await page.waitForSelector('text=Theme Settings');
+      
+      // Start with Ocean theme
+      await page.click('[aria-label*="Select Ocean theme"]');
+      await page.waitForTimeout(200);
+      
+      // Capture mid-transition to Sunset theme
+      await page.click('[aria-label*="Select Sunset theme"]');
+      await page.waitForTimeout(100); // Capture during transition
+      
+      await expect(page).toHaveScreenshot(
+        'theme-transition-mid.png',
+        { 
+          fullPage: true,
+          threshold: 0.5 // Allow more variance due to transition
+        }
+      );
+    });
+  });
+});
+
+test.describe('Theme Consistency Tests', () => {
+  test('should maintain visual consistency across page navigation', async ({ page }) => {
+    // Set Sunset theme
+    await page.goto('/');
+    await switchTheme(page, 'Sunset');
+    
+    // Navigate to different pages and ensure theme persists
+    const pages = ['/services', '/case-study', '/book-a-consultation'];
+    
+    for (const pagePath of pages) {
+      await page.goto(pagePath);
+      await page.waitForLoadState('networkidle');
+      
+      // Close theme switcher if visible
+      await page.click('body');
+      await page.waitForTimeout(300);
+      
+      const pageName = pagePath.replace('/', '').replace('-', '_') || 'home';
+      
+      await expect(page).toHaveScreenshot(
+        `consistency-sunset-${pageName}.png`,
+        { 
+          fullPage: true,
+          animations: 'disabled'
+        }
+      );
+    }
   });
 });

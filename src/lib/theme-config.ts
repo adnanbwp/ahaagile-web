@@ -1,294 +1,217 @@
 /**
- * Theme Configuration and Production Management
+ * Production configuration utilities for theme system
  * 
- * This module provides utilities for managing the theme system in different environments,
- * including the ability to disable the theme switcher for production builds.
+ * This module provides utilities for configuring the theme system in production environments,
+ * including feature flags and removal processes.
  */
 
-import { ThemeId, Mode } from './theme-context';
-
-// Environment configuration
-interface ThemeEnvironmentConfig {
-  enableThemeSwitcher: boolean;
-  defaultTheme: ThemeId;
-  defaultMode: Mode;
-  enableTransitions: boolean;
-  enableLocalStorage: boolean;
-  debug: boolean;
-}
-
-// Default configuration
-const DEFAULT_CONFIG: ThemeEnvironmentConfig = {
-  enableThemeSwitcher: false, // Disabled by default for production
-  defaultTheme: 'ocean',
-  defaultMode: 'light',
-  enableTransitions: true,
-  enableLocalStorage: true,
-  debug: false,
+export type ThemeSystemConfig = {
+  enabled: boolean;
+  defaultTheme: 'ocean' | 'sunset' | 'forest';
+  defaultMode: 'light' | 'dark';
+  allowSwitching: boolean;
+  forceTheme?: string;
+  forceMode?: string;
 };
 
 /**
- * Get theme configuration based on environment variables
+ * Get theme system configuration based on environment variables
  */
-export function getThemeConfig(): ThemeEnvironmentConfig {
-  // Check if we're in a browser environment
-  if (typeof window === 'undefined') {
-    return DEFAULT_CONFIG;
-  }
-
-  const config: ThemeEnvironmentConfig = {
-    // Enable theme switcher in development or when explicitly enabled
-    enableThemeSwitcher: 
-      process.env.NODE_ENV === 'development' ||
-      process.env.NEXT_PUBLIC_ENABLE_THEME_SWITCHER === 'true' ||
-      localStorage.getItem('force-enable-theme-switcher') === 'true',
-    
-    // Allow override of default theme
-    defaultTheme: (process.env.NEXT_PUBLIC_DEFAULT_THEME as ThemeId) || DEFAULT_CONFIG.defaultTheme,
-    
-    // Allow override of default mode
-    defaultMode: (process.env.NEXT_PUBLIC_DEFAULT_MODE as Mode) || DEFAULT_CONFIG.defaultMode,
-    
-    // Enable/disable transitions
-    enableTransitions: process.env.NEXT_PUBLIC_DISABLE_THEME_TRANSITIONS !== 'true',
-    
-    // Enable/disable localStorage
-    enableLocalStorage: process.env.NEXT_PUBLIC_DISABLE_THEME_STORAGE !== 'true',
-    
-    // Enable debug mode in development
-    debug: process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_THEME_DEBUG === 'true',
+export function getThemeSystemConfig(): ThemeSystemConfig {
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const isForceEnabled = process.env.NEXT_PUBLIC_FORCE_THEME_SWITCHER === 'true';
+  const enableThemeSwitcher = process.env.NEXT_PUBLIC_ENABLE_THEME_SWITCHER === 'true';
+  
+  // Production theme selection (set via environment variables)
+  const productionTheme = process.env.NEXT_PUBLIC_PRODUCTION_THEME as 'ocean' | 'sunset' | 'forest' || 'ocean';
+  const productionMode = process.env.NEXT_PUBLIC_PRODUCTION_MODE as 'light' | 'dark' || 'light';
+  
+  const config: ThemeSystemConfig = {
+    enabled: isDevelopment || isForceEnabled || enableThemeSwitcher,
+    defaultTheme: productionTheme,
+    defaultMode: productionMode,
+    allowSwitching: isDevelopment || isForceEnabled || enableThemeSwitcher,
+    forceTheme: process.env.NEXT_PUBLIC_FORCE_THEME,
+    forceMode: process.env.NEXT_PUBLIC_FORCE_MODE,
   };
-
-  if (config.debug) {
-    console.log('Theme Configuration:', config);
-  }
-
+  
   return config;
 }
 
 /**
- * Check if theme switcher should be rendered
+ * Check if theme switcher should be visible
  */
-export function shouldRenderThemeSwitcher(): boolean {
-  const config = getThemeConfig();
-  return config.enableThemeSwitcher;
+export function shouldShowThemeSwitcher(): boolean {
+  const config = getThemeSystemConfig();
+  return config.enabled && config.allowSwitching;
 }
 
 /**
- * Get the theme to use in production builds
+ * Get the theme that should be used in production
  */
-export function getProductionTheme(): { theme: ThemeId; mode: Mode } {
-  const config = getThemeConfig();
+export function getProductionTheme(): { theme: string; mode: string } {
+  const config = getThemeSystemConfig();
   
-  // In production, use environment-specified theme or fallback to default
   return {
-    theme: config.defaultTheme,
-    mode: config.defaultMode,
+    theme: config.forceTheme || config.defaultTheme,
+    mode: config.forceMode || config.defaultMode,
   };
 }
 
 /**
- * Production Theme Utilities
- * Functions to help with theme system removal for production builds
+ * Generate CSS classes for static theme application
+ * Used when theme system is disabled and we want to apply a fixed theme
  */
-export class ProductionThemeManager {
-  private static instance: ProductionThemeManager;
-  private config: ThemeEnvironmentConfig;
-
-  private constructor() {
-    this.config = getThemeConfig();
-  }
-
-  public static getInstance(): ProductionThemeManager {
-    if (!ProductionThemeManager.instance) {
-      ProductionThemeManager.instance = new ProductionThemeManager();
-    }
-    return ProductionThemeManager.instance;
-  }
-
-  /**
-   * Apply static theme for production builds
-   */
-  public applyProductionTheme(): void {
-    if (typeof document === 'undefined') return;
-
-    const { theme, mode } = getProductionTheme();
-    
-    // Remove any existing theme classes
-    document.documentElement.className = document.documentElement.className
-      .replace(/theme-\w+/g, '')
-      .replace(/\b(light|dark)\b/g, '');
-    
-    // Apply production theme
-    document.documentElement.classList.add(`theme-${theme}`, mode);
-    
-    if (this.config.debug) {
-      console.log(`Applied production theme: ${theme} (${mode})`);
-    }
-  }
-
-  /**
-   * Check if theme system should be initialized
-   */
-  public shouldInitializeThemeSystem(): boolean {
-    return this.config.enableThemeSwitcher;
-  }
-
-  /**
-   * Get CSS class string for static theme application
-   */
-  public getStaticThemeClasses(): string {
-    const { theme, mode } = getProductionTheme();
-    return `theme-${theme} ${mode}`;
-  }
-
-  /**
-   * Remove theme system artifacts for production
-   */
-  public cleanupThemeSystem(): void {
-    if (typeof window === 'undefined') return;
-
-    // Remove theme preferences from localStorage if disabled
-    if (!this.config.enableLocalStorage) {
-      try {
-        localStorage.removeItem('aha-agile-theme-preferences');
-      } catch (error) {
-        if (this.config.debug) {
-          console.warn('Failed to clean up theme preferences:', error);
-        }
-      }
-    }
-
-    // Remove theme-related event listeners
-    // This would be called during theme system shutdown
-    if (this.config.debug) {
-      console.log('Theme system cleanup completed');
-    }
-  }
+export function generateStaticThemeClasses(theme: string, mode: string): string[] {
+  const themeClass = `theme-${theme}`;
+  const modeClass = mode === 'dark' ? 'dark' : '';
+  
+  return [themeClass, modeClass].filter(Boolean);
 }
 
 /**
- * Feature flag utilities
+ * Configuration for theme system removal in production
+ * This provides a checklist and utilities for removing the theme system
  */
-export const ThemeFeatureFlags = {
+export const THEME_REMOVAL_GUIDE = {
+  steps: [
+    {
+      id: 'set-production-theme',
+      title: 'Set Production Theme',
+      description: 'Choose final theme and mode via environment variables',
+      envVars: [
+        'NEXT_PUBLIC_PRODUCTION_THEME=ocean|sunset|forest',
+        'NEXT_PUBLIC_PRODUCTION_MODE=light|dark',
+        'NEXT_PUBLIC_ENABLE_THEME_SWITCHER=false'
+      ]
+    },
+    {
+      id: 'remove-theme-switcher',
+      title: 'Remove ThemeSwitcher Component',
+      description: 'Remove ThemeSwitcher import and usage from layout.tsx',
+      files: ['src/app/layout.tsx']
+    },
+    {
+      id: 'apply-static-theme',
+      title: 'Apply Static Theme Classes',
+      description: 'Add static theme classes to html or body element',
+      example: 'className={`theme-ocean ${mode === "dark" ? "dark" : ""}`}'
+    },
+    {
+      id: 'remove-dynamic-loading',
+      title: 'Remove Dynamic Theme Loading',
+      description: 'Remove theme-loader.ts and related dynamic loading logic',
+      files: ['src/lib/theme-loader.ts']
+    },
+    {
+      id: 'cleanup-unused-themes',
+      title: 'Clean Up Unused Theme CSS',
+      description: 'Remove CSS for unused themes from styles/themes/',
+      files: ['src/styles/themes/']
+    },
+    {
+      id: 'remove-theme-context',
+      title: 'Remove Theme Context (Optional)',
+      description: 'If no dynamic theming needed, remove ThemeProvider and useTheme',
+      files: ['src/lib/theme-context.tsx']
+    }
+  ],
+  
   /**
-   * Check if dynamic theme loading is enabled
+   * Validate that all removal steps have been completed
    */
-  isDynamicThemeLoadingEnabled(): boolean {
-    const config = getThemeConfig();
-    return config.enableThemeSwitcher;
-  },
-
-  /**
-   * Check if theme persistence is enabled
-   */
-  isThemePersistenceEnabled(): boolean {
-    const config = getThemeConfig();
-    return config.enableLocalStorage && config.enableThemeSwitcher;
-  },
-
-  /**
-   * Check if theme transitions are enabled
-   */
-  areThemeTransitionsEnabled(): boolean {
-    const config = getThemeConfig();
-    return config.enableTransitions;
-  },
-
-  /**
-   * Check if theme debugging is enabled
-   */
-  isThemeDebuggingEnabled(): boolean {
-    const config = getThemeConfig();
-    return config.debug;
-  },
+  validateRemoval(): { completed: string[]; remaining: string[] } {
+    const completed: string[] = [];
+    const remaining: string[] = [];
+    
+    // This would be implemented with actual file system checks in a build script
+    // For now, it's a guide for manual validation
+    
+    return { completed, remaining };
+  }
 };
 
 /**
- * Theme System Removal Guide
- * 
- * To remove the theme system for production:
- * 
- * 1. Set environment variables:
- *    - NEXT_PUBLIC_ENABLE_THEME_SWITCHER=false
- *    - NEXT_PUBLIC_DEFAULT_THEME=ocean (or your chosen theme)
- *    - NEXT_PUBLIC_DEFAULT_MODE=light (or dark)
- * 
- * 2. Use ProductionThemeManager to apply static theme:
- *    ```typescript
- *    const manager = ProductionThemeManager.getInstance();
- *    manager.applyProductionTheme();
- *    ```
- * 
- * 3. Remove ThemeSwitcher component from layout:
- *    ```typescript
- *    // In layout.tsx, conditionally render:
- *    {shouldRenderThemeSwitcher() && <ThemeSwitcher />}
- *    ```
- * 
- * 4. Optional: Remove unused theme CSS files from build
- * 5. Optional: Remove theme-related dependencies if no longer needed
+ * Development utilities for theme testing
  */
-
-/**
- * Development utilities
- */
-export const ThemeDevUtils = {
-  /**
-   * Force enable theme switcher (useful for testing production builds)
-   */
-  forceEnableThemeSwitcher(): void {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('force-enable-theme-switcher', 'true');
-      window.location.reload();
-    }
-  },
-
-  /**
-   * Disable forced theme switcher
-   */
-  disableForceThemeSwitcher(): void {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.removeItem('force-enable-theme-switcher');
-      window.location.reload();
-    }
-  },
-
-  /**
-   * Log current theme configuration
-   */
-  logThemeConfig(): void {
-    console.log('Current Theme Configuration:', getThemeConfig());
-  },
-
+export const THEME_DEV_UTILS = {
   /**
    * Test all theme combinations
    */
-  testAllThemes(): void {
-    const themes: ThemeId[] = ['ocean', 'sunset', 'forest'];
-    const modes: Mode[] = ['light', 'dark'];
+  getAllThemeCombinations() {
+    const themes = ['ocean', 'sunset', 'forest'];
+    const modes = ['light', 'dark'];
     
-    let index = 0;
-    const interval = setInterval(() => {
-      const theme = themes[Math.floor(index / 2) % themes.length];
-      const mode = modes[index % 2];
-      
-      document.documentElement.className = document.documentElement.className
-        .replace(/theme-\w+/g, '')
-        .replace(/\b(light|dark)\b/g, '');
-      
-      document.documentElement.classList.add(`theme-${theme}`, mode);
-      
-      console.log(`Testing: ${theme} (${mode})`);
-      
-      index++;
-      if (index >= themes.length * modes.length) {
-        clearInterval(interval);
-        console.log('Theme testing completed');
-      }
-    }, 2000);
+    return themes.flatMap(theme => 
+      modes.map(mode => ({ theme, mode }))
+    );
   },
+  
+  /**
+   * Log current theme configuration
+   */
+  logThemeConfig() {
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      const config = getThemeSystemConfig();
+      console.group('🎨 Theme System Configuration');
+      console.log('Enabled:', config.enabled);
+      console.log('Allow Switching:', config.allowSwitching);
+      console.log('Default Theme:', config.defaultTheme);
+      console.log('Default Mode:', config.defaultMode);
+      console.log('Force Theme:', config.forceTheme || 'None');
+      console.log('Force Mode:', config.forceMode || 'None');
+      console.groupEnd();
+    }
+  },
+  
+  /**
+   * Simulate production environment
+   */
+  simulateProduction() {
+    if (typeof window !== 'undefined') {
+      console.warn('🚀 Simulating production environment - theme switcher will be hidden');
+      (window as any).__THEME_SYSTEM_OVERRIDE = 'production';
+    }
+  }
 };
 
-// Export singleton instance for convenience
-export const themeManager = ProductionThemeManager.getInstance();
+/**
+ * Environment-specific configuration presets
+ */
+export const THEME_PRESETS = {
+  development: {
+    enabled: true,
+    allowSwitching: true,
+    defaultTheme: 'ocean' as const,
+    defaultMode: 'light' as const,
+  },
+  
+  staging: {
+    enabled: true,
+    allowSwitching: true, // Allow testing in staging
+    defaultTheme: 'ocean' as const,
+    defaultMode: 'light' as const,
+  },
+  
+  production: {
+    enabled: false, // Disable by default in production
+    allowSwitching: false,
+    defaultTheme: 'ocean' as const, // Set chosen theme
+    defaultMode: 'light' as const, // Set chosen mode
+  }
+};
+
+/**
+ * Get preset configuration for current environment
+ */
+export function getEnvironmentPreset() {
+  const env = process.env.NODE_ENV || 'development';
+  
+  if (env === 'production') {
+    return THEME_PRESETS.production;
+  } else if (env === 'staging' || process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
+    return THEME_PRESETS.staging;
+  } else {
+    return THEME_PRESETS.development;
+  }
+}
