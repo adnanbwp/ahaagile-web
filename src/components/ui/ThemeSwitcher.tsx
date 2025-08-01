@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTheme, AVAILABLE_THEMES, type ThemeId } from '@/lib/theme-context';
 import { AVAILABLE_THEMES as THEME_CONFIG } from '@/styles/themes/index';
+import { shouldShowThemeSwitcher } from '@/lib/theme-config';
 
 interface ThemePreviewProps {
   theme: typeof AVAILABLE_THEMES[number];
@@ -98,9 +99,8 @@ export const ThemeSwitcher: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Check visibility based on current environment - make it reactive to env changes
-  const isVisible = process.env.NODE_ENV === 'development' || 
-                   process.env.NEXT_PUBLIC_FORCE_THEME_SWITCHER === 'true';
+  // Check visibility based on current environment and configuration
+  const isVisible = shouldShowThemeSwitcher();
 
   // Handle click outside to close expanded view
   useEffect(() => {

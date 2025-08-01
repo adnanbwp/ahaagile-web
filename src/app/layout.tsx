@@ -4,6 +4,7 @@ import '@/styles/globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { ThemeProvider } from '@/lib/theme-context'
+import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -61,6 +62,9 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
+          
+          {/* Theme Switcher - Global accessibility for development */}
+          <ThemeSwitcher />
         </ThemeProvider>
       </body>
     </html>
