@@ -1,4 +1,5 @@
 import { ThemeId, Mode } from './theme-context';
+import { getProductionTheme } from './theme-config';
 
 // Storage utilities
 export const STORAGE_KEY = 'aha-agile-theme-preferences';
@@ -118,12 +119,13 @@ export const applyThemeToDocument = (theme: ThemeId, mode: Mode): void => {
 };
 
 /**
- * Get the default theme preferences
+ * Get the default theme preferences based on production configuration
  */
 export const getDefaultThemePreferences = (): ThemePreferences => {
+  const productionConfig = getProductionTheme();
   return {
-    theme: 'ocean',
-    mode: 'light'
+    theme: productionConfig.theme as ThemeId,
+    mode: productionConfig.mode as Mode
   };
 };
 
@@ -163,14 +165,17 @@ export const getSystemDarkModePreference = (): Mode => {
 };
 
 /**
- * Initialize theme preferences with system fallback
+ * Initialize theme preferences with production configuration and system fallback
  */
 export const initializeThemePreferences = (): ThemePreferences => {
+  // Get production theme configuration
+  const productionConfig = getProductionTheme();
+  
   if (!isStorageAvailable()) {
-    // Fallback to system preference for mode, default theme
+    // Use production configuration if no localStorage available
     return {
-      theme: 'ocean',
-      mode: getSystemDarkModePreference()
+      theme: productionConfig.theme as ThemeId,
+      mode: productionConfig.mode as Mode
     };
   }
 
@@ -179,11 +184,13 @@ export const initializeThemePreferences = (): ThemePreferences => {
     return stored;
   }
 
-  // No stored preferences, use defaults with system mode preference
-  const systemMode = getSystemDarkModePreference();
+  // No stored preferences, use production config with system mode as fallback
+  const isProduction = process.env.NODE_ENV === 'production';
+  const defaultMode = isProduction ? productionConfig.mode as Mode : getSystemDarkModePreference();
+  
   const preferences: ThemePreferences = {
-    theme: 'ocean',
-    mode: systemMode
+    theme: productionConfig.theme as ThemeId,
+    mode: defaultMode
   };
 
   // Save the initialized preferences
