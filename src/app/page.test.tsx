@@ -17,19 +17,19 @@ jest.mock('react-markdown', () => {
     if (content.includes('## The Hidden Cost of Manual Workflows')) {
       return (
         <div>
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4 mt-8">The Hidden Cost of Manual Workflows</h2>
-          <p className="text-lg text-gray-700 mb-4 leading-relaxed">Your team is trapped in time-consuming, repetitive processes that drain productivity and profitability:</p>
+          <h2 className="text-3xl font-semibold text-primary mb-4 mt-8">The Hidden Cost of Manual Workflows</h2>
+          <p className="text-lg text-muted-foreground mb-4 leading-relaxed">Your team is trapped in time-consuming, repetitive processes that drain productivity and profitability:</p>
           <ul className="list-disc list-inside mb-4 space-y-2">
-            <li className="text-lg text-gray-700">35% of weekly capacity lost to email chaos and manual coordination</li>
-            <li className="text-lg text-gray-700">Partners billing at $180/hour stuck on $20/hour administrative tasks</li>
+            <li className="text-lg text-muted-foreground">35% of weekly capacity lost to email chaos and manual coordination</li>
+            <li className="text-lg text-muted-foreground">Partners billing at $180/hour stuck on $20/hour administrative tasks</li>
           </ul>
-          <strong className="font-semibold text-gray-900">The financial impact is staggering:</strong>
+          <strong className="font-semibold text-primary">The financial impact is staggering:</strong>
           <span> A typical 3-person professional services firm loses </span>
-          <strong className="font-semibold text-gray-900">$236,000 to $330,000 annually</strong>
+          <strong className="font-semibold text-primary">$236,000 to $330,000 annually</strong>
           <span> in unrealized revenue due to workflow inefficiencies.</span>
-          <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-6 bg-blue-50 py-4">
-            <p className="text-lg text-gray-700 mb-4 leading-relaxed">Within 6 weeks, our team reclaimed 2.5 hours per day per employee. The automation handles client onboarding, document requests, and progress updates automatically. ROI was immediate.</p>
-            <p className="text-lg text-gray-700 mb-4 leading-relaxed">— Managing Partner, Mid-tier Accounting Firm</p>
+          <blockquote className="border-l-4 border-accent pl-4 italic text-muted-foreground my-6 bg-accent/10 py-4">
+            <p className="text-lg text-muted-foreground mb-4 leading-relaxed">Within 6 weeks, our team reclaimed 2.5 hours per day per employee. The automation handles client onboarding, document requests, and progress updates automatically. ROI was immediate.</p>
+            <p className="text-lg text-muted-foreground mb-4 leading-relaxed">— Managing Partner, Mid-tier Accounting Firm</p>
           </blockquote>
         </div>
       )
@@ -122,13 +122,13 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     // Check main heading (now from HeroSection)
     const h1 = screen.getByRole('heading', { level: 1 })
     expect(h1).toHaveTextContent('Reclaim 150+ Hours Per Employee Annually')
-    expect(h1).toHaveClass('text-hero', 'mb-6', 'text-white')
+    expect(h1).toHaveClass('text-hero', 'mb-6', 'text-primary-foreground')
     
     // Check section headings - there should be multiple h2s now (ProblemSection + SolutionSection + Markdown)
     const h2s = screen.getAllByRole('heading', { level: 2 })
     expect(h2s).toHaveLength(5) // One from ProblemSection, three from SolutionSection, one from markdown
     expect(h2s[0]).toHaveTextContent('The Hidden Cost of Manual Workflows')
-    expect(h2s[0]).toHaveClass('text-hero', 'text-brand-navy') // ProblemSection styling
+    expect(h2s[0]).toHaveClass('text-hero', 'text-primary') // ProblemSection styling
     
     // Check paragraph content
     expect(screen.getByText(/stop losing valuable time to inefficient workflows/i)).toBeInTheDocument()
@@ -177,10 +177,10 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     render(HomePageComponent)
     
     const strongText = screen.getByText('The financial impact is staggering:')
-    expect(strongText).toHaveClass('font-semibold', 'text-gray-900')
+    expect(strongText).toHaveClass('font-semibold', 'text-primary')
     
     const financialImpactText = screen.getByText('$236,000 to $330,000 annually')
-    expect(financialImpactText).toHaveClass('font-semibold', 'text-gray-900')
+    expect(financialImpactText).toHaveClass('font-semibold', 'text-primary')
   })
 
   it('renders blockquote testimonial with proper styling', async () => {
@@ -195,12 +195,12 @@ Your team is trapped in time-consuming, repetitive processes that drain producti
     const markdownBlockquote = blockquotes[blockquotes.length - 1]
     expect(markdownBlockquote).toHaveClass(
       'border-l-4',
-      'border-blue-500',
+      'border-accent',
       'pl-4',
       'italic',
-      'text-gray-700',
+      'text-muted-foreground',
       'my-6',
-      'bg-blue-50',
+      'bg-accent/10',
       'py-4'
     )
   })

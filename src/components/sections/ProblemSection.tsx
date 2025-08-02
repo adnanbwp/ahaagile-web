@@ -31,26 +31,21 @@ export default function ProblemSection({ className = '' }: ProblemSectionProps):
   ];
 
   return (
-    <section className={`section-spacing bg-secondary-50 ${className}`}>
+    <section className={`section-spacing bg-muted ${className}`}>
       <div className="container-brand">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-hero text-brand-navy mb-8">
+          <h2 className="text-hero text-foreground mb-8">
             The Hidden Cost of Manual Workflows
           </h2>
           
           {/* Financial Impact Callout */}
-          <div 
-            className="inline-block px-8 py-6 rounded-2xl mb-8"
-            style={{
-              background: 'linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-navy-light) 100%)'
-            }}
-          >
+          <div className="inline-block px-8 py-6 rounded-2xl mb-8 bg-[var(--gradient-primary)]">
             <div className="text-center">
-              <h3 className="text-4xl md:text-5xl lg:text-6xl font-inter font-bold text-white mb-2">
+              <h3 className="text-4xl md:text-5xl lg:text-6xl font-inter font-bold text-primary-foreground mb-2">
                 $236K - $330K
               </h3>
-              <p className="text-xl md:text-2xl font-inter text-gray-200">
+              <p className="text-xl md:text-2xl font-inter text-primary-foreground/80">
                 Annual Cost of Inefficiency
               </p>
             </div>
@@ -68,12 +63,12 @@ export default function ProblemSection({ className = '' }: ProblemSectionProps):
               >
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 mx-auto mb-4 bg-gradient-accent rounded-full flex items-center justify-center">
-                    <IconComponent className="w-8 h-8 text-brand-navy" />
+                    <IconComponent className="w-8 h-8 text-foreground" />
                   </div>
-                  <h3 className="text-xl font-inter font-semibold text-brand-navy mb-3">
+                  <h3 className="text-xl font-inter font-semibold text-foreground mb-3">
                     {point.title}
                   </h3>
-                  <p className="text-secondary-600 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {point.description}
                   </p>
                 </CardContent>
@@ -84,11 +79,11 @@ export default function ProblemSection({ className = '' }: ProblemSectionProps):
 
         {/* Transition CTA */}
         <div className="text-center">
-          <div className="inline-flex items-center space-x-2 text-brand-navy font-inter font-semibold">
+          <div className="inline-flex items-center space-x-2 text-foreground font-inter font-semibold">
             <span className="text-lg">Ready to reclaim your time and reduce costs?</span>
-            <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-brand-navy animate-bounce"></div>
+            <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-foreground animate-bounce"></div>
           </div>
-          <p className="text-secondary-600 mt-2">
+          <p className="text-muted-foreground mt-2">
             Discover how our intelligent automation solutions can transform your workflows below.
           </p>
         </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Source_Serif_4 } from 'next/font/google'
-import '@/styles/globals.css'
+import '@/styles/themes/ocean.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { ThemeProvider } from '@/lib/theme-context'

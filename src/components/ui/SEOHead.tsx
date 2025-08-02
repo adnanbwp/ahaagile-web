@@ -56,6 +56,7 @@ export default function SEOHead({ title, description, canonical, openGraph }: SE
       
       {/* Theme and Color Scheme */}
       <meta name="theme-color" content="#1e293b" />
+      <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f172a" />
       <meta name="color-scheme" content="light dark" />
     </Head>
   )

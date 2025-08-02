@@ -1,6 +1,6 @@
 /* Forest Green Theme - Complete Light & Dark Mode */
 
-:root {
+html.theme-forest {
   --background: 120 20% 98%;
   --foreground: 140 30% 15%;
 
@@ -36,9 +36,32 @@
   --brand-dark: 140 40% 8%;
   --brand-light: 120 20% 98%;
   
+  /* Semantic Colors */
+  --success: 142 71% 45%;
+  --success-foreground: 355 7% 97%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 20 14% 4%;
+  --error: 0 84% 60%;
+  --error-foreground: 355 7% 97%;
+  
+  /* Neutral Colors */
+  --neutral-50: 120 20% 98%;
+  --neutral-100: 120 15% 96%;
+  --neutral-200: 145 25% 90%;
+  --neutral-300: 145 25% 80%;
+  --neutral-400: 145 25% 65%;
+  --neutral-500: 145 25% 40%;
+  --neutral-600: 145 30% 30%;
+  --neutral-700: 140 35% 20%;
+  --neutral-800: 140 40% 12%;
+  --neutral-900: 140 40% 8%;
+  
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, hsl(150 80% 25%), hsl(155 80% 30%));
   --gradient-accent: linear-gradient(135deg, hsl(65 85% 45%), hsl(70 85% 50%));
+  --gradient-navy: linear-gradient(135deg, hsl(150 80% 25%), hsl(140 40% 8%));
+  --gradient-navy-light: linear-gradient(135deg, hsl(140 25% 35%), hsl(150 80% 25%));
+  --gradient-hero: linear-gradient(135deg, hsl(150 80% 25%), hsl(140 25% 35%), hsl(140 35% 20%));
 
   --sidebar-background: 120 20% 98%;
   --sidebar-foreground: 140 30% 15%;
@@ -50,7 +73,7 @@
   --sidebar-ring: 150 80% 25%;
 }
 
-.dark {
+html.theme-forest.dark {
   --background: 140 40% 8%;
   --foreground: 120 20% 95%;
 
@@ -66,8 +89,8 @@
   --secondary: 145 25% 25%;
   --secondary-foreground: 120 20% 95%;
 
-  --muted: 140 20% 18%;
-  --muted-foreground: 145 20% 65%;
+  --muted: 140 20% 20%;
+  --muted-foreground: 145 20% 75%;
 
   --accent: 65 85% 55%;
   --accent-foreground: 140 40% 8%;
@@ -75,8 +98,8 @@
   --destructive: 0 75% 55%;
   --destructive-foreground: 120 20% 95%;
 
-  --border: 140 20% 18%;
-  --input: 140 20% 18%;
+  --border: 140 20% 20%;
+  --input: 140 20% 20%;
   --ring: 150 80% 65%;
 
   /* Custom brand tokens */
@@ -86,9 +109,32 @@
   --brand-dark: 140 40% 8%;
   --brand-light: 120 20% 95%;
   
+  /* Semantic Colors - Dark Mode */
+  --success: 142 76% 55%;
+  --success-foreground: 355 7% 97%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 20 14% 4%;
+  --error: 0 75% 60%;
+  --error-foreground: 355 7% 97%;
+  
+  /* Neutral Colors - Dark Mode */
+  --neutral-50: 140 40% 8%;
+  --neutral-100: 140 40% 12%;
+  --neutral-200: 140 35% 20%;
+  --neutral-300: 145 30% 30%;
+  --neutral-400: 145 25% 40%;
+  --neutral-500: 145 25% 65%;
+  --neutral-600: 145 25% 80%;
+  --neutral-700: 145 25% 90%;
+  --neutral-800: 120 15% 96%;
+  --neutral-900: 120 20% 98%;
+  
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, hsl(150 80% 65%), hsl(155 80% 70%));
   --gradient-accent: linear-gradient(135deg, hsl(65 85% 55%), hsl(70 85% 60%));
+  --gradient-navy: linear-gradient(135deg, hsl(150 80% 65%), hsl(145 35% 10%));
+  --gradient-navy-light: linear-gradient(135deg, hsl(145 25% 80%), hsl(150 80% 65%));
+  --gradient-hero: linear-gradient(135deg, hsl(150 80% 25%), hsl(145 35% 15%), hsl(140 40% 8%));
 
   --sidebar-background: 145 35% 10%;
   --sidebar-foreground: 120 20% 95%;

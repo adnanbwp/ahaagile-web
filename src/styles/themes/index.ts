@@ -17,7 +17,7 @@
  * - Complete dark mode variants
  * 
  * Usage:
- * Import themes in your Next.js app by adding to globals.css or layout.tsx
+ * Import themes in your Next.js app by adding to ocean.css or layout.tsx
  * Apply themes by adding/removing CSS classes or switching stylesheets
  * 
  * Color Format: HSL space-separated values (e.g., "200 100% 25%")

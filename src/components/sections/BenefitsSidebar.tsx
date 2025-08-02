@@ -34,12 +34,12 @@ export default function BenefitsSidebar({ className = '' }: BenefitsSidebarProps
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Benefits Section */}
-      <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-brand p-6 border border-white/20">
+      <div className="relative bg-card/90 backdrop-blur-sm rounded-2xl shadow-brand p-6 border border-border/20">
         {/* Gradient background overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-50/50 via-white/30 to-accent-50/30 rounded-2xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-muted/50 via-card/30 to-accent/5 rounded-2xl pointer-events-none" />
         
         <div className="relative">
-          <h3 className="text-2xl font-bold text-primary-900 mb-6 font-inter">
+          <h3 className="text-2xl font-bold text-foreground mb-6 font-inter">
             Why Book a Consultation?
           </h3>
           
@@ -47,13 +47,13 @@ export default function BenefitsSidebar({ className = '' }: BenefitsSidebarProps
             {benefits.map((benefit, index) => (
               <div key={index} className="flex items-start space-x-3">
                 <div className="flex-shrink-0 mt-1">
-                  <Check className="h-5 w-5 text-accent-500" />
+                  <Check className="h-5 w-5 text-accent" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-primary-900 font-inter mb-1">
+                  <h4 className="font-semibold text-foreground font-inter mb-1">
                     {benefit.title}
                   </h4>
-                  <p className="text-primary-700 font-source-serif-4 text-sm leading-relaxed">
+                  <p className="text-muted-foreground font-source-serif-4 text-sm leading-relaxed">
                     {benefit.description}
                   </p>
                 </div>
@@ -64,9 +64,9 @@ export default function BenefitsSidebar({ className = '' }: BenefitsSidebarProps
       </div>
 
       {/* Social Proof Card */}
-      <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-accent p-6 border border-white/20">
+      <div className="relative bg-card/90 backdrop-blur-sm rounded-2xl shadow-accent p-6 border border-border/20">
         {/* Gradient background overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-50/50 via-white/30 to-primary-50/30 rounded-2xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-card/30 to-muted/50 rounded-2xl pointer-events-none" />
         
         <div className="relative">
           {/* Star Rating */}
@@ -76,28 +76,28 @@ export default function BenefitsSidebar({ className = '' }: BenefitsSidebarProps
                 key={i}
                 className={`h-5 w-5 ${
                   i < 4 || (i === 4 && 0.9 >= 0.5) 
-                    ? 'text-accent-500 fill-current' 
-                    : 'text-gray-300'
+                    ? 'text-accent fill-current' 
+                    : 'text-muted-foreground/30'
                 }`}
               />
             ))}
-            <span className="ml-2 text-sm font-semibold text-primary-900 font-inter">
+            <span className="ml-2 text-sm font-semibold text-foreground font-inter">
               4.9/5
             </span>
           </div>
           
-          <p className="text-xs text-primary-600 mb-4 font-source-serif-4">
+          <p className="text-xs text-muted-foreground mb-4 font-source-serif-4">
             Based on 150+ consultations
           </p>
           
           {/* Testimonial */}
           <blockquote className="mb-3">
-            <p className="text-primary-800 font-source-serif-4 text-sm leading-relaxed italic">
+            <p className="text-foreground font-source-serif-4 text-sm leading-relaxed italic">
               &ldquo;Aha Agile transformed our workflows and saved us 20+ hours per week. The consultation was incredibly valuable.&rdquo;
             </p>
           </blockquote>
           
-          <cite className="text-xs text-primary-600 font-inter not-italic">
+          <cite className="text-xs text-muted-foreground font-inter not-italic">
             - Sarah M., Operations Director
           </cite>
         </div>

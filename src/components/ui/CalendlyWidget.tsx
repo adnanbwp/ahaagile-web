@@ -52,11 +52,11 @@ export default function CalendlyWidget({
 
   if (hasError) {
     return (
-      <div className={`bg-red-50 border border-red-200 rounded-lg p-6 ${className}`}>
-        <h3 className="text-lg font-semibold text-red-800 mb-2">
+      <div className={`bg-error/10 border border-error/20 rounded-lg p-6 ${className}`}>
+        <h3 className="text-lg font-semibold text-error mb-2">
           Calendar Temporarily Unavailable
         </h3>
-        <p className="text-red-700">
+        <p className="text-error">
           We&apos;re experiencing technical difficulties with our scheduling system. 
           Please try refreshing the page or contact us directly.
         </p>
@@ -65,13 +65,13 @@ export default function CalendlyWidget({
   }
 
   return (
-    <div className={`relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-brand overflow-hidden border border-white/20 ${className}`} id={id}>
+    <div className={`relative bg-card/90 backdrop-blur-sm rounded-2xl shadow-brand overflow-hidden border border-border/20 ${className}`} id={id}>
       {/* Gradient background overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-50/50 via-white/30 to-accent-50/30 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-muted/50 via-card/30 to-accent/5 pointer-events-none" />
       
       <div className="relative">
-        <div className="p-6 bg-gradient-to-r from-primary-50 to-primary-100/80 border-b border-primary-200/50">
-          <h2 className="text-2xl font-bold text-primary-900 mb-2 font-inter">
+        <div className="p-6 bg-gradient-to-r from-muted to-muted/80 border-b border-border/50">
+          <h2 className="text-2xl font-bold text-foreground mb-2 font-inter">
             Schedule Your Consultation
           </h2>
           <p className="text-primary-700 font-source-serif-4">

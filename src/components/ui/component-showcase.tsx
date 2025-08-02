@@ -22,7 +22,7 @@ export function ComponentShowcase() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
-                  <Zap className="text-accent-500" size={24} />
+                  <Zap className="text-accent" size={24} />
                   Intelligent Automation
                 </CardTitle>
                 <Badge variant="default">Featured</Badge>
@@ -33,18 +33,18 @@ export function ComponentShowcase() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex items-center gap-2 text-sm text-secondary-600">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Users size={16} />
                   <span>Trusted by 500+ companies</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-secondary-600">
-                  <Star size={16} className="text-accent-500" />
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Star size={16} className="text-accent" />
                   <span>4.9/5 customer rating</span>
                 </div>
                 <Separator />
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-brand-navy">Key Features:</h4>
-                  <ul className="text-sm text-secondary-600 space-y-1">
+                  <h4 className="font-semibold text-primary">Key Features:</h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
                     <li>• Process optimization and analysis</li>
                     <li>• Custom workflow automation</li>
                     <li>• Real-time performance monitoring</li>
@@ -71,7 +71,7 @@ export function ComponentShowcase() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium text-brand-navy">
+                <label htmlFor="name" className="text-sm font-medium text-primary">
                   Full Name
                 </label>
                 <Input 
@@ -81,7 +81,7 @@ export function ComponentShowcase() {
                 />
               </div>
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-brand-navy">
+                <label htmlFor="email" className="text-sm font-medium text-primary">
                   Email Address
                 </label>
                 <Input 

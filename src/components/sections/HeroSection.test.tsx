@@ -29,7 +29,7 @@ describe('HeroSection', () => {
       name: /reclaim 150\+ hours per employee annually/i 
     });
     expect(headline).toBeInTheDocument();
-    expect(headline).toHaveClass('text-hero', 'text-white');
+    expect(headline).toHaveClass('text-hero', 'text-primary-foreground');
   });
 
   it('renders the subtitle with correct content', () => {

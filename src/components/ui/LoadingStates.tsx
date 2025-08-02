@@ -159,9 +159,9 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
       aria-modal="true"
       aria-label="Loading"
     >
-      <div className="bg-white rounded-lg p-6 flex flex-col items-center space-y-4 max-w-sm mx-4">
+      <div className="bg-card rounded-lg p-6 flex flex-col items-center space-y-4 max-w-sm mx-4">
         <LoadingSpinner size="lg" />
-        <p className="text-secondary-700 text-center">{message}</p>
+        <p className="text-muted-foreground text-center">{message}</p>
       </div>
     </div>
   )

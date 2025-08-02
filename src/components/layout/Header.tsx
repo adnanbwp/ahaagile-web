@@ -61,14 +61,14 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-white shadow-brand border-b border-secondary-200 sticky top-0 z-50">
+    <header className="bg-background shadow-brand border-b border-border sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link 
               href="/" 
-              className="text-2xl font-heading font-bold text-brand-navy hover:text-accent-600 transition-colors duration-200 focus-brand"
+              className="text-2xl font-heading font-bold text-primary hover:text-accent transition-colors duration-200 focus-brand"
               tabIndex={0}
             >
               Aha Agile
@@ -93,8 +93,8 @@ export default function Header() {
                   href={item.href} 
                   className={`font-inter font-medium px-4 py-2 rounded-lg text-sm transition-all duration-200 focus-brand ${
                     isActiveLink(item.href)
-                      ? 'text-brand-navy bg-secondary-100 border border-secondary-200'
-                      : 'text-secondary-600 hover:text-brand-navy hover:bg-secondary-50'
+                      ? 'text-foreground bg-muted border border-border'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                   tabIndex={0}
                 >
@@ -108,7 +108,7 @@ export default function Header() {
           <div className="md:hidden">
             <button 
               type="button" 
-              className="relative p-3 text-secondary-600 hover:text-brand-navy hover:bg-secondary-50 rounded-lg transition-colors duration-200 focus-brand min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="relative p-3 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors duration-200 focus-brand min-h-[44px] min-w-[44px] flex items-center justify-center"
               onClick={toggleMobileMenu}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
@@ -150,7 +150,7 @@ export default function Header() {
       {/* Mobile Menu */}
       <div 
         id="mobile-menu"
-        className={`fixed top-20 left-0 right-0 bg-white border-b border-secondary-200 shadow-xl z-50 transform transition-all duration-300 ease-in-out md:hidden ${
+        className={`fixed top-20 left-0 right-0 bg-background border-b border-border shadow-xl z-50 transform transition-all duration-300 ease-in-out md:hidden ${
           isMobileMenuOpen 
             ? 'translate-y-0 opacity-100' 
             : '-translate-y-full opacity-0 pointer-events-none'
@@ -167,8 +167,8 @@ export default function Header() {
                 item.primary 
                   ? 'btn-primary text-center mt-4' 
                   : isActiveLink(item.href)
-                    ? 'text-brand-navy bg-secondary-100 border border-secondary-200'
-                    : 'text-secondary-600 hover:text-brand-navy hover:bg-secondary-50'
+                    ? 'text-foreground bg-muted border border-border'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
               }`}
               onClick={() => setIsMobileMenuOpen(false)}
               tabIndex={isMobileMenuOpen ? 0 : -1}

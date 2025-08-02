@@ -57,10 +57,10 @@ describe('Header Component', () => {
       render(<Header />)
       
       const header = screen.getByRole('banner')
-      expect(header).toHaveClass('bg-white', 'shadow-brand', 'sticky', 'top-0', 'z-50')
+      expect(header).toHaveClass('bg-background', 'shadow-brand', 'sticky', 'top-0', 'z-50')
       
       const logo = screen.getByRole('link', { name: /aha agile/i })
-      expect(logo).toHaveClass('text-brand-navy', 'font-heading', 'font-bold')
+      expect(logo).toHaveClass('text-primary', 'hover:text-accent', 'font-heading', 'font-bold')
     })
   })
 
@@ -162,7 +162,7 @@ describe('Header Component', () => {
       
       const mainNav = screen.getByRole('navigation', { name: /main navigation/i })
       const servicesLink = mainNav.querySelector('a[href="/services"]')
-      expect(servicesLink).toHaveClass('text-brand-navy', 'bg-secondary-100')
+      expect(servicesLink).toHaveClass('text-foreground', 'bg-muted')
     })
 
     it('shows home as active when on root path', () => {
@@ -170,7 +170,7 @@ describe('Header Component', () => {
       render(<Header />)
       
       const logo = screen.getByRole('link', { name: /aha agile/i })
-      expect(logo).toHaveClass('text-brand-navy')
+      expect(logo).toHaveClass('text-primary')
     })
 
     it('applies correct styling to non-active links', () => {
@@ -179,8 +179,8 @@ describe('Header Component', () => {
       
       const mainNav = screen.getByRole('navigation', { name: /main navigation/i })
       const caseStudyLink = mainNav.querySelector('a[href="/case-study"]')
-      expect(caseStudyLink).toHaveClass('text-secondary-600')
-      expect(caseStudyLink).not.toHaveClass('bg-secondary-100')
+      expect(caseStudyLink).toHaveClass('text-muted-foreground')
+      expect(caseStudyLink).not.toHaveClass('bg-muted')
     })
   })
 

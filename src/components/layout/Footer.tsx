@@ -38,7 +38,7 @@ export default function Footer() {
               >
                 Aha Agile
               </Link>
-              <p className="text-secondary-300 text-sm leading-relaxed mb-4 font-serif">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4 font-serif">
                 Intelligent workflow automation for professional services. 
                 Transform your operations with our expert consultancy.
               </p>
@@ -49,7 +49,7 @@ export default function Footer() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="text-secondary-300 hover:text-accent-300 transition-colors duration-200 focus-brand"
+                    className="text-muted-foreground hover:text-shadcn-accent transition-colors duration-200 focus-brand"
                     target={link.external ? '_blank' : undefined}
                     rel={link.external ? 'noopener noreferrer' : undefined}
                     aria-label={link.label}
@@ -77,19 +77,19 @@ export default function Footer() {
               <nav className="space-y-3" role="navigation" aria-label="Footer navigation">
                 <Link 
                   href="/services" 
-                  className="block text-secondary-300 hover:text-accent-300 transition-colors duration-200 focus-brand text-sm"
+                  className="block text-muted-foreground hover:text-shadcn-accent transition-colors duration-200 focus-brand text-sm"
                 >
                   Services
                 </Link>
                 <Link 
                   href="/case-study" 
-                  className="block text-secondary-300 hover:text-accent-300 transition-colors duration-200 focus-brand text-sm"
+                  className="block text-muted-foreground hover:text-shadcn-accent transition-colors duration-200 focus-brand text-sm"
                 >
                   Case Study
                 </Link>
                 <Link 
                   href="/book-a-consultation" 
-                  className="block text-secondary-300 hover:text-accent-300 transition-colors duration-200 focus-brand text-sm"
+                  className="block text-muted-foreground hover:text-shadcn-accent transition-colors duration-200 focus-brand text-sm"
                 >
                   Book a Consultation
                 </Link>
@@ -102,7 +102,7 @@ export default function Footer() {
                 Get in Touch
               </h3>
               <div className="space-y-3 text-sm">
-                <p className="text-secondary-300">
+                <p className="text-muted-foreground">
                   Ready to transform your workflows?
                 </p>
                 <Link 
@@ -123,7 +123,7 @@ export default function Footer() {
         <div className="border-t border-secondary-700">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="text-sm text-secondary-400">
+              <div className="text-sm text-muted-foreground">
                 © {currentYear} Aha Agile. All rights reserved.
               </div>
               
@@ -132,7 +132,7 @@ export default function Footer() {
                   <Link 
                     key={link.href}
                     href={link.href} 
-                    className="text-sm text-secondary-400 hover:text-accent-300 transition-colors duration-200 focus-brand"
+                    className="text-sm text-muted-foreground hover:text-shadcn-accent transition-colors duration-200 focus-brand"
                   >
                     {link.label}
                   </Link>

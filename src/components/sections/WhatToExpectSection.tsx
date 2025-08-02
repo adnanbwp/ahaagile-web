@@ -8,7 +8,7 @@ interface BenefitCardProps {
 }
 
 const BenefitCard = ({ icon: Icon, title, description }: BenefitCardProps) => (
-  <Card className="group relative bg-white border-gray-200 shadow-brand hover:shadow-accent transition-all duration-300 hover:scale-105 transform-gpu">
+  <Card className="group relative bg-card border-border shadow-brand hover:shadow-accent transition-all duration-300 hover:scale-105 transform-gpu">
     <div className="p-8 text-center">
       <div className="flex flex-col items-center space-y-6">
         {/* Icon Container with Gradient Background */}
@@ -17,15 +17,15 @@ const BenefitCard = ({ icon: Icon, title, description }: BenefitCardProps) => (
             <Icon className="w-8 h-8 text-white" />
           </div>
           {/* Backdrop blur effect on hover */}
-          <div className="absolute inset-0 rounded-full bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 rounded-full bg-card/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         
         {/* Content */}
         <div className="space-y-3">
-          <h3 className="font-heading font-semibold text-xl text-primary-800 group-hover:text-primary-900 transition-colors duration-300">
+          <h3 className="font-heading font-semibold text-xl text-foreground group-hover:text-primary transition-colors duration-300">
             {title}
           </h3>
-          <p className="text-secondary-600 leading-relaxed font-serif text-base">
+          <p className="text-muted-foreground leading-relaxed font-serif text-base">
             {description}
           </p>
         </div>
@@ -36,19 +36,19 @@ const BenefitCard = ({ icon: Icon, title, description }: BenefitCardProps) => (
 
 export default function WhatToExpectSection() {
   return (
-    <section className="relative py-16 lg:py-24 bg-gradient-to-br from-secondary-50 via-white to-primary-50 overflow-hidden">
+    <section className="relative py-16 lg:py-24 bg-gradient-to-br from-muted via-background to-muted overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-accent-400/5 rounded-full blur-xl"></div>
-      <div className="absolute bottom-20 right-10 w-48 h-48 bg-primary-600/5 rounded-full blur-2xl"></div>
+      <div className="absolute top-20 left-10 w-32 h-32 bg-accent/5 rounded-full blur-xl"></div>
+      <div className="absolute bottom-20 right-10 w-48 h-48 bg-primary/5 rounded-full blur-2xl"></div>
       
       <div className="relative container mx-auto px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="font-heading text-3xl lg:text-4xl font-bold text-primary-800 mb-6">
+            <h2 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mb-6">
               What to Expect in Your Consultation
             </h2>
-            <p className="text-lg text-secondary-600 font-serif max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-muted-foreground font-serif max-w-2xl mx-auto leading-relaxed">
               Our structured approach ensures you get maximum value from every consultation session
             </p>
           </div>

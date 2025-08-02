@@ -1,6 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import theme transition styles */
+@import '../theme-transitions.css';
+
 /* Ocean Depths Theme - Complete Light & Dark Mode */
 
-:root {
+html.theme-ocean {
   --background: 200 30% 98%;
   --foreground: 210 30% 15%;
 
@@ -36,9 +43,51 @@
   --brand-dark: 210 40% 8%;
   --brand-light: 200 30% 98%;
   
+  /* Semantic Colors */
+  --success: 142 71% 45%;
+  --success-foreground: 355 7% 97%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 20 14% 4%;
+  --error: 0 84% 60%;
+  --error-foreground: 355 7% 97%;
+  
+  /* Neutral Colors */
+  --neutral-50: 200 30% 98%;
+  --neutral-100: 200 25% 96%;
+  --neutral-200: 205 20% 90%;
+  --neutral-300: 205 20% 80%;
+  --neutral-400: 205 20% 65%;
+  --neutral-500: 205 20% 45%;
+  --neutral-600: 205 25% 35%;
+  --neutral-700: 205 30% 25%;
+  --neutral-800: 210 35% 15%;
+  --neutral-900: 210 40% 8%;
+  
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, hsl(200 100% 25%), hsl(195 100% 30%));
   --gradient-accent: linear-gradient(135deg, hsl(180 100% 35%), hsl(175 100% 40%));
+  --gradient-navy: linear-gradient(135deg, hsl(200 100% 25%), hsl(210 40% 8%));
+  --gradient-navy-light: linear-gradient(135deg, hsl(205 20% 45%), hsl(200 100% 25%));
+  --gradient-hero: linear-gradient(135deg, hsl(200 100% 25%), hsl(205 20% 45%), hsl(205 25% 35%));
+  
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Shadow Variables */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-brand: 0 8px 25px -8px rgba(0, 100%, 50%, 0.25);
+  --shadow-accent: 0 8px 25px -8px rgba(180, 100%, 35%, 0.25);
+  
+  --radius: 0.5rem;
 
   --sidebar-background: 200 30% 98%;
   --sidebar-foreground: 210 30% 15%;
@@ -50,14 +99,14 @@
   --sidebar-ring: 200 100% 25%;
 }
 
-.dark {
+html.theme-ocean.dark {
   --background: 210 40% 8%;
   --foreground: 200 30% 95%;
 
-  --card: 210 35% 10%;
+  --card: 210 35% 12%;
   --card-foreground: 200 30% 95%;
 
-  --popover: 210 35% 10%;
+  --popover: 210 35% 12%;
   --popover-foreground: 200 30% 95%;
 
   --primary: 200 100% 70%;
@@ -66,8 +115,8 @@
   --secondary: 205 20% 25%;
   --secondary-foreground: 200 30% 95%;
 
-  --muted: 205 25% 18%;
-  --muted-foreground: 205 20% 65%;
+  --muted: 205 25% 22%;
+  --muted-foreground: 205 20% 80%;
 
   --accent: 180 80% 50%;
   --accent-foreground: 210 40% 8%;
@@ -75,8 +124,8 @@
   --destructive: 0 75% 55%;
   --destructive-foreground: 200 30% 95%;
 
-  --border: 205 25% 18%;
-  --input: 205 25% 18%;
+  --border: 205 25% 20%;
+  --input: 205 25% 20%;
   --ring: 200 100% 70%;
 
   /* Custom brand tokens */
@@ -86,9 +135,51 @@
   --brand-dark: 210 40% 8%;
   --brand-light: 200 30% 95%;
   
+  /* Semantic Colors - Dark Mode */
+  --success: 142 76% 55%;
+  --success-foreground: 355 7% 97%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 20 14% 4%;
+  --error: 0 75% 60%;
+  --error-foreground: 355 7% 97%;
+  
+  /* Neutral Colors - Dark Mode */
+  --neutral-50: 210 40% 8%;
+  --neutral-100: 210 35% 15%;
+  --neutral-200: 205 30% 25%;
+  --neutral-300: 205 25% 35%;
+  --neutral-400: 205 20% 45%;
+  --neutral-500: 205 20% 65%;
+  --neutral-600: 205 20% 80%;
+  --neutral-700: 205 20% 90%;
+  --neutral-800: 200 25% 96%;
+  --neutral-900: 200 30% 98%;
+  
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, hsl(200 100% 70%), hsl(195 100% 75%));
   --gradient-accent: linear-gradient(135deg, hsl(180 80% 50%), hsl(175 80% 55%));
+  --gradient-navy: linear-gradient(135deg, hsl(200 100% 70%), hsl(210 35% 12%));
+  --gradient-navy-light: linear-gradient(135deg, hsl(205 20% 80%), hsl(200 100% 70%));
+  --gradient-hero: linear-gradient(135deg, hsl(200 100% 25%), hsl(205 30% 15%), hsl(210 40% 8%));
+  
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Shadow Variables */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-brand: 0 8px 25px -8px rgba(0, 100%, 50%, 0.25);
+  --shadow-accent: 0 8px 25px -8px rgba(180, 100%, 35%, 0.25);
+  
+  --radius: 0.5rem;
 
   --sidebar-background: 210 35% 10%;
   --sidebar-foreground: 200 30% 95%;
@@ -98,4 +189,411 @@
   --sidebar-accent-foreground: 200 30% 95%;
   --sidebar-border: 205 25% 18%;
   --sidebar-ring: 200 100% 70%;
+}
+
+/* Base Styles and Utilities from globals.css */
+
+html {
+  background: hsl(var(--background));
+  scroll-behavior: smooth;
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-family: var(--font-source-serif-4), ui-serif, Georgia, serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Base Styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: hsl(var(--foreground));
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: hsl(var(--foreground));
+}
+
+a {
+  color: hsl(var(--accent));
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: hsl(var(--accent-foreground));
+}
+
+/* Custom Utility Classes for Brand Patterns */
+
+@layer components {
+/* Button Utilities */
+.btn-primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  @apply px-6 py-3 rounded-lg font-inter font-semibold;
+  @apply transition-all duration-200 ease-out hover:shadow-lg;
+  border: 1px solid transparent;
+  @apply transform hover:scale-105 active:scale-95;
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary:hover {
+  border-color: hsl(var(--accent));
+  box-shadow: 0 0 0 2px hsl(var(--accent));
+}
+
+.btn-secondary {
+  background: transparent;
+  color: hsl(var(--primary));
+  border: 2px solid hsl(var(--primary));
+  @apply px-6 py-3 rounded-lg;
+  @apply font-inter font-semibold transition-all duration-200 ease-out;
+  @apply transform hover:scale-105 active:scale-95;
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-secondary:hover {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-accent {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  @apply px-6 py-3 rounded-lg font-inter font-semibold;
+  @apply transition-all duration-200 ease-out hover:shadow-lg;
+  border: 1px solid transparent;
+  @apply transform hover:scale-105 active:scale-95;
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-accent:hover {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px hsl(var(--accent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-accent {
+    @apply hover:scale-100 active:scale-100;
+    @apply transition-colors duration-150;
+  }
+}
+
+/* Card Utilities */
+.card-elevated {
+  background: hsl(var(--card));
+  @apply rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-out;
+  border: 1px solid hsl(var(--border));
+  @apply transform hover:-translate-y-1 hover:scale-105;
+}
+
+.card-brand {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  @apply rounded-xl shadow-lg;
+  @apply transition-all duration-300 ease-out;
+  @apply transform hover:-translate-y-1 hover:shadow-xl;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-elevated,
+  .card-brand {
+    @apply hover:scale-100 hover:translate-y-0;
+    @apply transition-shadow duration-200;
+  }
+}
+
+/* Layout Utilities */
+.container-brand {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section-spacing {
+  @apply py-16 lg:py-24;
+}
+
+.text-brand-gradient {
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  @apply font-bold;
+}
+
+/* Focus and Accessibility Utilities */
+.focus-brand {
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.focus-brand:focus {
+  box-shadow: 0 0 0 2px hsl(var(--accent));
+}
+
+/* Responsive Text Utilities */
+.text-hero {
+  @apply text-4xl md:text-5xl lg:text-6xl font-heading font-bold;
+  @apply leading-tight tracking-tight;
+  color: hsl(var(--foreground));
+}
+
+.text-subhero {
+  @apply text-xl md:text-2xl font-serif text-muted-foreground;
+  @apply leading-relaxed;
+}
+
+/* Performance and Animation Utilities */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.hardware-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Touch Target Optimization */
+.touch-target {
+  @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+}
+
+/* Enhanced Focus Utilities */
+.focus-brand-enhanced {
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.focus-brand-enhanced:focus {
+  box-shadow: 0 0 0 2px hsl(var(--accent));
+  border-color: hsl(var(--accent));
+}
+
+/* Skip Links */
+.skip-link {
+  @apply absolute -top-10 left-0 px-4 py-2 z-50;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  @apply transition-all duration-200 focus:top-0;
+}
+
+/* Interactive Element Enhancements */
+.btn-enhanced {
+  @apply transform transition-all duration-200 ease-out;
+  @apply hover:scale-105 active:scale-95;
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-enhanced:focus {
+  box-shadow: 0 0 0 2px hsl(var(--accent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-enhanced {
+    @apply hover:scale-100 active:scale-100;
+  }
+}
+
+/* Loading States */
+.pulse-loading {
+  @apply animate-pulse rounded;
+  background: hsl(var(--muted));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-loading {
+    @apply animate-none bg-muted;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    border: 2px solid hsl(var(--primary-foreground));
+  }
+  
+  .btn-secondary {
+    border-width: 2px;
+  }
+}
+
+/* Mobile-First Responsive Utilities */
+.container-responsive {
+  @apply px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto;
+}
+
+.text-responsive {
+  @apply text-sm sm:text-base lg:text-lg;
+}
+
+.spacing-responsive {
+  @apply py-8 sm:py-12 lg:py-16 xl:py-20;
+}
+
+/* Grid Enhancements */
+.grid-responsive {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  @apply gap-4 sm:gap-6 lg:gap-8;
+}
+
+/* Form Enhancements */
+.form-input-enhanced {
+  @apply w-full px-3 py-2 rounded-md;
+  border: 1px solid hsl(var(--input));
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+  @apply transition-colors duration-200;
+}
+
+.form-input-enhanced:focus {
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsl(var(--ring));
+}
+
+.form-error {
+  color: hsl(var(--destructive));
+  @apply text-sm mt-1;
+}
+
+/* Page Transition Animations */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+.stagger-animation > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-animation > *:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .page-enter-active,
+  .fade-in,
+  .slide-up,
+  .stagger-animation > * {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Link Animations */
+.link-animated {
+  @apply relative overflow-hidden;
+}
+
+.link-animated::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5;
+  background: hsl(var(--accent));
+  @apply transition-all duration-300 ease-out;
+}
+
+.link-animated:hover::after {
+  @apply w-full;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-animated::after {
+    @apply transition-none;
+  }
+}
+
+/* Accessibility Enhancements */
+.visually-hidden {
+  @apply sr-only;
+}
+
+.focus-visible-only {
+  @apply focus:not-sr-only focus:absolute focus:top-0 focus:left-0;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  @apply p-2 z-50;
+}
+
 }

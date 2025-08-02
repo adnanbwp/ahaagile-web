@@ -141,7 +141,7 @@ describe('ThemeSwitcher', () => {
     it('should show current theme info', () => {
       expect(screen.getByText(/Active:/)).toBeInTheDocument();
       // Check that current theme info div is present
-      const activeInfo = document.querySelector('.text-xs.text-gray-500');
+      const activeInfo = document.querySelector('.text-xs.text-muted-foreground');
       expect(activeInfo).toBeInTheDocument();
       expect(screen.getByText(/light/i)).toBeInTheDocument();
     });
@@ -251,7 +251,7 @@ describe('ThemeSwitcher', () => {
       // Light mode should show sun icon
       const modeButton = screen.getByLabelText('Switch to dark mode');
       const sunIcon = modeButton.querySelector('svg');
-      expect(sunIcon).toHaveClass('text-yellow-500');
+      expect(sunIcon).toHaveClass('text-warning');
       
       // Switch to dark mode
       await user.click(modeButton);
@@ -259,7 +259,7 @@ describe('ThemeSwitcher', () => {
       await waitFor(() => {
         const darkModeButton = screen.getByLabelText('Switch to light mode');
         const moonIcon = darkModeButton.querySelector('svg');
-        expect(moonIcon).toHaveClass('text-blue-400');
+        expect(moonIcon).toHaveClass('text-shadcn-primary');
       });
     });
   });

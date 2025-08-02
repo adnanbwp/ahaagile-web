@@ -38,16 +38,16 @@ interface ProcessStepProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({ icon: Icon, title, features }) => (
   <Card className="card-elevated hover:card-brand group transition-all duration-300 h-full">
     <CardContent className="p-6">
-      <div className="w-12 h-12 mb-4 bg-gradient-accent rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300">
-        <Icon className="w-6 h-6 text-brand-navy group-hover:text-white" />
+      <div className="w-12 h-12 mb-4 bg-gradient-accent rounded-lg flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+        <Icon className="w-6 h-6 text-foreground group-hover:text-primary-foreground" />
       </div>
-      <h3 className="text-xl font-heading font-semibold text-brand-navy group-hover:text-white mb-4 transition-colors duration-300">
+      <h3 className="text-xl font-heading font-semibold text-foreground group-hover:text-primary-foreground mb-4 transition-colors duration-300">
         {title}
       </h3>
       <ul className="space-y-2">
         {features.map((feature, index) => (
-          <li key={index} className="flex items-start text-sm text-secondary-600 group-hover:text-gray-200 transition-colors duration-300">
-            <Check className="w-4 h-4 text-green-500 group-hover:text-green-300 mt-0.5 mr-2 flex-shrink-0" />
+          <li key={index} className="flex items-start text-sm text-muted-foreground group-hover:text-primary-foreground/90 transition-colors duration-300">
+            <Check className="w-4 h-4 text-success group-hover:text-success mt-0.5 mr-2 flex-shrink-0" />
             <span>{feature}</span>
           </li>
         ))}
@@ -60,12 +60,12 @@ const BusinessAnalysisCard: React.FC<BusinessAnalysisProps> = ({ icon: Icon, tit
   <Card className="card-elevated hover:shadow-xl transition-all duration-300 text-center h-full">
     <CardContent className="p-8">
       <div className="w-16 h-16 mx-auto mb-6 bg-gradient-accent rounded-full flex items-center justify-center">
-        <Icon className="w-8 h-8 text-brand-navy" />
+        <Icon className="w-8 h-8 text-foreground" />
       </div>
-      <h3 className="text-xl font-heading font-semibold text-brand-navy mb-4">
+      <h3 className="text-xl font-heading font-semibold text-foreground mb-4">
         {title}
       </h3>
-      <p className="text-secondary-600 leading-relaxed">
+      <p className="text-muted-foreground leading-relaxed">
         {description}
       </p>
     </CardContent>
@@ -75,7 +75,7 @@ const BusinessAnalysisCard: React.FC<BusinessAnalysisProps> = ({ icon: Icon, tit
 const ProcessStep: React.FC<ProcessStepProps> = ({ stepNumber, title, description }) => (
   <div className="flex flex-col items-center text-center lg:text-left lg:flex-row lg:items-start">
     <div className="flex flex-col items-center lg:items-start lg:mr-6 mb-4 lg:mb-0">
-      <div className="w-12 h-12 bg-gradient-accent rounded-full flex items-center justify-center text-brand-navy font-bold text-lg mb-2">
+      <div className="w-12 h-12 bg-gradient-accent rounded-full flex items-center justify-center text-foreground font-bold text-lg mb-2">
         {stepNumber}
       </div>
       {stepNumber < 4 && (
@@ -83,10 +83,10 @@ const ProcessStep: React.FC<ProcessStepProps> = ({ stepNumber, title, descriptio
       )}
     </div>
     <div className="flex-1">
-      <h3 className="text-xl font-heading font-semibold text-brand-navy mb-3">
+      <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
         {title}
       </h3>
-      <p className="text-secondary-600 leading-relaxed">
+      <p className="text-muted-foreground leading-relaxed">
         {description}
       </p>
     </div>
@@ -201,13 +201,13 @@ export default function ServicesGridSection({ className = '' }: ServicesGridSect
   return (
     <div className={className}>
       {/* Services Grid Section */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-background">
         <div className="container-brand">
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-brand-navy mb-6">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-foreground mb-6">
               Comprehensive Workflow Automation Solutions
             </h2>
-            <p className="text-lg text-secondary-600 leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               Transform your professional services firm with intelligent automation across six critical business areas. 
               Each solution is designed to integrate seamlessly with your existing workflows while delivering measurable productivity gains.
             </p>
@@ -228,13 +228,13 @@ export default function ServicesGridSection({ className = '' }: ServicesGridSect
       </section>
 
       {/* Business Analysis Section */}
-      <section className="section-spacing bg-gradient-to-br from-secondary-50 to-white">
+      <section className="section-spacing bg-gradient-to-br from-muted to-background">
         <div className="container-brand">
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-brand-navy mb-6">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-foreground mb-6">
               Our Strategic Approach
             </h2>
-            <p className="text-lg text-secondary-600 leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               We combine deep business analysis with technical expertise to deliver automation solutions 
               that align with your firm&apos;s strategic objectives and operational realities.
             </p>
@@ -255,13 +255,13 @@ export default function ServicesGridSection({ className = '' }: ServicesGridSect
       </section>
 
       {/* Implementation Process Section */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-background">
         <div className="container-brand">
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-brand-navy mb-6">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-foreground mb-6">
               Proven Implementation Process
             </h2>
-            <p className="text-lg text-secondary-600 leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               Our structured, four-phase approach ensures successful automation deployment with minimal 
               disruption to your daily operations while maximizing adoption and long-term value.
             </p>

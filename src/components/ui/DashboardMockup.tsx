@@ -12,9 +12,9 @@ interface MetricCardProps {
 
 function MetricCard({ icon, title, value, trend, trendColor }: MetricCardProps) {
   return (
-    <Card className="p-4 bg-white/95 backdrop-blur-sm shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+    <Card className="p-4 bg-card/95 backdrop-blur-sm shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
       <div className="flex items-center justify-between mb-2">
-        <div className="p-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div className="p-2 rounded-lg bg-gradient-accent">
           {icon}
         </div>
         <span className={`text-sm font-semibold ${trendColor}`}>
@@ -22,8 +22,8 @@ function MetricCard({ icon, title, value, trend, trendColor }: MetricCardProps) 
         </span>
       </div>
       <div className="space-y-1">
-        <h4 className="text-sm font-medium text-gray-600">{title}</h4>
-        <p className="text-2xl font-bold text-gray-900">{value}</p>
+        <h4 className="text-sm font-medium text-muted-foreground">{title}</h4>
+        <p className="text-2xl font-bold text-card-foreground">{value}</p>
       </div>
     </Card>
   );
@@ -42,10 +42,10 @@ function ProgressBar({ label, value, maxValue, color }: ProgressBarProps) {
   return (
     <div className="space-y-2">
       <div className="flex justify-between text-sm">
-        <span className="font-medium text-gray-700">{label}</span>
-        <span className="text-gray-500">{value}h saved</span>
+        <span className="font-medium text-foreground">{label}</span>
+        <span className="text-muted-foreground">{value}h saved</span>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-3">
+      <div className="w-full bg-muted rounded-full h-3">
         <div 
           className={`h-3 rounded-full transition-all duration-1000 ease-out ${color}`}
           style={{ width: `${percentage}%` }}
@@ -62,47 +62,47 @@ interface DashboardMockupProps {
 export default function DashboardMockup({ className = '' }: DashboardMockupProps): JSX.Element {
   const metrics = [
     {
-      icon: <Clock className="w-5 h-5 text-blue-600" />,
+      icon: <Clock className="w-5 h-5 text-shadcn-primary" />,
       title: "Time Saved This Month",
       value: "187h",
       trend: "+23%",
-      trendColor: "text-green-600"
+      trendColor: "text-success"
     },
     {
-      icon: <DollarSign className="w-5 h-5 text-green-600" />,
+      icon: <DollarSign className="w-5 h-5 text-success" />,
       title: "Cost Savings",
       value: "$28,400",
       trend: "+18%",
-      trendColor: "text-green-600"
+      trendColor: "text-success"
     },
     {
-      icon: <TrendingUp className="w-5 h-5 text-purple-600" />,
+      icon: <TrendingUp className="w-5 h-5 text-shadcn-primary" />,
       title: "Efficiency Gain",
       value: "85%",
       trend: "+12%",
-      trendColor: "text-green-600"
+      trendColor: "text-success"
     },
     {
-      icon: <Users className="w-5 h-5 text-orange-600" />,
+      icon: <Users className="w-5 h-5 text-shadcn-accent" />,
       title: "Processes Automated",
       value: "24",
       trend: "+4",
-      trendColor: "text-blue-600"
+      trendColor: "text-shadcn-primary"
     }
   ];
 
   const timeData = [
-    { label: "Email Management", value: 45, maxValue: 60, color: "bg-gradient-to-r from-blue-500 to-blue-600" },
-    { label: "Document Processing", value: 38, maxValue: 50, color: "bg-gradient-to-r from-green-500 to-green-600" },
-    { label: "Client Communications", value: 52, maxValue: 70, color: "bg-gradient-to-r from-purple-500 to-purple-600" },
-    { label: "Data Entry Tasks", value: 28, maxValue: 35, color: "bg-gradient-to-r from-orange-500 to-orange-600" }
+    { label: "Email Management", value: 45, maxValue: 60, color: "bg-gradient-primary" },
+    { label: "Document Processing", value: 38, maxValue: 50, color: "bg-gradient-accent" },
+    { label: "Client Communications", value: 52, maxValue: 70, color: "bg-gradient-primary" },
+    { label: "Data Entry Tasks", value: 28, maxValue: 35, color: "bg-gradient-accent" }
   ];
 
   return (
-    <div className={`w-full max-w-4xl mx-auto p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl ${className}`}>
+    <div className={`w-full max-w-4xl mx-auto p-6 bg-card/10 backdrop-blur-md rounded-2xl border border-border/20 shadow-2xl ${className}`}>
       <div className="mb-6">
-        <h3 className="text-xl font-semibold text-white mb-2">Automation Dashboard</h3>
-        <p className="text-gray-200 text-sm">Real-time workflow efficiency metrics</p>
+        <h3 className="text-xl font-semibold text-foreground mb-2">Automation Dashboard</h3>
+        <p className="text-foreground/80 text-sm">Real-time workflow efficiency metrics</p>
       </div>
       
       {/* Metrics Grid */}
@@ -113,8 +113,8 @@ export default function DashboardMockup({ className = '' }: DashboardMockupProps
       </div>
       
       {/* Progress Bars Section */}
-      <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 space-y-6">
-        <h4 className="text-lg font-semibold text-gray-900 mb-4">Time Savings by Category</h4>
+      <div className="bg-card/95 backdrop-blur-sm rounded-xl p-6 space-y-6">
+        <h4 className="text-lg font-semibold text-card-foreground mb-4">Time Savings by Category</h4>
         {timeData.map((item, index) => (
           <ProgressBar key={index} {...item} />
         ))}
@@ -123,8 +123,8 @@ export default function DashboardMockup({ className = '' }: DashboardMockupProps
       {/* Interactive Element */}
       <div className="mt-6 text-center">
         <div className="inline-flex items-center space-x-2 text-white/80 text-sm">
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-          <span>Live data updating every 5 minutes</span>
+          <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+          <span className="text-foreground/80">Live data updating every 5 minutes</span>
         </div>
       </div>
     </div>

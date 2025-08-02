@@ -19,10 +19,10 @@ const ThemePreview: React.FC<ThemePreviewProps> = React.memo(({ theme, isActive,
       onClick={onClick}
       className={`
         relative flex flex-col items-center p-3 rounded-lg border-2 transition-all duration-200
-        hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+        hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-shadcn-primary focus:ring-offset-2
         ${isActive 
-          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' 
-          : 'border-gray-200 hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600'
+          ? 'border-shadcn-primary bg-shadcn-primary/10' 
+          : 'border-border hover:border-border/80'
         }
       `}
       aria-pressed={isActive}
@@ -31,30 +31,30 @@ const ThemePreview: React.FC<ThemePreviewProps> = React.memo(({ theme, isActive,
       {/* Color Preview Swatches */}
       <div className="flex space-x-1 mb-2">
         <div 
-          className="w-4 h-4 rounded-full border border-gray-300"
+          className="w-4 h-4 rounded-full border border-border"
           style={{ backgroundColor: themeConfig?.colors.primary }}
           aria-hidden="true"
         />
         <div 
-          className="w-4 h-4 rounded-full border border-gray-300"
+          className="w-4 h-4 rounded-full border border-border"
           style={{ backgroundColor: themeConfig?.colors.accent }}
           aria-hidden="true"
         />
         <div 
-          className="w-4 h-4 rounded-full border border-gray-300"
+          className="w-4 h-4 rounded-full border border-border"
           style={{ backgroundColor: themeConfig?.colors.background }}
           aria-hidden="true"
         />
       </div>
       
       {/* Theme Name */}
-      <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+      <span className="text-xs font-medium text-muted-foreground">
         {theme.name}
       </span>
       
       {/* Active Indicator */}
       {isActive && (
-        <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full border-2 border-white" />
+        <div className="absolute -top-1 -right-1 w-3 h-3 bg-shadcn-primary rounded-full border-2 border-card" />
       )}
     </button>
   );
@@ -72,19 +72,19 @@ const ModeToggle: React.FC<ModeToggleProps> = React.memo(({ currentMode, onToggl
     <button
       onClick={onToggle}
       className="
-        flex items-center justify-center p-2 rounded-lg border-2 border-gray-200 
-        hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600
+        flex items-center justify-center p-2 rounded-lg border-2 border-border 
+        hover:border-border/80
         transition-all duration-200 hover:scale-105 focus:outline-none 
-        focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+        focus:ring-2 focus:ring-shadcn-primary focus:ring-offset-2
       "
       aria-label={`Switch to ${currentMode === 'light' ? 'dark' : 'light'} mode`}
     >
       {currentMode === 'light' ? (
-        <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+        <svg className="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
         </svg>
       ) : (
-        <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+        <svg className="w-4 h-4 text-shadcn-primary" fill="currentColor" viewBox="0 0 20 20">
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
         </svg>
       )}
@@ -154,8 +154,8 @@ export const ThemeSwitcher: React.FC = () => {
         <button
           onClick={() => setIsExpanded(true)}
           className="
-            w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg border
-            border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-200
+            w-12 h-12 bg-card rounded-full shadow-lg border
+            border-border hover:shadow-xl transition-all duration-200
             flex items-center justify-center group focus:outline-none focus:ring-2 
             focus:ring-blue-500 focus:ring-offset-2
           "
@@ -163,7 +163,7 @@ export const ThemeSwitcher: React.FC = () => {
           aria-expanded="false"
         >
           <svg 
-            className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200" 
+            className="w-5 h-5 text-muted-foreground group-hover:text-foreground" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -176,23 +176,22 @@ export const ThemeSwitcher: React.FC = () => {
       {/* Expanded State - Theme Selection Panel */}
       {isExpanded && (
         <div className="
-          bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 
-          dark:border-gray-700 p-4 min-w-[280px] md:min-w-[320px]
+          bg-card rounded-lg shadow-xl border border-border p-4 min-w-[280px] md:min-w-[320px]
         ">
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+            <h3 className="text-sm font-semibold text-card-foreground">
               Theme Settings
             </h3>
             <button
               onClick={() => setIsExpanded(false)}
               className="
-                p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 
-                transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500
+                p-1 rounded-full hover:bg-muted 
+                transition-colors focus:outline-none focus:ring-2 focus:ring-shadcn-primary
               "
               aria-label="Close theme switcher"
             >
-              <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -200,7 +199,7 @@ export const ThemeSwitcher: React.FC = () => {
 
           {/* Theme Selection */}
           <div className="mb-4">
-            <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-xs font-medium text-muted-foreground mb-2">
               Color Theme
             </label>
             <div 
@@ -221,15 +220,15 @@ export const ThemeSwitcher: React.FC = () => {
 
           {/* Mode Toggle */}
           <div className="flex items-center justify-between">
-            <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
+            <label className="text-xs font-medium text-muted-foreground">
               Dark Mode
             </label>
             <ModeToggle currentMode={currentMode} onToggle={toggleMode} />
           </div>
 
           {/* Current Theme Info */}
-          <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-            <div className="text-xs text-gray-500 dark:text-gray-400">
+          <div className="mt-3 pt-3 border-t border-border">
+            <div className="text-xs text-muted-foreground">
               Active: <span className="font-medium">{AVAILABLE_THEMES.find(t => t.id === currentTheme)?.name}</span>
               {' • '}
               <span className="capitalize">{currentMode}</span>

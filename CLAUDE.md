@@ -11,6 +11,7 @@ MVP website for Aha Agile, a professional services consultancy specializing in i
 - `npm run lint` - Run ESLint
 - `npm test` - Run Jest tests
 - `npm run test:watch` - Run tests in watch mode
+- `jest path/to/specific.test.tsx` - Run single test file
 
 ## Architecture & Key Patterns
 
@@ -51,7 +52,29 @@ Sophisticated color palette in `tailwind.config.ts`:
 ### Lead Generation Funnel
 Structured user journey: Homepage → Services → Case Study → Book Consultation
 
+### Dynamic Theme System
+Advanced theming architecture with three brand themes:
+- **Ocean Theme**: Default professional blue palette
+- **Sunset Theme**: Warm orange/red brand alternative  
+- **Forest Theme**: Natural green brand option
+- **Theme Configuration**: Environment-based via `src/lib/theme-config.ts`
+- **CSS Variables**: All themes use CSS custom properties for dynamic switching
+- **Production Ready**: Includes removal guide for single-theme production builds
+
+### Environment Variables (Theme System)
+- `NEXT_PUBLIC_PRODUCTION_THEME=ocean|sunset|forest` - Set production theme
+- `NEXT_PUBLIC_PRODUCTION_MODE=light|dark` - Set production mode
+- `NEXT_PUBLIC_ENABLE_THEME_SWITCHER=true|false` - Enable theme switcher
+- `NEXT_PUBLIC_FORCE_THEME_SWITCHER=true` - Force enable in production
+
+### Performance Optimizations
+- **Static Export**: Configured for CDN deployment (`output: 'export'`)
+- **Webpack Optimization**: Custom chunk splitting for vendors in production
+- **Font Strategy**: Optimized Google Fonts loading with `display: swap`
+- **Image Optimization**: Multiple formats and device sizes configured
+
 ### Testing Approach
 - **Unit tests**: Co-located `.test.tsx` files for all components
 - **Component testing**: React Testing Library with Jest
 - **Coverage**: Available via `coverage/` directory after test runs
+- **Jest Configuration**: Custom setup with path mapping (`@/` → `src/`)

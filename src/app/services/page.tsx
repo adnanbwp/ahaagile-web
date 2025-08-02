@@ -26,46 +26,46 @@ export default async function ServicesPage(): Promise<JSX.Element> {
       }
       if (href?.startsWith('/')) {
         return (
-          <Link href={href} className="text-brand-navy hover:text-accent-400 underline transition-colors duration-200 font-medium">
+          <Link href={href} className="text-primary hover:text-accent underline transition-colors duration-200 font-medium">
             {children}
           </Link>
         );
       }
       return (
-        <a href={href} className="text-brand-navy hover:text-accent-400 underline transition-colors duration-200 font-medium" {...props}>
+        <a href={href} className="text-primary hover:text-accent underline transition-colors duration-200 font-medium" {...props}>
           {children}
         </a>
       );
     },
     h1: ({ children }) => (
-      <h1 className="text-4xl font-bold text-brand-navy mb-6 leading-tight font-heading">{children}</h1>
+      <h1 className="text-4xl font-bold text-primary mb-6 leading-tight font-heading">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-3xl font-semibold text-brand-navy mb-4 mt-8 font-heading">{children}</h2>
+      <h2 className="text-3xl font-semibold text-primary mb-4 mt-8 font-heading">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-2xl font-semibold text-brand-navy mb-3 mt-6 font-heading">{children}</h3>
+      <h3 className="text-2xl font-semibold text-primary mb-3 mt-6 font-heading">{children}</h3>
     ),
     p: ({ children }) => (
-      <p className="text-lg text-secondary-700 mb-4 leading-relaxed font-serif">{children}</p>
+      <p className="text-lg text-muted-foreground mb-4 leading-relaxed font-serif">{children}</p>
     ),
     ul: ({ children }) => (
       <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>
     ),
     li: ({ children }) => (
-      <li className="text-lg text-secondary-700 font-serif">{children}</li>
+      <li className="text-lg text-muted-foreground font-serif">{children}</li>
     ),
     strong: ({ children }) => (
-      <strong className="font-semibold text-brand-navy">{children}</strong>
+      <strong className="font-semibold text-primary">{children}</strong>
     ),
     em: ({ children }) => (
-      <em className="italic text-secondary-600">{children}</em>
+      <em className="italic text-muted-foreground">{children}</em>
     ),
     hr: () => (
-      <hr className="border-secondary-300 my-8" />
+      <hr className="border-border my-8" />
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-accent-500 pl-4 italic text-secondary-700 my-6 bg-accent-50 py-4 rounded-r-lg">
+      <blockquote className="border-l-4 border-accent pl-4 italic text-muted-foreground my-6 bg-accent/10 py-4 rounded-r-lg">
         {children}
       </blockquote>
     ),

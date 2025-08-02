@@ -24,17 +24,14 @@ interface SolutionCardProps {
 // Sub-component for individual metric display
 function MetricCard({ value, label, description }: MetricProps): JSX.Element {
   return (
-    <div 
-      className="text-center p-8 rounded-2xl"
-      style={{ background: 'var(--gradient-navy-light)' }}
-    >
-      <div className="text-5xl md:text-6xl font-inter font-bold text-white mb-2">
+    <div className="text-center p-8 rounded-2xl bg-[var(--gradient-primary)]">
+      <div className="text-5xl md:text-6xl font-inter font-bold text-primary-foreground mb-2">
         {value}
       </div>
       <div className="text-xl font-inter font-semibold text-brand-yellow mb-1">
         {label}
       </div>
-      <div className="text-gray-200 text-sm">
+      <div className="text-foreground/80 text-sm">
         {description}
       </div>
     </div>
@@ -50,15 +47,15 @@ function SolutionCard({ icon: IconComponent, title, description, benefits, index
     >
       <CardContent className="p-6 text-center h-full flex flex-col">
         <div className="w-16 h-16 mx-auto mb-4 bg-gradient-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          <IconComponent className="w-8 h-8 text-brand-navy" />
+          <IconComponent className="w-8 h-8 text-foreground" />
         </div>
-        <h3 className="text-xl font-inter font-semibold text-brand-navy mb-3">
+        <h3 className="text-xl font-inter font-semibold text-foreground mb-3">
           {title}
         </h3>
-        <p className="text-secondary-600 leading-relaxed mb-4 flex-grow">
+        <p className="text-muted-foreground leading-relaxed mb-4 flex-grow">
           {description}
         </p>
-        <ul className="text-sm text-secondary-700 space-y-1">
+        <ul className="text-sm text-muted-foreground space-y-1">
           {benefits.map((benefit, benefitIndex) => (
             <li key={benefitIndex} className="flex items-center justify-center">
               <span className="w-1.5 h-1.5 bg-brand-yellow rounded-full mr-2"></span>
@@ -134,11 +131,11 @@ export default function SolutionSection({ className = '' }: SolutionSectionProps
   ];
 
   return (
-    <section className={`section-spacing bg-white ${className}`}>
+    <section className={`section-spacing bg-background ${className}`}>
       <div className="container-brand">
         {/* Solution Cards Section */}
         <div className="text-center mb-16">
-          <h2 className="text-hero text-brand-navy mb-8">
+          <h2 className="text-hero text-foreground mb-8">
             Transform Your Workflow Efficiency
           </h2>
           <p className="text-subhero max-w-3xl mx-auto">
@@ -163,7 +160,7 @@ export default function SolutionSection({ className = '' }: SolutionSectionProps
 
         {/* Social Proof Section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-inter font-bold text-brand-navy mb-12">
+          <h2 className="text-4xl md:text-5xl font-inter font-bold text-foreground mb-12">
             Real Impact, Measurable Results
           </h2>
           
@@ -180,33 +177,30 @@ export default function SolutionSection({ className = '' }: SolutionSectionProps
           </div>
 
           {/* Customer Testimonial */}
-          <div className="max-w-4xl mx-auto bg-secondary-50 rounded-2xl p-8 md:p-12">
+          <div className="max-w-4xl mx-auto bg-muted rounded-2xl p-8 md:p-12">
             <div className="flex justify-center mb-4">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-6 h-6 text-brand-yellow fill-current" />
               ))}
             </div>
-            <blockquote className="text-2xl md:text-3xl font-serif text-brand-navy mb-6 leading-relaxed">
+            <blockquote className="text-2xl md:text-3xl font-serif text-foreground mb-6 leading-relaxed">
               &ldquo;The workflow automation transformed our operations completely. We&rsquo;ve eliminated countless hours of manual work and our team can now focus on high-value strategic initiatives that drive real business growth.&rdquo;
             </blockquote>
-            <div className="text-lg font-inter font-semibold text-secondary-700">
+            <div className="text-lg font-inter font-semibold text-muted-foreground">
               Sarah Johnson, Operations Director
             </div>
-            <div className="text-secondary-600">
+            <div className="text-muted-foreground">
               Professional Services Firm
             </div>
           </div>
         </div>
 
         {/* Final CTA Section */}
-        <div 
-          className="text-center py-16 px-8 rounded-2xl"
-          style={{ backgroundColor: 'var(--brand-yellow-light)' }}
-        >
-          <h2 className="text-4xl md:text-5xl font-inter font-bold text-brand-navy mb-6">
+        <div className="text-center py-16 px-8 rounded-2xl bg-[var(--gradient-accent)]">
+          <h2 className="text-4xl md:text-5xl font-inter font-bold text-foreground mb-6">
             Ready to Transform Your Workflows?
           </h2>
-          <p className="text-xl text-brand-navy mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             Join hundreds of professional services firms who&rsquo;ve already eliminated inefficiencies 
             and unlocked their team&rsquo;s full potential.
           </p>

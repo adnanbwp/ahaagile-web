@@ -141,7 +141,7 @@ describe('ServicesHeroSection', () => {
       const mainHeading = screen.getByRole('heading', { 
         name: /intelligent workflow automation for professional services/i 
       });
-      expect(mainHeading).toHaveClass('text-white');
+      expect(mainHeading).toHaveClass('text-primary-foreground');
       
       const problemHeading = screen.getByRole('heading', { 
         name: /the hidden cost of email-driven workflows/i 
