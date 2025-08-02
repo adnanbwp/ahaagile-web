@@ -44,7 +44,7 @@ export default function HeroSection({ className = '' }: HeroSectionProps): JSX.E
             </Link>
             <Link 
               href="/case-study" 
-              className="btn-secondary bg-white/10 text-white border-white/30 hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold w-full sm:w-auto"
+              className="btn-secondary px-8 py-4 text-lg font-semibold w-full sm:w-auto"
             >
               Watch Demo
             </Link>

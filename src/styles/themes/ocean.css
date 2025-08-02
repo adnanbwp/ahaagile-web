@@ -266,9 +266,11 @@ a:hover {
 }
 
 .btn-secondary {
-  background: transparent;
-  color: hsl(var(--primary));
-  border: 2px solid hsl(var(--primary));
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   @apply px-6 py-3 rounded-lg;
   @apply font-inter font-semibold transition-all duration-200 ease-out;
   @apply transform hover:scale-105 active:scale-95;
@@ -276,8 +278,9 @@ a:hover {
 }
 
 .btn-secondary:hover {
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
